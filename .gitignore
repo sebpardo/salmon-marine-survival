@@ -1,0 +1,10 @@
+figures/*.png
+*.png
+.o
+.so
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
