@@ -1,10 +1,10 @@
 figures/*.png
 *.png
-.o
-.so
+*.o
+*.so
+*.Rproj
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-*.Rproj
 
