@@ -1,5 +1,8 @@
 figures/*.png
+conne-mwe-stan.R
+TMB_example.*
 *.png
+*.jpg
 *.o
 *.so
 *.Rproj
