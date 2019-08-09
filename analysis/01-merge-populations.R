@@ -17,7 +17,7 @@ nashwaakdata <- readRDS(file = "data/nashwaakdata.rds")
 # based on answer in 
 # https://stackoverflow.com/questions/57401290/bind-vectors-across-lists-to-single-list-of-matrices
 
-alldata <- list(saintjeandata, trinitedata, connedata, nashwaakdata) %>% 
+alldata <- list(connedata, saintjeandata, trinitedata, nashwaakdata) %>% 
   purrr::transpose() %>%
   map(~ reduce(.x, cbind.fill, fill = NA) %>% 
         t %>% 
