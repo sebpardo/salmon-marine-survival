@@ -1,3 +1,7 @@
+# Nashwaak data
+
+library(tidyverse)
+
 # Load Naskwaak data from salmon-inverse-matrix repo
 load("~/Dropbox/salmon-inverse-matrix/data/nashwaak.rda")
 
@@ -10,7 +14,10 @@ nashwaakdat <- right_join(
   select(nashwaak_wild_returns, year, est_1SW, est_2SW, est_RS), 
   by = "year")
 
-
+# Missing data:
+#
+# Smolt data missing for 2017 and 2018 
+# so after lag in smolts just need to exclude year 2018
 
 nashwaakreturns <- nashwaakdat %>%
   mutate(smoltlag = lag(smolt_mode),
@@ -20,6 +27,8 @@ nashwaakreturns <- nashwaakdat %>%
          est_RSlead = lead(est_RS),
          logsmoltsdlag = sqrt(300) * (log(smolt975lag) - log(smolt025lag))/3.92) %>% 
   filter(year %in% 1999:2017)
+
+nashwaakreturns
 
 ggplot(nashwaakreturns, aes(year, smolt_mode)) + geom_point() + geom_line() +
   geom_errorbar(aes(ymin = smolt_025, ymax = smolt_975))
@@ -34,5 +43,8 @@ nashwaakdata <- list(years = nashwaakreturns$year,
   logRS = log(nashwaakreturns$est_RSlead),
   #N =  length(connereturns$small[-1]),
   #Pr = rep(0.8, nrow(connereturns)))
-  cv = 0.01 # ASSUMPTION, CV of return abundance counts
-) 
+  cv = 0.01, # ASSUMPTION, CV of return abundance counts
+  nyears = length(nashwaakreturns$year),
+  river_name = "Nashwaak River") 
+
+saveRDS(nashwaakdata, file = "data/nashwaakdata.rds")
