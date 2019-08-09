@@ -3,31 +3,15 @@ library(TMB)
 
 # Compiling TMB model
 
-#compile("lc_model.cpp", "-O0 -g") # verbose output for gdbsource
-compile("lc_model.cpp")
+#compile("analysis/lc_model.cpp", "-O0 -g") # verbose output for gdbsource
+compile("analysis/lc_model.cpp")
 
 # dynamic link to object
 dyn.load(dynlib("lc_model"))
 
-connereturnsdat <- readRDS(file = "~/Dropbox/salmon-bayesian-survival/connereturns.rds")
-
-# Saving filtered data frame in new object (connereturns)
-connereturns <- connereturnsdat %>%
-  mutate(smoltlag = lag(smolt),
-         largelead = lead(large)) %>% 
-  filter(year %in% 1990:2015) 
-
-# Creating list for use in TMB
-connedata <- list(#years = connereturns$year
-  logsmolts = log(connereturns$smoltlag),
-  logsmolts_SE =  rep(0.05, length(connereturns$smoltlag)),
-  loggrilse = log(connereturns$small),
-  logSW2 = log(connereturns$largelead),
-  #N =  length(connereturns$small[-1]),
-  #Pr = rep(0.8, nrow(connereturns)))
-  cv = 0.01 # ASSUMPTION
-  ) 
-
+# Loading filtered lists for individual rivers
+nashwaakdata <- readRDS("data/nashwaakdata.rds")
+connedata <- readRDS("data/nashwaakdata.rds")
 
 # salmondata <- connedata
 salmondata <- nashwaakdata
