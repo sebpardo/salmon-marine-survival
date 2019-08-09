@@ -23,9 +23,9 @@ Type objective_function<Type>::operator() ()
   // distribution parameters (single values)
   PARAMETER(logsmolts_mean); // mean log smolt abundance across years
   PARAMETER(logsmolts_logsd); // sd log smolt abundance across years
-  PARAMETER(Z1_mean); // 
-  PARAMETER(Z1_logsd); //
-  PARAMETER(Z2_mean); // 
+  PARAMETER(Z1_mean); // mean global mortality 
+  PARAMETER(Z1_logsd); // global mortality st dev
+  PARAMETER(Z2_mean); // mean 
   PARAMETER(Z2_logsd); //
   PARAMETER(logitPr_mean); // 
   PARAMETER(logitPr_logsd); //
