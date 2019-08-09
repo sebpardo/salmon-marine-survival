@@ -10,4 +10,6 @@ TMB_example.*
 .Rhistory
 .RData
 .Ruserdata
-
+.vscode/
+test*
+TODO.*
