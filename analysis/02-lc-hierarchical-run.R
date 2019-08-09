@@ -66,12 +66,27 @@ lapply(pars, dim)
 lapply(alldata2, dim)
 lapply(pars, length)
 lapply(alldata2, length)
+alldata2$nyears
+alldata$river_name
 
-#gdbsource("lc_hierachical_run.R")
+# gdbsource("analysis/lc_model_hierarchical.R")
 
-# running model
-obj <- MakeADFun(alldata2, pars, DLL = "lc_model_hierarchical", 
-                 random = c("logsmolts_true", "Z1", "Z2", "logitPr"))
+# # The model runs without any random effects or with only
+# # the "top-level" random effects:
+# objnore <- MakeADFun(alldata2, pars, DLL = "lc_model_hierarchical",
+#                      random = c("Z1_mean", "Z2_mean", "logitPr_mean"))
+# resnore <- nlminb(objnore$par, objnore$fn, objnore$gr)
+# resultsnore <- sdreport(objnore)
+
+
+# running hierarchical model
+obj <- MakeADFun(alldata2, pars, DLL = "lc_model_hierarchical",
+               random = c("Z1", "Z2", "logitPr", "logitPr_mean", 
+                          "Z1_mean", "Z2_mean"),
+               control=list(eval.max=10000, iter.max=10000))
+
+# This will print every parameter passed to obj$fn
+obj$env$tracepar <- TRUE
 
 str(obj)
 # optimizing model objective
