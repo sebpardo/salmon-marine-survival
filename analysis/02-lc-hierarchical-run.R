@@ -81,9 +81,9 @@ alldata$river_name
 
 # running hierarchical model
 obj <- MakeADFun(alldata2, pars, DLL = "lc_model_hierarchical",
-               random = c("Z1", "Z2", "logitPr", "logitPr_mean", 
-                          "Z1_mean", "Z2_mean"),
-               control=list(eval.max=10000, iter.max=10000))
+               random = c("logsmolts_true", "Z1", "Z2", "logitPr", 
+                          "Z1_mean", "Z2_mean", "logitPr_mean"),
+               control = list(eval.max = 10000, iter.max = 10000))
 
 # This will print every parameter passed to obj$fn
 obj$env$tracepar <- TRUE
