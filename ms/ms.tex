@@ -114,27 +114,32 @@ Jeffrey A. Hutchings\textsuperscript{1}}
 
 The marine phase of anadromous Atlantic salmon (\emph{Salmo salar}) is the
 least known yet one of the most crucial with regards to population
-persistence.
-Recently, declines in many Atlantic salmon populations in eastern Canada have
-been attributed to changes in the conditions at sea, thus affecting their
-survival.
-However, marine survival estimates are difficult to obtain given that many
-individuals spend multiple winters in the ocean before returning to freshwater to
-spawn; therefore multiple parameters need to be estimated.
-We used smolt and adult abundance time series for seven populations, ranging between 19 and 42 years,
-to fit a hierarchical Bayesian maturity schedule model and estimate three components of
-marine survival: survival in the first year at sea (\So), survival in the second year
-at sea (\St), and proportion returning as one sea-winter (\Pg).
-Trends in estimates of \So were not consistent among rivers, with some population showing increases in \So over
-time, other showing decreases, and some being relatively stable.
-Estimates of \St were highly uncertain and therefore trends could not be assessed, while 
-estimates of \Pg were mostly stable across time, except for the LaHave and Nashwaak Rivers.
-Our findings challenge the assumption that marine survival has decreased for
-all salmon populations, and suggest that trends can be river-specific. 
-Further work exploring potential correlates of these trends in marine survival
-is warranted.
-
-
+persistence. Recently, declines in many Atlantic salmon populations in eastern
+Canada have been attributed to changes in conditions at sea, negatively
+affecting their survival. However, marine survival estimates are difficult to
+obtain given that many individuals spend multiple winters in the ocean before
+returning to freshwater to spawn, necessitating the estimation of multiple
+parameters. To do so, we fit a hierarchical Bayesian maturity schedule model
+to smolt and adult abundance time series for seven populations located in
+Newfoundland and Labrador (NL), Qu\'{e}bec (QC), New Brunswick (NB), and Nova
+Scotia (NS). The datasets ranged between 19 and 42 years in length. We
+estimated three components of marine survival: survival in the first year at
+sea (\So), survival in the second year at sea (\St), and proportion returning
+as one sea-winter adults (\Pg). Controlling for time frame, trends in
+estimates of \So were not consistent among rivers.
+In the four populations for which data extended to 1990, marine survival
+during the first year at sea predominantly increased over time in Western Arm
+Brook (NL) and Rivi\`{e}re Saint-Jean (QC) but largely declined in Conne River
+(NL) and Rivi\`{e}re Trinit\'{e} (QC). In the three other populations, \So
+exhibited an increase in Campbellton River (NL), a decline in LaHave River
+(NS), and fluctuating stability in Nashwaak River (NB) since approximately the
+mid-1990s. 
+Estimates of \St were highly uncertain and trends could not be assessed. \Pg
+was temporally stable, except for LaHave and Nashwaak Rivers. Our findings
+challenge the assumption that marine survival has changed in a consistent
+manner among populations across a broad geographic scale, and suggest that
+trends can be river-specific. Further work exploring potential correlates of
+these trends in marine survival is warranted.
 
 Keywords: salmonid, survival at sea, natural mortality, marine mortality
 
@@ -143,10 +148,21 @@ Keywords: salmonid, survival at sea, natural mortality, marine mortality
 \section*{Introduction} % (4-5 paragraphs)
 
 %1. Declining salmon numbers
-Across eastern Canada, many wild populations of Atlantic salmon (\emph{Salmo salar})
-have declined to the point of being considered Threatened by the 
-Committee on the Status of Endangered Wildlife in Canada \citep[COSEWIC, ][]{Cosewic2010}.
-While it is not fully understood what is driving these declines, the potential
+
+
+Reductions in fishing mortality, albeit necessary, are not always sufficient
+to facilitate population recovery. Experience with numerous commercially
+exploited marine fisheries since the early 1990s has shown that not all
+populations respond as favourably as anticipated to considerable reductions in
+exploitation \citep{Hutchings2017}. Efforts to close commercial
+Atlantic salmon (\emph{Salmo salar}) fisheries in eastern Canada culminated in
+moratoria in all regions, beginning in the Maritime provinces (1984) and
+following in Newfoundland (1992), Labrador (1998), and Québec (2000). Since
+these closures, many populations have not increased as expected (REF): some 
+have been assessed as considered threatened or endangered by the 
+Committee on the Status of Endangered Wildlife in Canada \citep[COSEWIC, ][]{Cosewic2010}, 
+Canada’s national science advisory body (to the national government) on species risk of extinction.
+While it is not fully understood what is driving population declines, the potential
 drivers of these are many \citep[see ][for a detailed discussion of possible
 causes]{Cairns2001}: fishing mortality, damming of waterways
 and changes in their freshwater habitats \citep{Dunfield1985}, acidification
@@ -156,71 +172,102 @@ effects of interbreeding or interactions with escaped farmed salmon
 \citep{Keyser2018}, and changes in their marine survival.
 
 
-% 2. 
-Theres a common perception that marine survival of Atlantic salmon has
-declined throughout the North Atlantic \citep{OMaoileidigh2003, Hansen1998,
-    Chaput2012a}. This perception is widespread both in the scientific
-literature as well as federal reports. The latest status report on Atlantic
-salmon by COSEWIC states that ``While the mechanism(s) of marine mortality is
-uncertain, what is clear is that the recent period of poor sea survival is
-occurring in parallel with many widespread changes in the North Atlantic
-ecosystem.'' \citep{Cosewic2010}. Consequently, there have several lines of
-inquiry as to what the causes behind these declines might be attributable to
-\citep{Friedland1993, Friedland1998}.
+% 2.
+Over the past three decades, a narrative has emerged that marine survival of Atlantic salmon has
+declined throughout the North Atlantic \citep{Hansen1998,OMaoileidigh2003,Chaput2012a}. 
+An implicit assumption, albeit infrequently acknowledged, is that any trend in
+survival in ocean habitat that is shared by multiple populations during their
+seaward migration period will be experienced similarly by multiple
+populations. Put another way, given that salmon from different river systems
+are hypothesized to share marine habitat during some of their time at sea, it
+has been implicitly assumed that populations share similar temporal trends in
+at-sea mortality \citep{Friedland1993, Friedland1998}.  
+A recent study by \citet{Olmos2019} suggested that trends in post-smolt
+survival, when estimated at the stock unit level, are synchronously declining
+for all Atlantic salmon in eastern North America.
 
-Nonetheless, most of the populations declines assessed by COSEWIC have
-occurred in populations in the southern extent of its distribution:
-populations in the Bay of Fundy, Anticosti Island, and the Atlantic coast of
-Nova Scotia being assessed as Endangered, populations in the south coast of
-Newfoundland assessed as Threatened, And the populations in the New Brunswick
-and Qu\`{e}bec coasts of the Gulf of St. Lawrence assessed as Special Concern
-\citep{Cosewic2010}. On the other hand, northermost populations have shown
-stable, or even increasing population trends, suggesting that, if marine
-survival were to be a factor in many of these declines, these changes are not
-uniformly distributed across all populations.
+% This perception is widespread both in the scientific
+% literature as well as federal reports. The latest status report on Atlantic
+% salmon by COSEWIC states that ``While the mechanism(s) of marine mortality is
+% uncertain, what is clear is that the recent period of poor sea survival is
+% occurring in parallel with many widespread changes in the North Atlantic
+% ecosystem.'' \citep{Cosewic2010}. Consequently, there have several lines of
+% inquiry as to what the causes behind these declines might be attributable to
+% \citep{Friedland1993, Friedland1998}.
 
-% 3. Nonetheless, this premise has never been examined in detailed.
-While the purported decline of marine survival is mentioned widely in the 
-scientific literature, only relatively few studies have quantified it in detail.
-The basis for this premise is a limited number of time series that exhibit
-temporal declines in a proxy of marine survival (i.e. return rates or
-post-smolt survival).
-\citet{Chaput2012a} looked at return rates of smolts to adult salmon to assess
+
+In contrast to the narrative of widespread, demographically similar increases
+in at-sea mortality, the conservation status of Canadian populations differs
+considerably. Populations in the southern part of the Canadian range are more
+likely to be assessed as being below conservation targets than those in more
+northerly regions \citep{Cosewic2010}. This geographical disparity in status
+suggests that if marine survival has been, or is, a key factor responsible for
+most population declines, these changes are not uniformly distributed across
+all populations.  
+
+% Nonetheless, most of the populations declines assessed by COSEWIC have
+% occurred in populations in the southern extent of its distribution:
+% populations in the Bay of Fundy, Anticosti Island, and the Atlantic coast of
+% Nova Scotia being assessed as Endangered, populations in the south coast of
+% Newfoundland assessed as Threatened, And the populations in the New Brunswick
+% and Qu\`{e}bec coasts of the Gulf of St. Lawrence assessed as Special Concern
+% \citep{Cosewic2010}. On the other hand, northermost populations have shown
+% stable, or even increasing population trends, suggesting that, if marine
+% survival were to be a factor in many of these declines, these changes are not
+% uniformly distributed across all populations.
+
+% While the purported decline of marine survival is mentioned widely in the 
+% scientific literature, only relatively few studies have quantified it in detail.
+% The basis for this premise is a limited number of time series that exhibit
+% temporal declines in a proxy of marine survival (i.e. return rates or
+% post-smolt survival).
+
+% 3. Nonetheless, this premise has never been examined in detail
+Given the logistical challenges associated with estimating at-sea survival, it
+is not surprising that the number of studies that have estimated temporal
+trends has been limited. An additional limitation has been the derivation of
+proxies (e.g., return rates), rather than direct model-based estimates, of
+marine survival.
+\citet{Chaput2012a}, for example, examined return rates of smolts to adult salmon to assess
 declines in marine survival and found that most populations from Canadian
 rivers had declining return rates. 
 However, looking at trends in return rates
 can mask changes in differential survival in different years at sea, as well
-as changes in proportion of adults returning after one or two years at sea.
+as changes in the proportion of adults returning after one or two years at sea.
 A more recent study by \citet{Olmos2019} suggested that trends in post-smolt
 survival, when estimated at the stock unit level, are synchronously declining
 for all Atlantic salmon in Eastern North America and Canada. Nonetheless,
-their analysis relies on stock-recruitment relationships rather than smolt
-abundance indices.
+the aforementioned study by \citet{Olmos2019} relied on the veracity of stock-recruitment relationships.
 
 %4. 
-In this study, we compile smolt and returns times series data from seven wild
-populations of Atlantic salmon in eastern Canada to model trends in marine survival.
-While previous studies have used maturity schedule models to estimate marine
-survival for a couple of Atlantic salmon populations \citep{Chaput2003b}, none
-have incorporated data from the last decades and they have not examined
-trends among more than a couple of populations. 
+In the present study, we compile smolt and adult returns times series data for seven wild
+Canadian populations of Atlantic salmon to model trends in marine survival.
+While some studies have used maturity-schedule models to estimate marine
+survival for a limited number of salmon populations \citep{Chaput2003b}, none
+have incorporated data extending over decates, nor have they examined
+trends among more than two or three populations. 
+Here, we develop a hierarchical Bayesian model that uses Murphy's maturity
+schedule method, in conjunction with informative priors, to estimate yearly
+marine survival in salmon. In addition to accounting for observation error in
+smolt and return estimates, we estimate the proportion of salmon returning
+after one winter hierarchically.
 
 \section*{Methods}
 
 \subsection*{Data}
 
 We obtained time series data of outmigrating smolt and returning adult
-abundances for seven Atlantic salmon populations in eastern Canada, covering a
+abundances for seven Atlantic salmon populations in eastern Canada, encompassing a
 wide range of the species' distribution (Fig.~\ref{fig:map}). These
-populations included the LaHave River in the Southern Uplands region of Nova
-Scotia (NS), The Nashwaak River in New Brunswick (NS) which connects to the
-Bay of Fundy, The Trinit\'{e} and Saint-Jean Rivers in Qu\`{e}bec (QC), which
-flow to the St Lawrence River and Bay of St Lawrence, respectively, and the
-Western Arm Brook, Campbellton, and Conne in Newfoundland, which flow to the
-Bay of St Lawrence, Labrador Sea, and Atlantic Ocean, respectively.
+populations included LaHave River in the Southern Uplands region of Nova
+Scotia (NS), Nashwaak River in New Brunswick (NS) which connects to the
+Bay of Fundy, Trinit\'{e} and Saint-Jean Rivers in Qu\'{e}bec (QC), which
+flow to the St. Lawrence River and Bay of St. Lawrence, respectively, and
+Western Arm Brook (also referred to as WAB), Campbellton, and Conne Rivers in Newfoundland, which flow to the
+Strait of Belle Isle, Labrador Sea, and Gulf of St. Lawrence, respectively.
 Data were collected in NS, NB, and Newfoundland
 and Labrador (NL) by Fisheries and Oceans Canada (DFO) and in QC
-by the Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\`{e}bec.
+by the Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\'{e}bec.
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.85\linewidth]{figures/rivers-map2.png}
@@ -498,116 +545,124 @@ significant or not, these spanned both positive and negative coefficients
 % 5. Future directions
 
 % 1. Main findings
-Our findings challenge the widespread idea that marine survival is declining
-uniformly across the range of Atlantic salmon in the northwest Atlantic. We
-find that there is no apparent shared trends among the seven salmon
-populations examined; some rivers show positive trends in survival in the
+Our findings challenge the narrative that marine survival is declining
+uniformly throughout the range of Atlantic salmon in the northwest Atlantic.
+Temporal trends are not consistent among populations 
+. Over the time periods for which data were available, some rivers show positive trends in survival in the
 first winter at sea (\So) while other show stable trends, and some even show
 declines. We could not assess trends in the second winter at sea (\So) or
-proportion returning as grilse (\Pg) as these parameter estimates were highly
+proportion returning as grilse (\Pg), as these parameter estimates were highly
 uncertain and were strongly influenced by the priors used.
 Perhaps there is a need to rethink our understanding of Atlantic salmon
-population dynamics in light that any real decline in marine survival was
-experienced by some populations, that reductions in survival might
-have occurred over a brief period of time, and that since that
-reduction occurred (for a subset of populations) marine survival has actually
-been stable, or even increasing, since that point.
+population dynamics in light of the possibility that any real and persistent decline in marine survival was
+experienced by some but not all populations, that reductions in survival might
+have occurred over a relatively brief period of time and may not longer be ongoing, and that since that
+reduction occurred (for a subset of populations) marine survival has
+been stable, or even increasing.
 
 % 2. How they compare to other publications
 Our findings are contrary to those of \citet{Olmos2019}, who detected positive
-correlations in post-smolt survival among broad stock units. These differences
+correlations in post-smolt survival among spatially broad stock units. These differences
 could be due to a number of reasons: different model specifications and
 structure, different methods for estimating covariance, difference in the
 spatial scales of data sources, and the use stock-recruitment relationships
 rather than empirical smolt observations to estimate marine survival.
 Interestingly, our estimates of \So and \St are very similar to those produced
-by \citet{Chaput2003b}, and the trends are almost identical for the
-overlapping time period that marine survival was estimated for in that study
-(1984-1998). While that study separated abundance data for males and females
+by \citet{Chaput2003b}, and our trends are almost identical for the
+overlapping time period that marine survival was estimated for in their study
+(1984-1998). 
+While \citet{Chaput2003b} separated abundance data for males and females
 and assumed their survival rates were the same (to be able to reach an
 analytical solution), our study reached almost the same results (albeit with
 slightly higher uncertainty) using a Bayesian approach with informative
-priors. These overlapping trends obtained with two different methods are
-indicative that our method is effective at estimating marine survival.
-While \citet{Chaput2003b} did not compare trends in marine survival
-among populations, \citet{Chaput2012a} did, using adult return rates, and
-found that for four out of the six population examined, return rates in the 1990s 
+priors. These overlapping trends obtained with two different methods 
+suggest that our method is effective at estimating marine survival.
+
+Trends in marine survival
+among populations were compared by \citet{Chaput2012a} using adult return rates, 
+and found that for four out of the six population examined, return rates in the 1990s 
 were less than those during the 1970s.
 \citet{Friedland1993} compared return rates for a number rivers in eastern
-North America and suggested there are similar trends among these. The
-similarity in trends is driven primarily by two years, 1977 and 1978, which
+North America between 1973 and 1988, and suggested there are similar trends among these. 
+However, the similarity in trends is driven primarily by two years, 1977 and 1978, which
 show concurrent low and high relative return rates across rivers,
 respectively. Others years are much more variable relative to each other.
-Their time series stops at 1988, thus there are only a few years for which 
-to assess overlap with the time series in our study.
-However, using pooled adult return rates, as done by \citet{Chaput2012a} and
+\citeauthor{Friedland1993}'s \citeyear{Friedland1993} time series stops at
+1988, thus there are only a few years for which to assess overlap with the
+time series in our study.
+However, the pooling of adult return rates, as done by \citet{Chaput2012a} and
 \citet{Friedland1993} can mask inter-annual variability in marine survival,
 and hence might not produce an accurate depiction of marine survival trends.
 \citet{Dempson2003} describe a general declining trend in marine survival for
-Newfoundland rivers (except the WAB); which in our study we observe in the
-Conne but not the Campbellton or the WAB. It is not possible to draw conclusions
+Newfoundland rivers (except WAB); which in our study we observe in the
+Conne but not in Campbellton River or WAB. It is not possible to draw conclusions
 with data from only three Newfoundland rivers, but it seems that among index rivers,
 those in Newfoundland are among those with the highest marine survival rates.
 
 % 3. Potential reasons
-There are multiple potential explanations as to why there are no synchronous
+There are multiple potential explanations for the lack of synchronous
 trends in estimates of \So. 
 Marine survival in the first winter at sea could be highly variable between
-rivers from environmental factors (e.g., temperature, predation) being
-variable at localized spatial scales rather than ocean-wide ones.
-Given that synchrony is being observed for marine survival trends estimated using
-stock-recruitment relationships and broader spatial scales \citep{Olmos2019},
-these overlapping declining trends in marine
-survival estimated using stock-recruitment relationships have been confounded
-by changes in recruitment dynamics.
+populations because of the predominance of spatially local environmental drivers of survival (e.g., temperature, predation) 
+relative to broader-scale, even ocean-wide, drivers.
+The synchrony reported for marine survival trends at broader spatial scales \citep{Olmos2019}
+might be attributable to the use of stock-recruitment relationships to estimate survival,
+relationships thay may have been confounded by changes in recruitment dynamics.
+
 There is some evidence of a correlation between return rate and growth (as
-indicated by intercirculi spacing in scales), where years of poor growth
+indicated by intercirculi spacing on scales), where years of poor growth
 tended to also be years of poor survival \citep{Friedland1993}, supporting the
 idea that environmental variability can affect marine survival.
 Furthermore, among European salmon, there is evidence of a positive correlation
-between spring temperature and population abundance, suggesting warmer
+between spring temperature in the Norwegian and North Seas and population abundance, suggesting warmer
 conditions favour post-smolts \citep{Friedland1998} based on mapping the
-extent of area of suitable temperature (7-13 \textdegree C) in the North Atlantic.
-Nonetheless, how warming impacts survival of post-smolts can differ based
-whether it results in temperatures coming into or out of their suitable range;
-which could be part of why populations in eastern North America are declining
-in the southern part of their range while potentially increasing in the
-northern part. The relationship between temperature and survival warrants 
+extent of area of suitable temperature (7-13 \textdegree C).
+
+Nonetheless, the causal mechanisms for why warming should affect post-smolt
+survival almost certainly differs depending on the difference between
+temperature experienced by the post-smolts and their respective
+population-specific thermal optima, which could explain why populations in eastern North America are declining
+in the southern part of their range but potentially increasing further north.
+
+A potential association between temperature and survival warrants
 further study.
-While there is very little evidence that marine survival is density-dependent
-in Atlantic salmon, and it is broadly considered to be a density-independent
-process \citep{Jonsson1998,Gibson2006}, there could potentially be some
-density-dependent relationship, particularly for populations that are severely
-depleted (i.e. Allee effects). Exploring relationships between survival
-and population size could potentially shed light about the processes that
-have caused many of the population declines we have observed.
+
+While there is little evidence that marine survival is density-dependent in
+Atlantic salmon \citep{Jonsson1998,Gibson2006}, there could potentially be
+some density-dependent processes during parts of the post-smolt migration
+period, particularly for populations that are likely to be subjected to
+declining per capita population growth rates generated by Allee effects.
+Exploring relationships between survival and population size could potentially
+shed light about the processes that have caused many of the population
+declines that have been documented.
 
 % 4. Caveats
-Nonetheless, there are caveats to consider in our modelling approach.
+As with all novel modelling approaches, there are caveats to acknowledge.
 While there are analytical issues with estimation of \So, \St, and \Pg,
-The assumption that \St is additive to \So could produce unrealistic results.
+the assumption that \St is additive to \So could produce unrealistic results.
 Overcoming this assumption would require an additional parameter to be
 estimated, or an additional assumption as to what proportion of \So is not
 additive to \St (as the returning 1SW adults do not experience the same
 environment when they return to their natal streams as those fish who stayed
-at sea for an additional winter).
-Furthermore, the assumed hierarchical structure might not be the most adequate
+at sea for an additional winter before returning to spawn).
+Secondly, the assumed hierarchical structure might not be the most appropriate
 for modelling smolt abundances. This approach results in shrinkage to the
 mean, which means that the variability of yearly smolt estimates is less than
-it would be if not modelled hierarchically. Nonetheless, this assumption
-likely results in more conservative trends in marine survival, as the
-variation of smolt estimates is shrunk.
+it would be if not modelled hierarchically. 
+That said, this assumption is likely to result in more conservative trends in marine survival, as the
+variation is smolt estimates is reduced.
 It is important to note that the hierarchical structure in the estimation of
 \Pg seems like a reasonable assumption given that the probability of returning
 as grilse has a genetic component associated to it \citep{Aykanat2019} and is
 not expected to vary much, within a population, among years.
 
 % 5. Future directions
-Perhaps reframing the issue of marine survival is key to further our
-understanding of Atlantic salmon population dynamics: it is not that marine
-survival has declined across rivers, but the fact that it has stayed at
-roughly similar levels as previously \emph{despite} their reduced abundance
-what we should focus into understanding better.
+Perhaps a reframing of the issue of marine survival is key to furthering our
+understanding of Atlantic salmon population dynamics. Marine
+survival may not have declined consistently, and over the same time periods, across across populations, but the fact that it has stayed at
+roughly similar levels as it was previously \emph{despite} reduced commercial fishing mortalities,
+and that many populations are smaller in size compared to what they once were, is
+what we should focus on understanding better.
 Given the literature of correlates on marine survival in the past, if survival
 has been stable or increasing, this clearly warrants reexamination of the
 correlates and causes of temporal and spatial shifts in marine survival.
