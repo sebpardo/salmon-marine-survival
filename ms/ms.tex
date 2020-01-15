@@ -1,0 +1,639 @@
+\documentclass[12pt]{article}
+\usepackage[top=0.85in,left=1.0in,right=1.0in,footskip=0.75in]{geometry}
+%\usepackage[parfill]{parskip}
+\usepackage{setspace}
+\usepackage{lineno}
+\usepackage[hidelinks]{hyperref}
+%\onehalfspacing
+\doublespacing
+
+\usepackage[round,sectionbib]{natbib}
+\setcitestyle{authoryear}
+\bibpunct{(}{)}{;}{a}{}{;}
+\bibliographystyle{mee}
+
+%\usepackage{textcomp}
+%\usepackage{libertine}
+%\usepackage{inconsolata} % sans serif typewriter
+
+\usepackage{mathtools} % for dcases
+\usepackage{xcolor} % for textcolor
+\usepackage{makecell} % for \makecell and within cell line breaks (\thead)
+
+\usepackage[T1]{fontenc}
+
+%\makeatletter\let\expandableinput\@@input\makeatother % expandable input for \input inside tables
+
+% Linux Libertine:
+\usepackage{textcomp}
+\usepackage[sb]{libertine}
+\usepackage[varqu,varl]{inconsolata}% sans serif typewriter
+\usepackage[libertine,bigdelims,vvarbb]{newtxmath} % bb from STIX
+\usepackage[vvarbb]{newtxmath} % bb from STIX, removed bigdelims for ScholarOne rendering
+\usepackage[cal=boondoxo]{mathalfa} % mathcal
+%\useosf % osf for text, not math
+%\usepackage[supstfm=libertinesups,%
+%  supscaled=1.2,%
+%  raised=-.13em]{superiors}
+
+\usepackage{xspace}
+\usepackage{xfrac} % for diagonal inline fractions in text
+%\usepackage{array} % for making whole row bold in table
+\usepackage{colortbl} % for background colours in table rows
+\usepackage{longtable}
+\usepackage{amssymb} % for \checkmark 
+\usepackage{amsmath} % for \checkmark 
+\usepackage{rotating}
+\usepackage[nolists,tablesfirst]{endfloat} % for putting figs and tables at end of document
+\DeclareDelayedFloatFlavor{sidewaystable}{table}
+\usepackage{makecell} % for \makecell in tables
+\usepackage{doi}
+
+%\usepackage{xr} % to obtain label references from supp materials file
+%\externaldocument[S-]{suppmat}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array} % for table wrapping of columns
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+%\usepackage[detect-all]{siunitx} % for SI units
+
+% custom hyphenation:
+\hyphenation{inverse}
+\hyphenation{At-lantic}
+\hyphenation{elasmo-branchs}
+
+
+% Macros
+\newcommand{\So}{$S_{1}$\xspace}
+\newcommand{\St}{$S_{2}$\xspace}
+\newcommand{\Pg}{$P_r$\xspace}
+\newcommand{\prmu}{$\mu_r$\xspace}
+\newcommand{\prsig}{$\sigma_r$\xspace}
+\newcommand{\Linf}{$L_{\infty}$}
+\newcommand{\DWinf}{$DW_{\infty}$}
+\newcommand{\alphat}{$\tilde{\alpha}$}
+\newcommand{\lamat}{$l_{\alpha_{mat}}$}
+\newcommand{\lamatb}{$l_{\alpha_{mat}}b$}
+\newcommand{\rmax}{$r_{max}$\xspace}
+\newcommand{\ageratio}{$\alpha_{mat}/\alpha_{max}$}
+\newcommand{\yr}{year\textsuperscript{-1}}
+\newcommand{\rsq}{$R^2$\xspace}
+\newcommand{\mytilde}{\raise.17ex\hbox{$\scriptstyle\mathtt{\sim}$}}
+% Select what to do with command \comment:  
+%\newcommand{\comment}[1]{}  % comment not shown
+\newcommand{\comment}[1]{\par {\bfseries \color{blue} #1 \par}} % comment shown
+%% END MACROS SECTION
+
+\begin{document}
+\linenumbers
+
+
+\section*{Trends in marine survival of Altantic salmon in eastern Canada}
+
+\textbf{Sebasti\'{a}n A. Pardo\textsuperscript{1*}, 
+        Geir H. Bolstad\textsuperscript{2}, 
+        J. Brian Dempson\textsuperscript{3}, 
+        Julien April\textsuperscript{4}, 
+        Ross A. Jones\textsuperscript{5}, 
+        Martha J. Robertson\textsuperscript{3}, 
+        Dustin Raab\textsuperscript{6}, 
+Jeffrey A. Hutchings\textsuperscript{1}} 
+
+\noindent\small{\textsuperscript{1} Department of Biology, Dalhousie University, Halifax, NS, B3H 4R2, Canada\\}
+\small{\textsuperscript{2} Norwegian Institute for Nature Research (NINA), Trondheim, Norway\\}
+\small{\textsuperscript{3} Department of Fisheries and Oceans Canada, St. John's, NL, Canada\\}
+\small{\textsuperscript{4} Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\`{e}bec, QC, Canada\\}
+\small{\textsuperscript{5} Department of Fisheries and Oceans Canada, Moncton, NB, Canada\\}
+\small{\textsuperscript{6} Department of Fisheries and Oceans Canada, Dartmouth, NS, Canada\\}
+\small{\textsuperscript{*} Corresponding author: spardo@dal.ca}
+
+\section*{Abstract}
+
+The marine phase of anadromous Atlantic salmon (\emph{Salmo salar}) is the
+least known yet one of the most crucial with regards to population
+persistence.
+Recently, declines in many Atlantic salmon populations in eastern Canada have
+been attributed to changes in the conditions at sea, thus affecting their
+survival.
+However, marine survival estimates are difficult to obtain given that many
+individuals spend multiple winters in the ocean before returning to freshwater to
+spawn; therefore multiple parameters need to be estimated.
+We used smolt and adult abundance time series for seven populations, ranging between 19 and 42 years,
+to fit a hierarchical Bayesian maturity schedule model and estimate three components of
+marine survival: survival in the first year at sea (\So), survival in the second year
+at sea (\St), and proportion returning as one sea-winter (\Pg).
+Trends in estimates of \So were not consistent among rivers, with some population showing increases in \So over
+time, other showing decreases, and some being relatively stable.
+Estimates of \St were highly uncertain and therefore trends could not be assessed, while 
+estimates of \Pg were mostly stable across time, except for the LaHave and Nashwaak Rivers.
+Our findings challenge the assumption that marine survival has decreased for
+all salmon populations, and suggest that trends can be river-specific. 
+Further work exploring potential correlates of these trends in marine survival
+is warranted.
+
+
+
+Keywords: salmonid, survival at sea, natural mortality, marine mortality
+
+%Running Head: 
+
+\section*{Introduction} % (4-5 paragraphs)
+
+%1. Declining salmon numbers
+Across eastern Canada, many wild populations of Atlantic salmon (\emph{Salmo salar})
+have declined to the point of being considered Threatened by the 
+Committee on the Status of Endangered Wildlife in Canada \citep[COSEWIC, ][]{Cosewic2010}.
+While it is not fully understood what is driving these declines, the potential
+drivers of these are many \citep[see ][for a detailed discussion of possible
+causes]{Cairns2001}: fishing mortality, damming of waterways
+and changes in their freshwater habitats \citep{Dunfield1985}, acidification
+of freshwater habitats \citep[particularly in the Southern Uplands region of
+NS, see][]{Gibson2010}, predation by seals and birds \citep{Cairns2000}, negative
+effects of interbreeding or interactions with escaped farmed salmon
+\citep{Keyser2018}, and changes in their marine survival.
+
+
+% 2. 
+Theres a common perception that marine survival of Atlantic salmon has
+declined throughout the North Atlantic \citep{OMaoileidigh2003, Hansen1998,
+    Chaput2012a}. This perception is widespread both in the scientific
+literature as well as federal reports. The latest status report on Atlantic
+salmon by COSEWIC states that ``While the mechanism(s) of marine mortality is
+uncertain, what is clear is that the recent period of poor sea survival is
+occurring in parallel with many widespread changes in the North Atlantic
+ecosystem.'' \citep{Cosewic2010}. Consequently, there have several lines of
+inquiry as to what the causes behind these declines might be attributable to
+\citep{Friedland1993, Friedland1998}.
+
+Nonetheless, most of the populations declines assessed by COSEWIC have
+occurred in populations in the southern extent of its distribution:
+populations in the Bay of Fundy, Anticosti Island, and the Atlantic coast of
+Nova Scotia being assessed as Endangered, populations in the south coast of
+Newfoundland assessed as Threatened, And the populations in the New Brunswick
+and Qu\`{e}bec coasts of the Gulf of St. Lawrence assessed as Special Concern
+\citep{Cosewic2010}. On the other hand, northermost populations have shown
+stable, or even increasing population trends, suggesting that, if marine
+survival were to be a factor in many of these declines, these changes are not
+uniformly distributed across all populations.
+
+% 3. Nonetheless, this premise has never been examined in detailed.
+While the purported decline of marine survival is mentioned widely in the 
+scientific literature, only relatively few studies have quantified it in detail.
+The basis for this premise is a limited number of time series that exhibit
+temporal declines in a proxy of marine survival (i.e. return rates or
+post-smolt survival).
+\citet{Chaput2012a} looked at return rates of smolts to adult salmon to assess
+declines in marine survival and found that most populations from Canadian
+rivers had declining return rates. 
+However, looking at trends in return rates
+can mask changes in differential survival in different years at sea, as well
+as changes in proportion of adults returning after one or two years at sea.
+A more recent study by \citet{Olmos2019} suggested that trends in post-smolt
+survival, when estimated at the stock unit level, are synchronously declining
+for all Atlantic salmon in Eastern North America and Canada. Nonetheless,
+their analysis relies on stock-recruitment relationships rather than smolt
+abundance indices.
+
+%4. 
+In this study, we compile smolt and returns times series data from seven wild
+populations of Atlantic salmon in eastern Canada to model trends in marine survival.
+While previous studies have used maturity schedule models to estimate marine
+survival for a couple of Atlantic salmon populations \citep{Chaput2003b}, none
+have incorporated data from the last decades and they have not examined
+trends among more than a couple of populations. 
+
+\section*{Methods}
+
+\subsection*{Data}
+
+We obtained time series data of outmigrating smolt and returning adult
+abundances for seven Atlantic salmon populations in eastern Canada, covering a
+wide range of the species' distribution (Fig.~\ref{fig:map}). These
+populations included the LaHave River in the Southern Uplands region of Nova
+Scotia (NS), The Nashwaak River in New Brunswick (NS) which connects to the
+Bay of Fundy, The Trinit\'{e} and Saint-Jean Rivers in Qu\`{e}bec (QC), which
+flow to the St Lawrence River and Bay of St Lawrence, respectively, and the
+Western Arm Brook, Campbellton, and Conne in Newfoundland, which flow to the
+Bay of St Lawrence, Labrador Sea, and Atlantic Ocean, respectively.
+Data were collected in NS, NB, and Newfoundland
+and Labrador (NL) by Fisheries and Oceans Canada (DFO) and in QC
+by the Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\`{e}bec.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.85\linewidth]{figures/rivers-map2.png}
+    \caption{Locations of the seven rivers in eastern Canada with time series abundance data of outmigrating smolts and 
+    returning adults.} \label{fig:map} 
+\end{figure}
+
+\subsubsection*{Smolt data}
+
+\comment{Co-authors: please check data sources}
+
+Smolt estimates originate from a variety of sources.
+Estimates from the XXXX populations were obtained using a capture-mark-recapture approach, while
+Estimates from the XXXX populations were obtained by direct counts using a XXXX.
+Refer to ... for more details on the data collection details. 
+
+\subsubsection*{Returns data}
+
+Yearly return data is often recorded in terms of two size groups: small ($< 63$ cm
+FL) and large ($\geq 63$ cm FL) salmon, as these closely represent different
+life-history strategies (i.e. 1SW and 2SW), but can be conflated with repeat
+spawners of different sizes. To correct for this, we estimated the abundance
+of 1SW and 2SW returns using yearly scale data of a subsample of returns:
+
+\begin{equation}
+    p_{r,y,a} = \frac{\sum_{s}{(\frac{n_{r,y,s,a}}{n_{r,y,s}} * N_{r,y,s})}}{\sum_{s}{N_{r,y,s}}}
+\end{equation}
+
+where $p_{r,y,a}$ is the proportion of annual returns in river $r$, year $y$,
+and of spawning history $a$ (either 1SW or 2SW returns); $n_{r,y,s,a}$ is the
+number of samples in river $r$, year $y$, of spawning history $a$, and of size
+group $s$; $n_{r,y,s}$ is the total number of samples in river $r$, year $y$,
+and of size group $s$; and $N_{r,y,s}$ is the returns of salmon
+in river $r$, year $y$, and of size group $s$.
+
+\subsection*{Bayesian model}
+
+We developed a hierarchical Bayesian model that uses Murphy's maturity
+schedule method, in conjunction with informative priors, to estimate yearly
+marine survival in seven populations of Atlantic salmon. We account for
+observation error in smolt and return estimates, as well as estimating the
+proportion returning after one winter (i.e. \Pg) hierarchically.
+There is an identifiability problem in the maturity schedule equations where
+the parameter estimates cannot be optimally solved \citep{Chaput2003a}.
+However, this issue can be mathematically overcome, at least partially, by
+using informative priors for all three marine survival parameters in a
+Bayesian framework.
+This method requires abundance estimates of smolts as well as abundance estimates
+of returning one-sea-winter (1SW) and two-sea-winter adults. With these data,
+it estimates three parameters: survival in the first year at sea (\So), survival
+in the second year at sea (\St), and the proportion of fish returning after one
+year at sea (\Pg). 
+Our model does not include repeat spawners and assumes that no fish spend
+three or more winters at sea before returning to spawn for the first time.
+
+The model also assumes that mortality in the second winter at sea 
+is additional to mortality in the first winter at sea in the previous year, 
+and therefore does not account for differences
+the returning (Pr) occurs just before
+actually being counted as returns and that S2 is any additional mortality in
+the subsequent year. I agree this is far from ideal, given that we know there
+is a period of a few months where 1SW returns are subject to a different
+environment than those 2SW+ fishes. 
+
+%\comment{Other assumptions...}
+
+Observed smolt estimates were modelled hierarchically and included
+observation error:
+
+\begin{equation}
+log(smolts_{obs,t,r}) = log(smolts_{true,t,r}) + \epsilon_{t,r}
+\end{equation}
+
+where $smolts_{true,t,r}$ are the true smolt abundances for year $t$ and river
+$r$, and $\epsilon_{t,r}$ is the error term, which is empirically derived from
+by calculating the yearly coefficient of variation in the empirically derived
+smolt estimates (see Table S1 in the Supplementary material). 
+The log-transformed true smolt abundances are
+normally distributed around a population-level mean and standard deviation:
+
+\begin{equation}
+log(smolts_{true,t,r}) \sim Normal(\mu_{smolts,r}, \sigma_{smolts,r})
+\end{equation}
+
+where $\mu_{smolts,r}$ and $\sigma_{smolts,r}$ are parameters estimated by the
+model for each river.
+
+Once we have yearly estimates of smolt, 1SW, and 2SW abundances, we estimate
+marine survival parameters using Murphy's maturity schedule method
+\citep{Murphy1952, Ricker1975}:
+
+\begin{align}
+    R_{1,t} &= smolts_{t-1} * S1_t * Pr_t \label{eq:1}, \\
+    R_{2,t+1} &= smolts_{t-1} * S1_t * (1 - Pr_t) * S2_{t+1} \label{eq:2}
+\end{align}
+
+where $R_{1,t}$ and $R_{2,t+1}$ are the estimated abundances of 1SW and 2SW
+salmon returning in years $t$ and $t+1$, respectively, $smolts_{t-1}$ is the
+number of outmigrating smolts in year $t-1$, $S1_t$ is the proportion of
+salmon surviving in their first year ($t$) at sea, $Pr_t$ is the proportion of
+salmon that return to spawn at year $t$, $S2_{t+1}$ is the survival in their
+second year at sea of the same cohort of salmon who did not return to spawn at
+year $t$.
+
+However, to allow for normally and log-normally-distributed parameters we
+log-transform equations~\ref{eq:1} and~\ref{eq:2} to obtain
+
+\begin{align}
+    log(R_{1,r,t}) &= log(smolts_{r,t-1}) + log(Pr_{r,t}) - Z_{1,r,t} + \epsilon_{1,r} \label{eq:3}, \\
+    log(R_{2,r,t+1}) &= log(smolts_{r,t-1}) - Z_{1,r,t} + log(1 - Pr_{r,t})  - Z_{2,r,t+1} + \epsilon_{2,r} \label{eq:4} 
+\end{align}
+
+where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates and $\epsilon_{1,r}$ and $\epsilon_{2,r}$
+are the process error terms. 
+These error terms are normally distributed with a standard deviation
+of 0.01, which are almost equivalent to using a coefficient of variation in
+return estimates 1\%, given that return estimates in equations~\ref{eq:3}
+and~\ref{eq:4} are log-transformed:
+
+\begin{align}
+\epsilon_{1,r} &\sim Normal(0, 0.01) \\
+\epsilon_{2,r} &\sim Normal(0, 0.01)
+\end{align}
+
+Furthermore, we use instantaneous mortality rates in the model instead of survival probabilities
+as the model is more efficient in its parameter search in log-space, and instantaneous rates
+are easy to interpret. Instantaneous rates are easily converted to survival probabilities by 
+
+\begin{align}
+ S_{1} &= e^{-Z_1}, \\
+ S_{2} &= e^{-Z_2} 
+\end{align}
+
+We estimate population-level mean \Pg values around which the yearly \Pg
+values are normally distributed. We specify different informative hyperpriors
+for \prmu and \prsig based on whether the population is 1SW-dominated or not:
+
+\begin{align}
+    logit(P_{r,t}) &\sim Normal(\mu_r, \sigma_r) \\
+    \mu_r &\sim 
+    \begin{cases}
+       Normal(2.3, 0.4),  &\text{for 1SW-dominated populations} \\
+       Normal(0, 2.8), &\text{for non-1SW-dominated populations} \\
+   \end{cases} \\
+    \sigma_r &\sim halfNormal(0, 1)
+\end{align}
+
+The priors for \So and \St are specified as log-normal distributions around
+the instantaneous mortality rates $Z_1$ and $Z_2$:
+
+\begin{align}
+Z_1 &\sim logNormal(1, 0.22),   \\ 
+Z_2 &\sim logNormal(0.2, 0.3)
+\end{align}
+
+The model was written in Stan \citep{Carpenter2017} and run in R version 3.6.1
+\citep{RCoreTeam2019} using the \texttt{rstan} package version 2.19.2
+\citep{StanDevelopmentTeam2019}.
+The model was run with three chains and 3,000 iterations, with the first 1,500
+discarded as a burn-in. The models were considered to have converged when the
+$\hat R$ of all parameters were lower than 1.03 and the effective sample size 
+were higher than 500.
+
+\subsection*{Correlations among trends in survival}
+
+%\comment{How do were quantitatively compare trends among rivers? DFA is an
+%option, but so is a t-test of averages before and after a certain year}
+
+We looked at the correlation of trends in \So by calculating the Pearson's
+correlation coefficient for the Z-scores of these trends. Given that the time
+series do not cover the same years, and that some rivers have missing years in
+the middle of the time series, pair-wise Pearson's tests were done using only
+the years where there is data for both rivers.
+
+\section*{Results}
+
+%\subsubsection*{Model convergence}
+
+\subsubsection*{Trends in marine survival parameters}
+
+Trends in estimates of \So were highly variable within among rivers
+(Fig.~\ref{fig:s1-dual}). The highest median posterior estimates of \So
+were for the Nashwaak River in 2006 and 2008, with values of 0.18 and 0.21,
+respectively. The lowest median \So estimate was in the Trinit\'{e} in 2001,
+with an estimate of \So of 0.007, while the Conne, LaHave, and Trinit\'{e} had
+years of estimates of \So between 0.01 and 0.02 (Fig.~\ref{fig:s1-faceted}).
+
+Trends among populations were variable as well: roughly, the Campbellton,
+Saint-Jean, and Western Arm Brook populations showed increases in \So
+over time, the Trinit\'{e}, Conne, and La Have populations showing decreases,
+and the Nashwaak population showing an increase in median \So during the early
+2000s but a decrease in the 2010s. Yearly estimates of \So had very little
+variability for one sea-winter dominated populations (Conne, Campbellton, and
+WAB), but were more variable (i.e. wider credible intervals) in the other
+populations.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/s1-trends-dual.png}
+    \caption{Trends in survival in the first year at sea (\So). a) Posterior
+        estimates of \So for the seven rivers examined, error bars indicate
+        the 90\% credible intervals. b) Z-scores of median posterior
+        estimates.} \label{fig:s1-dual} 
+\end{figure}
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/s1-trends-faceted.png}
+    \caption{Posterior estimates of \So for the seven rivers examined, error
+        bars indicate the 90\% credible intervals.} \label{fig:s1-faceted}
+\end{figure}
+
+Estimates of \St were highly uncertain in all rivers, and trends of any kind
+were not apparent in most rivers given the large range of the credible
+intervals in the yearly estimates (Fig.~\ref{fig:s2-faceted}). The estimates
+of \St for the Saint-Jean and Trinit\'{e} were considerably less uncertain
+than for the other populations, but showed no apparent trends through time.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/s2-trends-faceted.png}
+    \caption{Posterior estimates of \St for the seven rivers examined, error
+        bars indicate the 90\% credible intervals.} \label{fig:s2-faceted}
+\end{figure}
+
+Estimates of \Pg were mostly stable across time, except for the LaHave and
+Nashwaak Rivers; The estimates of \Pg were slightly lower in the last four
+years than in the previous ones, while in the Nashwaak the posterior estimates
+of \Pg in 2012 were much lower than in all other years
+(Fig.~\ref{fig:s2-faceted}). Uncertainty in yearly estimates was highest in
+the LaHave, Nashwaak, and Trinit\'{e}, and lowest in the 1SW-dominated
+populations.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/pr-trends-faceted.png}
+    \caption{Posterior estimates of \Pg for the seven rivers examined, error
+        bars indicate the 90\% credible intervals.} \label{fig:pr-faceted}
+\end{figure}
+
+Population-level estimates of \prmu and \prsig varied considerably among rivers. For all
+three 1SW-dominated rivers (Campbellton, Conne, and WAB), estimates of \prmu
+were very close to 1.0 and had little variability in \prsig (Fig~\ref{fig:prmu-post}).
+Estimates of \prmu were the lowest for the two QC rivers, particularly the Saint-Jean (median \prmu = 0.11).
+Estimates of \prmu for the Nashwaak and the LaHave Rivers were close to 0.5, with these two rivers having 
+the highest estimated values of \prsig, particularly the Nashwaak (Fig~\ref{fig:prmu-post}).
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=1.0\linewidth]{figures/pr-mu-posteriors.png}
+    \caption{Posterior estimates of the population-level parameters $Pr_{\mu}$
+       $logit(Pr_{\mu})$, and $logit(Pr_{\sigma})$. Dots denote median estimates, while the thick and thing error bars indicate
+       the 50\% and 90\% credible intervals, respectively.} 
+   \label{fig:prmu-post} 
+\end{figure}
+
+\subsubsection*{Correlations}
+
+Most correlations between z-scored trends were not significant, with only 
+three out of the 21 pair-wise comparisons having a p-value below 0.01 (Fig.~\ref{fig:s1-corr}a).
+When looking at the direction of the correlation, regardless whether they were
+significant or not, these spanned both positive and negative coefficients
+(Fig.~\ref{fig:s1-corr}b).
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/corr-s1.png} \caption{
+        Correlation among Z-scores of median estimated trends in \So among
+        rivers. a) Pearson's correlation coefficients are shown in each square,
+        while colouring denotes significance of the correlation ($p \leq 0.01$), b)
+        colours denote direction and magnitude of correlation, while asterisks denote significance.}
+\label{fig:s1-corr} 
+\end{figure}
+
+\section*{Discussion} 
+
+% 1. Main findings
+% 2. How they compare to other publications
+% 3. Potential reasons
+% 4. Caveats
+% 5. Future directions
+
+% 1. Main findings
+Our findings challenge the widespread idea that marine survival is declining
+uniformly across the range of Atlantic salmon in the northwest Atlantic. We
+find that there is no apparent shared trends among the seven salmon
+populations examined; some rivers show positive trends in survival in the
+first winter at sea (\So) while other show stable trends, and some even show
+declines. We could not assess trends in the second winter at sea (\So) or
+proportion returning as grilse (\Pg) as these parameter estimates were highly
+uncertain and were strongly influenced by the priors used.
+Perhaps there is a need to rethink our understanding of Atlantic salmon
+population dynamics in light that any real decline in marine survival was
+experienced by some populations, that reductions in survival might
+have occurred over a brief period of time, and that since that
+reduction occurred (for a subset of populations) marine survival has actually
+been stable, or even increasing, since that point.
+
+% 2. How they compare to other publications
+Our findings are contrary to those of \citet{Olmos2019}, who detected positive
+correlations in post-smolt survival among broad stock units. These differences
+could be due to a number of reasons: different model specifications and
+structure, different methods for estimating covariance, difference in the
+spatial scales of data sources, and the use stock-recruitment relationships
+rather than empirical smolt observations to estimate marine survival.
+Interestingly, our estimates of \So and \St are very similar to those produced
+by \citet{Chaput2003b}, and the trends are almost identical for the
+overlapping time period that marine survival was estimated for in that study
+(1984-1998). While that study separated abundance data for males and females
+and assumed their survival rates were the same (to be able to reach an
+analytical solution), our study reached almost the same results (albeit with
+slightly higher uncertainty) using a Bayesian approach with informative
+priors. These overlapping trends obtained with two different methods are
+indicative that our method is effective at estimating marine survival.
+While \citet{Chaput2003b} did not compare trends in marine survival
+among populations, \citet{Chaput2012a} did, using adult return rates, and
+found that for four out of the six population examined, return rates in the 1990s 
+were less than those during the 1970s.
+\citet{Friedland1993} compared return rates for a number rivers in eastern
+North America and suggested there are similar trends among these. The
+similarity in trends is driven primarily by two years, 1977 and 1978, which
+show concurrent low and high relative return rates across rivers,
+respectively. Others years are much more variable relative to each other.
+Their time series stops at 1988, thus there are only a few years for which 
+to assess overlap with the time series in our study.
+However, using pooled adult return rates, as done by \citet{Chaput2012a} and
+\citet{Friedland1993} can mask inter-annual variability in marine survival,
+and hence might not produce an accurate depiction of marine survival trends.
+\citet{Dempson2003} describe a general declining trend in marine survival for
+Newfoundland rivers (except the WAB); which in our study we observe in the
+Conne but not the Campbellton or the WAB. It is not possible to draw conclusions
+with data from only three Newfoundland rivers, but it seems that among index rivers,
+those in Newfoundland are among those with the highest marine survival rates.
+
+% 3. Potential reasons
+There are multiple potential explanations as to why there are no synchronous
+trends in estimates of \So. 
+Marine survival in the first winter at sea could be highly variable between
+rivers from environmental factors (e.g., temperature, predation) being
+variable at localized spatial scales rather than ocean-wide ones.
+Given that synchrony is being observed for marine survival trends estimated using
+stock-recruitment relationships and broader spatial scales \citep{Olmos2019},
+these overlapping declining trends in marine
+survival estimated using stock-recruitment relationships have been confounded
+by changes in recruitment dynamics.
+There is some evidence of a correlation between return rate and growth (as
+indicated by intercirculi spacing in scales), where years of poor growth
+tended to also be years of poor survival \citep{Friedland1993}, supporting the
+idea that environmental variability can affect marine survival.
+Furthermore, among European salmon, there is evidence of a positive correlation
+between spring temperature and population abundance, suggesting warmer
+conditions favour post-smolts \citep{Friedland1998} based on mapping the
+extent of area of suitable temperature (7-13 \textdegree C) in the North Atlantic.
+Nonetheless, how warming impacts survival of post-smolts can differ based
+whether it results in temperatures coming into or out of their suitable range;
+which could be part of why populations in eastern North America are declining
+in the southern part of their range while potentially increasing in the
+northern part. The relationship between temperature and survival warrants 
+further study.
+While there is very little evidence that marine survival is density-dependent
+in Atlantic salmon, and it is broadly considered to be a density-independent
+process \citep{Jonsson1998,Gibson2006}, there could potentially be some
+density-dependent relationship, particularly for populations that are severely
+depleted (i.e. Allee effects). Exploring relationships between survival
+and population size could potentially shed light about the processes that
+have caused many of the population declines we have observed.
+
+% 4. Caveats
+Nonetheless, there are caveats to consider in our modelling approach.
+While there are analytical issues with estimation of \So, \St, and \Pg,
+The assumption that \St is additive to \So could produce unrealistic results.
+Overcoming this assumption would require an additional parameter to be
+estimated, or an additional assumption as to what proportion of \So is not
+additive to \St (as the returning 1SW adults do not experience the same
+environment when they return to their natal streams as those fish who stayed
+at sea for an additional winter).
+Furthermore, the assumed hierarchical structure might not be the most adequate
+for modelling smolt abundances. This approach results in shrinkage to the
+mean, which means that the variability of yearly smolt estimates is less than
+it would be if not modelled hierarchically. Nonetheless, this assumption
+likely results in more conservative trends in marine survival, as the
+variation of smolt estimates is shrunk.
+It is important to note that the hierarchical structure in the estimation of
+\Pg seems like a reasonable assumption given that the probability of returning
+as grilse has a genetic component associated to it \citep{Aykanat2019} and is
+not expected to vary much, within a population, among years.
+
+% 5. Future directions
+Perhaps reframing the issue of marine survival is key to further our
+understanding of Atlantic salmon population dynamics: it is not that marine
+survival has declined across rivers, but the fact that it has stayed at
+roughly similar levels as previously \emph{despite} their reduced abundance
+what we should focus into understanding better.
+Given the literature of correlates on marine survival in the past, if survival
+has been stable or increasing, this clearly warrants reexamination of the
+correlates and causes of temporal and spatial shifts in marine survival.
+
+
+
+\section*{Acknowledgements}
+
+% We would like to thank Geir Bolstad, G\'{e}rald Chaput, Brian Dempson, and Martha
+% Robertson for their useful discussions on estimating marine survival in
+% Atlantic salmon, and Amanda Kissel for her helpful comments on the manuscript.
+% Brian Dempson and Geoff Venoit for providing the data Conne River data.
+We would like to thank G\'{e}rald Chaput for his useful discussions on
+estimating marine survival in Atlantic salmon, and Sean Anderson for his help
+with implementing the non-centered parameterization of the model.
+This research was supported by the Atlantic Salmon Conservation Foundation and
+the Atlantic Salmon Research Joint Venture.
+
+\section*{Conflicts of Interest}
+
+The authors declare no conflicts of interest.
+ 
+\bibliography{subset}
+
+%\input{ms.bbl}
+
+\end{document}
+
+

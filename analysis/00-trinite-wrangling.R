@@ -26,15 +26,18 @@ trinitereturns <- trinite %>%
          est_2SWlead = lead(returns_2sw_est),
          est_RSlead = lead(returns_rs_est),
          #logsmoltsdlag = sqrt(300) * (log(smolt975lag) - log(smolt025lag))/3.92
-  ) %>% 
-filter(year %in% 1985:2016) # lead 2017 is missing 2SW and RS
+        ) %>% 
+  filter(year %in% 1985:2016) %>% # lead 2017 is missing 2SW and RS
+  filter(year != 2007) # Removing smolt year 2006 as its missing smolt estimates 
 
-# YEAR WITH NO SMOLT DATA
+# YEAR WITH NO SMOLT DATA (NOT NEEDED ANYMORE AS AM EXCLUDING THOSE YEARS)
 # trinitedata$smolts[trinitedata$year == 2007] <- 1
 # Can't use a dummy value since it will screw up with resulting 
 # distributions for the population
 # using average of contiguous 4 years (+-2) instead
-trinitereturns[is.na(trinitereturns$smoltlag), "smoltlag"] <-  mean(trinitereturns$smoltlag[trinitereturns$year %in% 2005:2009], na.rm = TRUE)
+# trinitereturns[is.na(trinitereturns$smoltlag), "smoltlag"] <-  mean(trinitereturns$smoltlag[trinitereturns$year %in% 2005:2009], na.rm = TRUE)
+
+
 
 
 ggplot(trinitereturns, aes(year, smolts)) + geom_point() + geom_line() +
@@ -45,15 +48,16 @@ ggplot(trinitereturns, aes(year, smolts)) + geom_point() + geom_line() +
 trinitedata <- list(years = trinitereturns$year,
                   logsmolts = log(trinitereturns$smoltlag),
                   #logsmolts_SE = nashwaakreturns$logsmoltsdlag,
-                  logsmolts_SE =  rep(1, length(trinitereturns$smoltlag)), # should be replaced with actual uncertainty
+                  logsmolts_cv =  rep(0.1, length(trinitereturns$smoltlag)), # should be replaced with actual uncertainty
                   loggrilse = log(trinitereturns$est_1SW),
                   logSW2 = log(trinitereturns$est_2SWlead),
                   logRS = log(trinitereturns$est_RSlead),
                   #N =  length(connereturns$small[-1]),
                   #Pr = rep(0.8, nrow(connereturns)))
-                  cv = 0.01, # ASSUMPTION, CV of return abundance counts
+                  returns_cv = 0.01, # ASSUMPTION, CV of return abundance counts
                   nyears = length(trinitereturns$year),
-                  river_name = "Trinité River"
+                  river_name = "Trinité River",
+                  allreturns = trinite %>% mutate(river_name = "Trinité River")
                   ) 
 
 saveRDS(trinitedata, file = "data/trinitedata.rds")

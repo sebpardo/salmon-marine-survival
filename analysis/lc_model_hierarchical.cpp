@@ -73,8 +73,8 @@ Type objective_function<Type>::operator() () {
       nll -= dnorm(logsmolts_true(j,i), logsmolts_mean(j), exp(logsmolts_logsd(j)), true); // distribution of x_true
       nll -= dnorm(logsmolts(j,i), logsmolts_true(j,i), logsmolts_SE(j,i), true); // oibservation error in x (dist of error around x_true)
       
-      nll -= dnorm(loggrilse(j,i), mu(j,i), cv(j), true); // observation error in grilse (based on data cv)
-      nll -= dnorm(logSW2(j,i), mu2(j,i), cv(j), true); // observation error in 2SW (based on data cv)
+      nll -= dnorm(loggrilse(j,i), mu(j,i), mu(j,i) * cv(j), true); // observation error in grilse (based on data cv)
+      nll -= dnorm(logSW2(j,i), mu2(j,i), mu2(j,i) * cv(j), true); // observation error in 2SW (based on data cv)
       
     }
     // NLL DECLARATION FOR GLOBAL PARAMETER ESTIMATES
