@@ -13,6 +13,7 @@ TMB_example.*
 .vscode/
 test*
 TODO.*
+*.ods
 *.xlsx
 *.pdf
 *.docx
@@ -24,6 +25,7 @@ TODO.*
 *.fff
 *.fls
 *.out
+data/mapdata/
 data/pr-posteriors.rds
 data/s1-posteriors.rds
 data/s2-posteriors.rds
