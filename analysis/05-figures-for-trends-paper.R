@@ -32,12 +32,18 @@ ggplot(s1quant, aes(year, median)) +
         legend.text =  element_text(size = 12))
 ggsave("figures/s1-trends-faceted.png", height = 6, width = 5)
 
+morat <- tibble(year = c(1984, 1992, 2000),
+                region = c("NS+\nNB", "NL", "QC"),
+                river_name = c("Nashwaak River", "Western Arm Brook", "Trinité River"))
+
 s1trends <- ggplot(s1quant, aes(year, median, color = river_name)) + 
   geom_line(alpha = 0.5) + geom_point(size = 2, alpha = 0.8) +
   ylab(expression(paste(S[1]~"posterior estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95), alpha = 0.5, width = 0.1) +
   theme_cowplot() + xlab("Year") + labs(color = "River") +
-  theme(legend.position = "bottom") + guides(color = guide_legend(nrow = 3))
+  theme(legend.position = "bottom") + guides(color = guide_legend(nrow = 3)) +
+  geom_vline(data = morat, aes(xintercept = year, color = river_name), alpha = 0.4, linetype = 2) +
+  geom_text(data = morat, aes(year-1.5, 0.23, label = region, color = river_name))
 s1trends
 ggsave("figures/s1-trends.png", height = 5, width = 7)
 
