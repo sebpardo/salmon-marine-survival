@@ -19,6 +19,9 @@ rtf:
 	pdflatex $(MS).tex
 	latex2rtf -E0 $(MS).tex
 
+figs:
+	cp -r ../figures/ ./
+
 todo:
 	pandoc -o tasklist.html tasklist.md 
 
