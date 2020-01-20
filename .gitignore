@@ -14,6 +14,7 @@ TMB_example.*
 test*
 TODO.*
 *.ods
+*.odt
 *.xlsx
 *.pdf
 *.docx

@@ -62,8 +62,8 @@ r2sf <- st_as_sf(regions2)
 regions_sf <- st_as_sf(region) %>%
   filter(region_sub %in% c("Atlantic Canada", "New England", "Québec"))
 
-provlabels <- read_csv("prov-labels.csv") 
-riverlocs <- read_csv("river-locs.csv") 
+provlabels <- read_csv("raw-data/prov-labels.csv") 
+riverlocs <- read_csv("raw-data/river-locs.csv") 
 dput(riverlocs)
 sealoc <- tibble(sea = c("Gulf of\nSt. Lawrence", "Gulf of\nMaine", "ATLANTIC\nOCEAN"),
                  long = c(-60.7, -68, -56),
