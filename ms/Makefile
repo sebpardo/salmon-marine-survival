@@ -9,7 +9,7 @@ pdf:
 	latexmk -g $(MS).tex
 
 doc:
-	pandoc $(MS).tex --reference-doc=reference.docx --bibliography=subset.bib -o $(DRAFT)-$(TODAY).docx
+	pandoc $(MS).tex --reference-doc=reference.docx --bibliography=subset.bib --csl ices.csl -o $(DRAFT)-$(TODAY).docx
 
 draft: doc	
 	cp $(MS).pdf $(DRAFT)-$(TODAY).pdf

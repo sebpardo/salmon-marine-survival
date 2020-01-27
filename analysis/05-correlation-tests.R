@@ -2,7 +2,7 @@
 
 library(tidyverse)
 library(corrplot)
-source("99-helper-functions.R")
+source("analysis/99-helper-functions.R")
 
 alldatastan <- readRDS("data/alldatastan.rds")
 s1quant <- readRDS("data/s1quant.rds")
@@ -11,8 +11,6 @@ allreturns <- readRDS("data/allreturns.rds") %>%
   mutate(zscoresmolts = scale(log(smolts)), zscoretotal = scale(log(totalreturns))) %>%
   ungroup()
   
-
-
 river_names <- s1quant %>%
   ungroup() %>%
   select(year, zscore, river_name) %>%

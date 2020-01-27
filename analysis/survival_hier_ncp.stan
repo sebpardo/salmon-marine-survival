@@ -74,8 +74,8 @@ model {
 // space, thus proportion survival S1 has been transformed to 
 // intstantaneous total mortality Z1
   for (i in 1:K) {
-    mu[i] = logsmolts[i] + log(Pr[i]) - Z1[i]; // estimated log1SW
-    mu2[i] = logsmolts[i] - Z1[i] + log1m(Pr[i])  - Z2[i]; // estimated log2sw
+    mu[i] = logsmolts_true[i] + log(Pr[i]) - Z1[i]; // estimated log1SW
+    mu2[i] = logsmolts_true[i] - Z1[i] + log1m(Pr[i])  - Z2[i]; // estimated log2sw
   }
   
 // Because Stan can't deal with ragged arrays/matrices and we have a different number of years
