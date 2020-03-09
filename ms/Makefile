@@ -21,6 +21,7 @@ rtf:
 
 figs:
 	cp -r ../figures/ ./
+	cp -r ../figures/ ~/Dropbox/2020-ASCF-webinar/
 
 todo:
 	pandoc -o tasklist.html tasklist.md 
