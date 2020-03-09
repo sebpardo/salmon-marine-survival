@@ -413,12 +413,22 @@ However, to allow for normally and log-normally-distributed parameters we
 log-transform equations~\ref{eq:1} and~\ref{eq:2} to obtain
 
 \begin{align}
-    log(R_{1,r,t}) &= log(smolts_{r,t-1}) + log(Pr_{r,t}) - Z_{1,r,t} + \epsilon_{1,r} \label{eq:3}, \\
-    log(R_{2,r,t+1}) &= log(smolts_{r,t-1}) - Z_{1,r,t} + log(1 - Pr_{r,t})  - Z_{2,r,t+1} + \epsilon_{2,r} \label{eq:4} 
+    log(R_{1,r,t}) &= log(smolts_{r,t-1}) + log(Pr_{r,t}) - Z_{1,r,t} \label{eq:3}, \\
+    log(R_{2,r,t+1}) &= log(smolts_{r,t-1}) - Z_{1,r,t} + log(1 - Pr_{r,t})  - Z_{2,r,t+1} \label{eq:4} 
 \end{align}
 
-where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates and $\epsilon_{1,r}$ and $\epsilon_{2,r}$
-are the process error terms. 
+where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates.
+Process error was included as the standard deviation of the log-transformed
+return estimates from equation~\ref{eq:4}:
+
+\begin{align}
+log(R_{obs,1,t,r}) &\sim Normal(log(R_{1,t,r}), \epsilon_{1,r}), \\
+log(R_{obs,2,t,r}) &\sim Normal(log(R_{2,t,r}), \epsilon_{2,r}) \label{eq:5} 
+\end{align}
+
+where $R_{obs,1,t,r}$ and $R_{obs,2,t,r}$ are the observed return estimates
+for year $t$ and river $r$ of 1SW and 2SW fish, respectively, $\epsilon_{1,r}$
+and $\epsilon_{2,r}$ are the process error terms. 
 These error terms are normally distributed with a standard deviation
 of 0.01, which are almost equivalent to using a coefficient of variation in
 return estimates 1\%, given that return estimates in equations~\ref{eq:3}
@@ -452,8 +462,7 @@ for \prmu and \prsig based on whether the population is 1SW-dominated or not:
     \sigma_r &\sim halfNormal(0, 1).
 \end{align}
 
-The priors for \So and \St are specified as log-normal distributions around
-the instantaneous mortality rates $Z_1$ and $Z_2$:
+The priors for $Z_1$ and $Z_2$ are specified as log-normal distributions:
 
 \begin{align}
 Z_1 &\sim logNormal(1, 0.22),   \\ 
@@ -587,7 +596,7 @@ uniformly throughout the range of Atlantic salmon in the northwest Atlantic.
 Temporal trends are not consistent among populations. 
 Over the time periods for which data were available, some rivers show positive trends in survival in the
 first winter at sea (\So) while other exhibit highly variable yet stable trends, and some show
-declines. We could not assess trends in the second winter at sea (\So) or
+declines. We could not assess trends in the second winter at sea (\St) or
 proportion returning as grilse (\Pg), as these parameter estimates were highly
 uncertain and were strongly influenced by the priors.
 Perhaps there is a need to rethink our understanding of Atlantic salmon
@@ -603,6 +612,10 @@ could be due to a number of reasons: different model specifications and
 structure, different methods for estimating covariance, difference in the
 spatial scales of data sources, and perhaps most importantly the use stock-recruitment relationships
 rather than empirical smolt count data to estimate marine survival.
+As trends in marine survival on the first winter at sea are highly independent
+among rivers on relatively small spatial scale, trends from broader
+geographical areas (i.e. province, state, or country-wide estimates) may not
+be representative.
 Interestingly, our estimates of \So and \St are very similar to those produced
 by \citet{Chaput2003b}, and our trends are almost identical for the
 overlapping time period that marine survival was estimated for in their study
