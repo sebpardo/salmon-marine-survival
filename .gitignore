@@ -31,5 +31,7 @@ data/pr-posteriors.rds
 data/s1-posteriors.rds
 data/s2-posteriors.rds
 data/stanfit*
+ms/comments/
+ms/*.md
 analysis/*.rds
 src/
