@@ -21,7 +21,7 @@ addnas <- tibble(pos = NA,
 
 s1quant <- bind_rows(s1quant, addnas)
 
-ggplot(s1quant, aes(year, median)) + 
+s1trends <- ggplot(s1quant, aes(year, median)) + 
   geom_line(alpha = 0.5) + geom_point(size = 1, alpha = 0.7) + 
   ylab(expression(paste(S[1]~"estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95),width= 0.1) +
@@ -30,9 +30,16 @@ ggplot(s1quant, aes(year, median)) +
   labs(color = "River") +
   theme(legend.position = "none", 
         legend.text =  element_text(size = 12))
+s1trends
 ggsave("figures/s1-trends-faceted.png", height = 6, width = 5)
 
-morat <- tibble(year = c(1984, 1992, 2000),
+s1trends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
+ggsave("figures/s1-trends-presentation.png", height = 4, width = 8)
+
+
+
+
+morat <- tibble(year = c(1984, 1998, 2000),
                 region = c("NS+\nNB", "NL", "QC"),
                 river_name = c("Nashwaak River", "Western Arm Brook", "Trinité River"))
 
@@ -68,7 +75,7 @@ s2quant <- readRDS(file = "data/s2quant.rds") %>%
 prquant <- readRDS(file = "data/prquant.rds") %>%
   bind_rows(addnas)
 
-ggplot(s2quant, aes(year, median)) + 
+s2trends <- ggplot(s2quant, aes(year, median)) + 
   geom_line(alpha = 0.5) + geom_point(size = 1, alpha = 0.7) + 
   ylab(expression(paste(S[2]~"estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95),width= 0.1) +
@@ -77,9 +84,13 @@ ggplot(s2quant, aes(year, median)) +
   labs(color = "River") +
   theme(legend.position = "none", 
         legend.text =  element_text(size = 12))
+s2trends
 ggsave("figures/s2-trends-faceted.png", height = 6, width = 5)
+s2trends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
+ggsave("figures/s2-trends-presentation.png", height = 4, width = 8)
 
-ggplot(prquant, aes(year, median)) + 
+
+prtrends <- ggplot(prquant, aes(year, median)) + 
   geom_line(alpha = 0.5) + geom_point(size = 1, alpha = 0.7) + 
   ylab(expression(paste(P[r]~"estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95),width= 0.1) +
@@ -88,7 +99,10 @@ ggplot(prquant, aes(year, median)) +
   labs(color = "River") +
   theme(legend.position = "none", 
         legend.text =  element_text(size = 12))
+prtrends
 ggsave("figures/pr-trends-faceted.png", height = 6, width = 5)
+prtrends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
+ggsave("figures/pr-trends-presentation.png", height = 4, width = 8)
 
 
 # Graph of population level Pr estimates
@@ -101,7 +115,7 @@ prmuquant$param2 <- factor(prmuquant$param,  levels = c("Pr_mu", "logitPr_CV", "
 #labels = c( "italic(Pr)[mu]", "logit(italic(Pr)[CV])","logit(italic(Pr)[mu])", "logit(italic(Pr)[sigma])"))
 
 
-prmuquant %>%
+prmuplot <- prmuquant %>%
   ungroup() %>%
   mutate(river_name = fct_rev(river_name)) %>%
  # filter(param == "Pr_mu") %>%
@@ -116,9 +130,10 @@ ggplot(aes(median, river_name)) +
   theme(strip.text.x = element_text(size = 12), 
         axis.text = element_text(size = 12),
         axis.title = element_text(size = 14))
-
+prmuplot
 ggsave("figures/pr-mu-posteriors.png", height = 3, width = 10)
   
+
 s1quant %>%
   group_by(river_name) %>%
   summarise(min = min(median), max = max(median))
@@ -128,3 +143,4 @@ s1quant %>%
 
 s1quant %>%
   filter(median >= 0.17)
+
