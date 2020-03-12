@@ -50,7 +50,7 @@ s1trends <- ggplot(s1quant, aes(year, median, color = river_name)) +
   theme_cowplot() + xlab("Year") + labs(color = "River") +
   theme(legend.position = "bottom") + guides(color = guide_legend(nrow = 3)) +
   geom_vline(data = morat, aes(xintercept = year, color = river_name), alpha = 0.4, linetype = 2) +
-  geom_text(data = morat, aes(year-1.5, 0.23, label = region, color = river_name))
+  geom_text(data = morat, aes(year-c(1.5, 1.5, -1.5), 0.23, label = region, color = river_name), show.legend = FALSE)
 s1trends
 ggsave("figures/s1-trends.png", height = 5, width = 7)
 
