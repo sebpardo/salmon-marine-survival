@@ -160,4 +160,31 @@ saveRDS(logitprcvquant, file = "data/logitprcvquant.rds")
 
 ############################
 
+# extracting estimates of logsmolts_true
+logsmoltspost <- as.matrix(fithierncp, pars = "logsmolts_true") %>%
+  as_tibble %>%
+  gather(parameter, value) %>%
+  mutate(pos = str_extract(parameter, "(?<=\\[).+?(?=\\])"),
+         param = str_extract(parameter, ".+?(?=\\[)")) %>%
+  left_join(indexdf, by = "pos")
+
+saveRDS(logsmoltspost, file = "data/logsmoltstrue-posteriors.rds")
+
+
+z1post <- as.matrix(fithierncp, pars = "Z1") %>%
+  as_tibble %>%
+  gather(parameter, value) %>%
+  mutate(pos = str_extract(parameter, "(?<=\\[).+?(?=\\])"),
+         param = str_extract(parameter, ".+?(?=\\[)")) %>%
+  left_join(indexdf, by = "pos")
+
+z2post <- as.matrix(fithierncp, pars = "Z2") %>%
+  as_tibble %>%
+  gather(parameter, value) %>%
+  mutate(pos = str_extract(parameter, "(?<=\\[).+?(?=\\])"),
+         param = str_extract(parameter, ".+?(?=\\[)")) %>%
+  left_join(indexdf, by = "pos")
+
+saveRDS(z1post, file = "data/z1-posteriors.rds")
+saveRDS(z2post, file = "data/z2-posteriors.rds")
 
