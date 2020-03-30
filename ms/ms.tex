@@ -268,9 +268,10 @@ marine survival.
 \citet{Chaput2012a}, for example, examined the return rate of smolts to adult salmon 
 as a metric of marine survival, finding that most Canadian populations 
 had experienced declining return rates. 
-However, examination of trends in return rates alone can mask changes in
+However, return rates cannot directly be interpreted as marine survival rates and 
+examination of trends in return rates alone can mask changes in
 differential survival during different years at sea, as well as changes in the
-proportion of adults returning after one or two years at sea.
+proportion of adults returning after one or two years at sea \citep{Hubley2011}.
 Recently \citet{Olmos2019} suggested that trends in post-smolt
 survival, when estimated at the stock unit level, are synchronously declining
 for all Atlantic salmon in Eastern North America and Canada, a conclusion ultimately 
@@ -280,11 +281,11 @@ grounded on the veracity of highly variable stock-recruitment relationships.
 In the present study, we compile data on the number of migrating smolts and number of returning adults 
 for seven wild Canadian populations of Atlantic salmon to model trends in marine survival.
 While some studies have previously used maturity-schedule models to estimate marine
-survival for a limited number of salmon populations \citep{Chaput2003b}, none
+survival for a limited number of salmon populations \citep{Chaput2003b,Hubley2011}, none
 have incorporated data extending over multiple decades, nor have they examined
 trends among more than two or three populations. 
 Here, we develop a hierarchical Bayesian model that uses Murphy's maturity
-schedule method, in conjunction with informative priors, to estimate yearly
+schedule method \citep{Murphy1952}, in conjunction with informative priors, to estimate yearly
 marine survival in salmon. In addition to accounting for observation error in
 smolt and return estimates, we estimate the proportion of salmon returning
 after one winter hierarchically.
@@ -336,10 +337,16 @@ of 1SW and 2SW returns using yearly scale age data of a subsample of returns:
 
 where $p_{r,t,a}$ is the proportion of annual returns in river $r$, year $t$,
 and of spawning history $a$ (either 1SW or 2SW returns); $n_{r,t,s,a}$ is the
-number of samples in river $r$, year $t$, of spawning history $a$, and of size
+number of samples in river $r$, year $t$, of returning age $a$, and of size
 group $s$; $n_{r,t,s}$ is the total number of samples in river $r$, year $t$,
 and of size group $s$; and $N_{r,t,s}$ is the returns of salmon
 in river $r$, year $t$, and of size group $s$.
+While, ideally, we would account the uncertainty in the conversion between
+size group and returning age, this is being ignored by doing this conversion
+deterministically as shown above. However, sampling a parameter from a
+hypergeometric distribution is not possible in programming the model was
+written in (i.e. Stan).
+
 
 \subsection*{Bayesian model}
 
@@ -351,8 +358,8 @@ proportion returning after one winter (i.e. \Pg) hierarchically.
 There is an identifiability problem in the maturity schedule equations where
 the parameter estimates cannot be optimally solved \citep{Chaput2003a}.
 However, this issue can be mathematically overcome, at least partially, by
-using informative priors for all three marine survival parameters in a
-Bayesian framework.
+using informative priors for the two marine survival parameters and the maturation
+parameter in a Bayesian framework.
 This method requires abundance estimates of smolts as well as abundance estimates
 of returning one-sea-winter (1SW) and two-sea-winter adults. With these data,
 it estimates three parameters: survival in the first year at sea (\So), survival
@@ -361,8 +368,8 @@ year at sea (\Pg).
 
 Our model does not include repeat spawners and assumes that no fish spend
 three or more winters at sea before returning to spawn for the first time.
-The model also assumes that mortality in the second winter at sea (\St)
-is additional to mortality in the first winter at sea in the previous year, 
+The model also assumes that mortality in the second winter at sea (\St) for 2SW returns
+is additive to mortality in the first winter at sea in the previous year, 
 and therefore does not account for differences in environmental conditions experienced
 between 1SW and 2SW fish of the same smolt cohort during their overlapping first year at sea.
 In other words, our model assumes that the decision of returning occurs just before
@@ -420,7 +427,7 @@ log-transform equations~\ref{eq:1} and~\ref{eq:2} to obtain
 \end{align}
 
 where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates.
-Process error was included as the standard deviation of the log-transformed
+Observation error was included as the standard deviation of the log-transformed
 return estimates from equation~\ref{eq:4}:
 
 \begin{align}
@@ -441,18 +448,30 @@ and~\ref{eq:4} are log-transformed:
 \epsilon_{2,r} &\sim Normal(0, 0.01).
 \end{align}
 
-Furthermore, we use instantaneous mortality rates in the model instead of survival probabilities
-as the model is more efficient in its parameter search in log-space, and instantaneous rates
-are easy to interpret. Instantaneous rates are easily converted to survival probabilities by 
+Furthermore, we use instantaneous mortality rates in the model instead of
+survival probabilities as the model is more efficient in its parameter search
+in log-space. Instantaneous rates are easily converted to survival
+probabilities by 
 
 \begin{align}
  S_{1} &= e^{-Z_1}, \\
  S_{2} &= e^{-Z_2}. 
 \end{align}
 
-We estimate population-level mean \Pg values around which the yearly \Pg
+The priors for $Z_1$ and $Z_2$ are specified as log-normal distributions:
+
+\begin{align}
+Z_1 &\sim logNormal(1, 0.22),   \\ 
+Z_2 &\sim logNormal(0.2, 0.3).
+\end{align}
+
+These priors, when converted to yearly survival, are roughly constrained between
+0 and 0.2 for \So and between 0.2 and 0.5 for \St (Fig.~\ref{fig:priors}a).
+
+We estimate population-level mean logit \Pg values around which the yearly \Pg
 values are normally distributed. We specify different informative hyperpriors
-for \prmu and \prsig based on whether the population is 1SW-dominated or not:
+for \prmu and \prsig based on whether the population is 1SW-dominated (i.e.
+with a proportion of 1SW fish in the total returns greater than 0.9) or not:
 
 \begin{align}
     logit(P_{r,t}) &\sim Normal(\mu_r, \sigma_r) \\
@@ -464,12 +483,17 @@ for \prmu and \prsig based on whether the population is 1SW-dominated or not:
     \sigma_r &\sim halfNormal(0, 1).
 \end{align}
 
-The priors for $Z_1$ and $Z_2$ are specified as log-normal distributions:
+These priors, when converted to proportion returning, are narrowly constrained
+for 1SW-dominated populations, but relatively wide for all other populations
+(Fig.~\ref{fig:priors}b).
 
-\begin{align}
-Z_1 &\sim logNormal(1, 0.22),   \\ 
-Z_2 &\sim logNormal(0.2, 0.3).
-\end{align}
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/priors.png} \caption{Priors
+        for a) marine survival of one sea-winter (\So) and two sea-winter
+        (\St) returns, and b) probability of returning as 1SW for
+        1SW-dominated rivers (proportion 1SW > 0.9) and other rivers.}
+    \label{fig:priors} \end{figure}
+
 
 The model was written in Stan \citep{Carpenter2017} and run in R version 3.6.1
 \citep{RCoreTeam2019} using the \texttt{rstan} package version 2.19.2
@@ -549,8 +573,8 @@ populations.
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/pr-trends-faceted.png}
     \caption{Posterior estimates of \Pg for the seven rivers examined, error
-        bars indicate the 90\% credible intervals.} \label{fig:pr-faceted}
-\end{figure}
+        bars indicate the 90\% credible intervals. Year corresponds to the
+        year of 1SW return.} \label{fig:pr-faceted} \end{figure}
 
 Population-level estimates of \prmu and \prsig varied considerably among rivers. For all
 three 1SW-dominated rivers (Campbellton, Conne, and WAB), estimates of \prmu
