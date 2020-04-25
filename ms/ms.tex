@@ -426,9 +426,11 @@ log-transform equations~\ref{eq:1} and~\ref{eq:2} to obtain
     log(R_{2,r,t+1}) &= log(smolts_{r,t-1}) - Z_{1,r,t} + log(1 - Pr_{r,t})  - Z_{2,r,t+1} \label{eq:4} 
 \end{align}
 
-where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates.
-Observation error was included as the standard deviation of the log-transformed
-return estimates from equation~\ref{eq:4}:
+where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates and
+$R_{1,r,t}$ and $R_{2,r,t+1}$ are the estimated 1SW and 2SW returns in
+consecutive years, respectively. Observation error was included as the
+standard deviation of the log-transformed return estimates from
+equation~\ref{eq:4}:
 
 \begin{align}
 log(R_{obs,1,t,r}) &\sim Normal(log(R_{1,t,r}), \epsilon_{1,r}), \\
@@ -488,11 +490,12 @@ for 1SW-dominated populations, but relatively wide for all other populations
 (Fig.~\ref{fig:priors}b).
 
 \begin{figure}[htbp] \centering
-    \includegraphics[width=0.95\linewidth]{figures/priors.png} \caption{Priors
+    \includegraphics[width=0.55\linewidth]{figures/priors.png} \caption{Priors
         for a) marine survival of one sea-winter (\So) and two sea-winter
         (\St) returns, and b) probability of returning as 1SW for
         1SW-dominated rivers (proportion 1SW > 0.9) and other rivers.}
-    \label{fig:priors} \end{figure}
+    \label{fig:priors} 
+\end{figure}
 
 
 The model was written in Stan \citep{Carpenter2017} and run in R version 3.6.1
@@ -503,16 +506,51 @@ discarded as a burn-in. The models were considered to have converged when the
 $\hat R$ of all parameters were lower than 1.03 and the effective sample size 
 were higher than 500.
 
-\subsection*{Correlations among trends in survival}
+\subsection*{Correlations among trends in survival and parameters}
 
 %\comment{How do were quantitatively compare trends among rivers? DFA is an
 %option, but so is a t-test of averages before and after a certain year}
 
-We looked at the correlation of trends in \So by calculating the Pearson's
-correlation coefficient for the Z-scores of these trends. Given that the time
-series do not cover the same years, and that some rivers have missing years in
-the middle of the time series, pair-wise Pearson's tests were done using only
-the years where there is data for both rivers.
+We looked at the correlation among trends in \So between rivers by directly estimating the 
+correlation for each posterior iteration and then calculating the distribution of correlation values:
+
+\begin{equation}
+cor(Z_{1,r=1},Z_{1,r=2}) = \frac{cov(Z_{1,r=1}, Z_{1,r=2})}{\sqrt{var(Z_{1,r=1})}*\sqrt{var(Z_{1,r=2})}}\label{eq:corz1}
+\end{equation}
+
+where $Z_{1,r=1}$ and $Z_{1,r=2}$ are the $Z_1$ estimates, across years, for a
+single posterior iteration for rivers 1 and 2. 
+Given that the time series do not cover the same years, and that some rivers
+have missing years in the middle of the time series, only years with overlapping
+$Z_1$ estimates were used for the pairwise correlation estimates.
+We also estimated the correlation between the model parameters for each population using
+a similar approach as in equation~\ref{eq:corz1}. However we error-corrected the correlation estimates
+by including the error in the variance and covariance estimates.
+To get the error corrected correlations we need the error covariance ($cov_{error}$) and error
+variances ($var_{error}$). Estimates of these can be obtained by estimating the covariance of
+two parameters across all values in the posterior for a given year (rather
+than across years for each posterior iteration), which results in one
+covariance estimate for each year in each river, which then are averaged
+across years for each river. Likewise, the error variance of a parameter is estimated  
+across all values in the posterior for a given year and then are averaged
+across years for each river:
+
+\begin{equation}
+cor_{corrected}(P_{g,r},-Z_{1,r}) = \frac{cov(P_{g,r}, -Z_{1,r}) - cov_{error}(P_{g,r}, -Z_{1,r})}
+{\sqrt{var(P_{g,r})- var_{error}(P_{g,r})}*\sqrt{var(-Z_{1,r}) - var_{error}(-Z_{1,r})}}\label{eq:corparam}
+\end{equation}
+
+Lastly, to determine what parameters best explains the number of returns in
+the model (including the model uncertainty), we estimated a pseudo-$R^2$ by
+calculating the squared correlation between the estimated parameters and the
+estimated 1SW and 2SW returns ($R_{1,r,t}$ and $R_{2,r,t+1}$ in
+equation~\ref{eq:4}).
+
+% \begin{equation}
+% cor_{error}(P_{g,r},-Z_{1,r}) = \frac{cov_{error}(P_{g,r},-Z_{1,r})}{\sqrt{var_{error}(P_{g,r})}*\sqrt{var_{error}(-Z_{1,r})}}
+% \end{equation}
+
+% However correlations are not additive so to get the error corrected correlation you have to calculate
 
 \section*{Results}
 
@@ -574,7 +612,8 @@ populations.
     \includegraphics[width=0.95\linewidth]{figures/pr-trends-faceted.png}
     \caption{Posterior estimates of \Pg for the seven rivers examined, error
         bars indicate the 90\% credible intervals. Year corresponds to the
-        year of 1SW return.} \label{fig:pr-faceted} \end{figure}
+        year of 1SW return.} \label{fig:pr-faceted} 
+\end{figure}
 
 Population-level estimates of \prmu and \prsig varied considerably among rivers. For all
 three 1SW-dominated rivers (Campbellton, Conne, and WAB), estimates of \prmu
@@ -593,20 +632,66 @@ the highest estimated values of \prsig, particularly the Nashwaak (Fig~\ref{fig:
 
 \subsubsection*{Correlations}
 
-Most correlations between z-scored trends were not statistically significant, with only 
-three out of the 21 pair-wise comparisons having a p-value below 0.01 (Fig.~\ref{fig:s1-corr}a).
-When looking at the direction of the correlation, regardless whether they were
-significant or not, these spanned both positive and negative coefficients
-(Fig.~\ref{fig:s1-corr}b).
+Most correlations between trends were significant, with only five out of the
+21 pair-wise comparisons not having a p-value below 0.05
+(Fig.~\ref{fig:s1-corr}). When looking at the direction of the correlations,
+these spanned both positive and negative coefficients. All seven populations had both
+positive and negative correlations among them.
 
 \begin{figure}[htbp] \centering
-    \includegraphics[width=0.95\linewidth]{figures/corr-s1.png} \caption{
-        Correlation among Z-scores of median estimated trends in \So among
-        rivers. a) Pearson's correlation coefficients are shown in each square,
-        while colouring denotes significance of the correlation ($p \leq 0.01$), b)
-        colours denote direction and magnitude of correlation, while asterisks denote significance.}
+    \includegraphics[width=0.95\linewidth]{figures/corrplot-post-z1-corrected.png} \caption{
+        Correlations of estimated trends in $Z_1$ among rivers. 
+        Correlation coefficients are shown in each square, while colouring 
+        denotes significance of the correlation ($p \leq 0.05$) as well as the direction and magnitude.}
 \label{fig:s1-corr} 
 \end{figure}
+
+As is expected from Murphy's method, there is a strong negative correlation
+between survival in the second year at sea ($-Z_2$) and proportion returning
+as 1SW ($log(P_g)$, Fig.~\ref{fig:cor-params}). Some populations (Campbellton,
+LaHave, Nashwaak, and Saint-Jean) show a negative correlation between the
+estimated number of smolts and survival in the first year at sea, while the
+others fluctuate around zero. There is overall a positive correlation between
+survival in the first year (i.e. $-Z_1$) and proportion returning as 1SW,
+except for the Campbellton, where this correlation is negative.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/corrected-cor-ALL.png}
+    \caption{Estimated correlations among estimated model parameters.}
+    \label{fig:cor-params} 
+\end{figure}
+
+Overall $Z_1$ explained most of the variance in estimated 1SW returns they had
+the highest $R^2$ values (with the exception of the Saint-Jean,
+Fig.~\ref{fig:mu-rsq}).
+The low $R^2$ for the Saint-Jean is likely due to the negative correlation
+between survival and number of outmigrating smolts (Fig.~\ref{fig:cor-params}). 
+Populations with a lower proportion of 1SW in their returns (e.g. Trinit\'{e}
+and Saint-Jean) have a higher $R^2$ with estimated number of smolts than those
+that are 1SW-dominated, but overall, smolts estimates had low $R^2$ values in 
+all populations except the Saint-Jean (Fig.~\ref{fig:mu-rsq}).
+The proportion returning as 1SW explained a moderate amount of the variance in
+estimated 1SW returns in the Conne, LaHave, and Nashwaak, and much less in the
+other four populations.
+
+Values of $R^2$ were overall low for all parameters with regards to explaining
+the variance of estimated 2SW returns. Estimated pf $Z_2$ explained little
+variance in estimates for 2SW returns, with the Saint-Jean again being the
+exception.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/rsquared-mu-params.png}
+    \caption{Estimated $R^2$ values for the correlation between estimated
+        returns ($R_{1,r,t}$ and $R_{2,r,t+1}$) and the model parameters used
+        for their estimation (i.e. estimated smolts, mortality in the first
+        year at sea $Z_1$, mortality in the second year at sea $Z_2$, and
+        proportion returning as 1SW, \Pg). Note we did not estimate $R^2$
+        values between $R_{1,est}$ and $Z_2$ as the latter is not used to
+        estimate the former, and that only the non-1SW dominated rivers are
+        shown in the $R^2$ values of the model parameters and $R_{2,est}$.}
+    \label{fig:mu-rsq} 
+\end{figure}
+
 
 \section*{Discussion} 
 
@@ -709,7 +794,7 @@ trends in estimates of \So.
 Marine survival in the first winter at sea could be highly variable between
 populations because of the predominance of spatially local environmental drivers of survival (e.g., temperature, predation, prey abundance) 
 relative to broader-scale, even ocean-wide, drivers.
-The synchrony reported for marine survival trends at broader spatial scales \citep{Olmos2019}
+The synchrony reported for marine survival trends at broader spatial scales \citep{Massiot-Granier2014,Olmos2019}
 might be attributable to the use of stock-recruitment relationships to estimate survival,
 relationships that may have been confounded by changes in recruitment dynamics.
 There is some evidence of a correlation between return rate and growth (as
@@ -735,8 +820,8 @@ survival warrants further study at the population level.
 
 While there is little evidence that marine survival is density-dependent in
 Atlantic salmon \citep{Jonsson1998,Gibson2006}, there could potentially be
-some density-dependent processes during parts of the post-smolt migration
-period, particularly for populations that are likely to be subjected to
+some density-dependent processes during parts of the marine phase, 
+particularly for populations that are likely to be subjected to
 declining per capita population growth rates ($r$) generated by Allee effects.
 Exploring relationships between survival and population size could potentially
 shed light about the processes that have caused many of the population
@@ -807,13 +892,23 @@ It is important to note that the hierarchical structure in the estimation of
 as grilse has a genetic component associated to it \citep{Aykanat2019} and is
 not expected to vary much, within a population, among years.
 
+Thirdly, the accuracy and precision of the model's output could be different
+for different populations. For example, we know that survival in the first
+year at sea is an important driver of our estimates of 1SW returns, except for
+the Saint-Jean (Fig.~\ref{fig:mu-rsq}). Thus, estimates of \So for this
+population, which has the lowest proportion of 1SW returns out of all seven
+populations examined, are likely to be less accurate than those for the other
+populations.
+Furthermore, estimates of \St and \Pg are negatively correlated and highly uncertain,
+and this must be considered when making any inferences based on these parameters.
+
 % 5. Future directions
 Perhaps a reframing of the issue of marine survival is key to furthering our
 understanding of Atlantic salmon population dynamics. Marine survival may not
 have declined consistently, and over the same time periods, across all
 populations. 
 But the fact that it has remained at roughly similar levels as it was
-previously \emph{despite} reduced commercial fishing mortalities, suggests
+since the 1980s \emph{despite} reduced commercial fishing mortalities, suggests
 that there may well be an interaction between small population size (small
 relative to unfished population size or carrying capacity), recovery
 potential, and environmental stochasticity that has not been fully explored in
@@ -830,13 +925,8 @@ study.
 
 \section*{Acknowledgements}
 
-% We would like to thank Geir Bolstad, G\'{e}rald Chaput, Brian Dempson, and
-% Martha Robertson for their useful discussions on estimating marine survival
-% in Atlantic salmon, and Amanda Kissel for her helpful comments on the
-% manuscript. Brian Dempson and Geoff Venoit for providing the data Conne
-% River data.
-We would like to thank G\'{e}rald Chaput for his useful discussions on
-estimating marine survival in Atlantic salmon, Carmen David for her comments
+We would like to thank G\'{e}rald Chaput for his useful discussions and
+comments on the manuscript, Carmen David for her comments
 on the manuscript, and Sean Anderson for his help with implementing the
 non-centered parameterization of the model. This research was supported by the
 Atlantic Salmon Conservation Foundation and the Atlantic Salmon Research Joint
