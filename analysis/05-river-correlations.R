@@ -4,8 +4,22 @@ library(corrplot)
 
 fithierncp <- readRDS("data/stanfit_hier_ncp.rds") # hierarchical
 alldatastan <- readRDS("data/alldatastan.rds")
+
+estreturns <- tibble(river_name = rep(alldatastan$river_name, times = alldatastan$nyears),
+                     year = alldatastan$years,
+                     #logsmolts = alldatastan$logsmolts, 
+                     log1SW = alldatastan$loggrilse,
+                     log2SW = alldatastan$logSW2)
+
+propgrilse <- estreturns %>%
+  mutate(propgrilse = exp(log1SW)/(exp(log1SW)+exp(log2SW))) %>%
+  group_by(river_name) %>%
+  summarise(propgrilse = mean(propgrilse)) %>%
+  arrange(desc(propgrilse))
+
 river_names <- rep(alldatastan$river_name, times = alldatastan$nyears)
-unique_rivers <- unique(river_names) %>% sort
+#unique_rivers <- unique(river_names) %>% sort
+unique_rivers <- propgrilse$river_name
 
 z1mat <- as.matrix(fithierncp, pars = "Z1") 
 s1mat <- as.matrix(fithierncp, pars = "S1") 
@@ -22,7 +36,7 @@ riverpos <- tibble(year = alldatastan$years, river_name = river_names) %>%
 # matchingyears <- intersect(filter(riverpos, river_name == "Saint-Jean River") %>% pull(year), 
                            # filter(riverpos, river_name == "Western Arm Brook") %>% pull(year))
 
-riverpairs <- combn(unique_rivers %>% sort, 2, simplify = FALSE)
+riverpairs <- combn(unique_rivers, 2, simplify = FALSE)
 
 river_cor <- function(river1, river2) {
 # river1 <- "Saint-Jean River"
@@ -152,7 +166,7 @@ corrplot(medcor, method = "color", col = col(200),
          mar = c(0, 0, 1.8, 0),
          title = expression(paste("Corrected correlation of posterior estimates of ",italic(Z[1])))
          )
-dev.off()
+  dev.off()
 
 png("figures/corrplot-post-z1-uncorrected.png", width = 4, height = 3, units = "in", res = 300, pointsize = 7)
 corrplot(medcor_un, method = "color", col = col(200),  

@@ -142,6 +142,78 @@ for (i in unique(river_names)) {
   mu2out[mu2out$river_name == i & mu2out$correlation == "mu2 sum", 5] <- quantile(rsqsum2, 0.95)  
 }
 
+### PLOTTING PSEUDO R^2s
+
+print(mu1out, n = 28)
+print(mu2out, n = 28)
+
+mu1out %>%
+  mutate(param = word(correlation, 2)) %>%
+  mutate(river_name = fct_relevel(river_name, propgrilse$river_name)) %>%
+  filter(correlation != "mu sum") %>%
+  ggplot(aes(param, median, color = river_name)) + 
+  geom_point(position = position_dodge(-0.4)) + 
+  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, position = position_dodge(-0.4)) +
+  ylab("R squared estimates") + xlab("Parameter") + ggtitle("Correlation with R_1") +
+  coord_flip() + theme_cowplot()
+
+
+mu2out %>%
+  mutate(param = word(correlation, 2)) %>%
+  mutate(river_name = fct_relevel(river_name, propgrilse$river_name)) %>%
+  filter(correlation != "mu sum") %>%
+  filter(!river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook")) %>%
+  ggplot(aes(param, median, color = river_name)) + 
+  geom_point(position = position_dodge(-0.4)) + 
+  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, position = position_dodge(-0.4)) +
+  ylab("R squared estimates") + xlab("Parameter") + ggtitle("Correlation with R_2") +
+  coord_flip() + theme_cowplot()
+
+param_names <- c("mu" = "italic(R)['1,est']", "mu2" = "italic(R)['2,est']")
+
+bind_rows(mu1out, mu2out) %>%
+  mutate(ret = word(correlation, 1), param = word(correlation, 2)) %>%
+  mutate(river_name = fct_relevel(river_name, propgrilse$river_name)) %>%
+  mutate(param = forcats::fct_relevel(param, rev(c("logsmolts", "Z1", "Z2", "Pr", "sum")))) %>%
+  # Need to replace with NA rather than filter out so the rivers align in both facets
+  mutate(median = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2"),
+NA, median)) %>%
+  mutate(lowerCI = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2"),
+                         NA, lowerCI)) %>%
+  mutate(upperCI = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2"),
+                         NA, upperCI)) %>%
+  #filter(!(river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2")) %>%
+  filter(correlation != "mu sum" ) %>%
+  filter(correlation != "mu2 sum" ) %>%
+  ggplot(aes(param, median, color = river_name)) + 
+  geom_point(size = 2.5, position = position_dodge(-0.9)) +
+  #geom_vline(aes(xintercept = 1.5), color = "gray70", alpha = 0.5) +
+  geom_vline(aes(xintercept = 1.5), color = "gray70", alpha = 0.5) +
+  geom_vline(aes(xintercept = 2.5), color = "gray70", alpha = 0.5) +
+  geom_vline(aes(xintercept = 3.5), color = "gray70", alpha = 0.5) +
+#  geom_vline(aes(xintercept = 4.5), color = "gray70", alpha = 0.5) +
+  geom_hline(aes(yintercept = 1), color = "gray70", alpha = 0.5) +
+  geom_hline(aes(yintercept = 0), color = "gray70", alpha = 0.5) +
+  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, size = 0.7, position = position_dodge(-0.9)) +
+  ylab(bquote("Estimated R"^2)) + 
+  xlab("Parameter") + labs(color = "Population") +
+  scale_x_discrete(labels = c('logsmolts' = expression(italic(log(smolts))),
+                              'Z1'= expression(italic(Z)[1]),
+                              'Z2'= expression(italic(Z)[2]),
+                              'Pr'= expression(italic(P)[g]))) +
+  scale_y_continuous(limits = c(0, 1), expand = c(0, 0),
+                     breaks = seq(0,1, by = 0.25), labels = c("0", "0.25", "0.5", "0.75", "1")) +
+  coord_flip() + facet_grid(~ret, scales = "free_x", 
+                            labeller = as_labeller(param_names, label_parsed)) + theme_cowplot()
+ggsave("figures/rsquared-mu-params.png", width = 7.5, height = 5) 
+
+
+
+
+
+
+
+    #########################
 
 
 mu1var <- tibble(river_name = rep(unique(river_names), each = 7),
@@ -348,39 +420,7 @@ mu1var
 saveRDS(mu1var, file = "data/mu1-variance-decomposed.rds")
 saveRDS(mu2var, file = "data/mu2-variance-decomposed.rds")
 
-print(mu1out, n = 28)
-print(mu2out, n = 28)
 
-mu1out %>%
-  mutate(param = word(correlation, 2)) %>%
-ggplot(aes(param, median, color = river_name)) + 
-  geom_point(position = position_dodge(-0.4)) + 
-  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, position = position_dodge(-0.4)) +
-  ylab("R squared estimates") + xlab("Parameter") + ggtitle("Correlation with R_1") +
-  coord_flip() + theme_cowplot()
-
-
-mu2out %>%
-  mutate(param = word(correlation, 2)) %>%
-  filter(!river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook")) %>%
-ggplot(aes(param, median, color = river_name)) + 
-  geom_point(position = position_dodge(-0.4)) + 
-  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, position = position_dodge(-0.4)) +
-  ylab("R squared estimates") + xlab("Parameter") + ggtitle("Correlation with R_2") +
-  coord_flip() + theme_cowplot()
-
-bind_rows(mu1out, mu2out) %>%
-   mutate(ret = word(correlation, 1), param = word(correlation, 2)) %>%
-  mutate(param = forcats::fct_relevel(param, rev(c("logsmolts", "Z1", "Z2", "Pr", "sum")))) %>%
-    filter(!(river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2")) %>%
-  ggplot(aes(param, median, color = river_name)) + 
-  geom_point(size = 2, position = position_dodge(-0.6)) +
-  geom_vline(aes(xintercept = 1.5), color = "gray70", alpha = 0.5) +
-  geom_hline(aes(yintercept = 1), color = "gray70", alpha = 0.5) +
-  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, position = position_dodge(-0.6)) +
-  ylab("R squared estimates") + xlab("Parameter") + labs(color="River") +
-  coord_flip() + facet_grid(~ret, scale = "free_x") + theme_bw()
-ggsave("figures/rsquared-mu-params.png", width = 7, height = 4)
 
 
 rsqspost <- z1post %>%
