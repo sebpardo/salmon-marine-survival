@@ -141,6 +141,24 @@ logitprcvquant <- logitprmupost %>%
   group_by(river_name) %>%
   arrange(param, as.numeric(pos))
 
+# Calculating CV in Pr
+# prcvquant <- prmupost %>%
+#   rename(Prmu = value) %>%
+#   mutate(Prsigma = prsigmapost$value,
+#          logitPrCV = logitPrsigma/abs(logitPrmu)) %>%
+#   select(pos, river_name, value = logitPrCV) %>%
+#   mutate(param = "logitPr_CV") %>%
+#   group_by(param, pos, river_name) %>%
+#   summarise(median = median(value),
+#             q05 = quantile(value, 0.05),
+#             q25 = quantile(value, 0.25),
+#             q75 = quantile(value, 0.75),
+#             q95 = quantile(value, 0.95)) %>%
+#   group_by(river_name) %>%
+#   arrange(param, as.numeric(pos))
+
+
+
 
 prmuquant <- bind_rows(logitprmupost, logitprsigmapost, prmupost) %>%
   group_by(param, pos, river_name) %>%

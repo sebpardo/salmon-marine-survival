@@ -27,6 +27,7 @@ propgrilse <- estreturns %>%
   group_by(river_name) %>%
   summarise(propgrilse = mean(propgrilse)) %>%
   arrange(desc(propgrilse))
+saveRDS(propgrilse, file = "data/propgrilse.rds")
 
 s1post <- readRDS(file = "data/s1-posteriors.rds")
 s2post <- readRDS(file = "data/s2-posteriors.rds")
@@ -74,6 +75,11 @@ mu2out <- tibble(river_name = rep(unique(river_names), each = 5),
                  lowerCI = NaN,
                  upperCI = NaN)
 
+muallout <- tibble(river_name = rep(unique(river_names), each = 5),
+                 correlation = rep(c("muall Z1", "muall Z2", "muall Pr", "muall logsmolts", "muall sum"), 7),
+                 median = NaN,
+                 lowerCI = NaN,
+                 upperCI = NaN)
 
 # Estimating correlation squared among parameters 
 for (i in unique(river_names)) {
@@ -106,14 +112,13 @@ for (i in unique(river_names)) {
   mu1out[mu1out$river_name == i & mu1out$correlation == "mu sum", 5] <- quantile(rsqsum, 0.95)  
 }
 
-
 for (i in unique(river_names)) {
   z1sub <- filter(z1tib, river_name == i) %>% select(-river_name)
   z2sub <- filter(z2tib, river_name == i) %>% select(-river_name)
   prsub <- filter(prtib, river_name == i) %>% select(-river_name) 
   logsmoltssub <- filter(logsmoltstib, river_name == i) %>% select(-river_name) 
   mu2sub <- filter(mu2tib, river_name == i) %>% select(-river_name)
- # print(head(mu1sub))
+  # print(head(mu1sub))
   mu2z1 <- mapply(cor, mu2sub, z1sub)^2 
   mu2z2 <- mapply(cor, mu2sub, z2sub)^2 
   mu2pr <- mapply(cor, mu2sub, log(1 - prsub))^2
@@ -142,10 +147,58 @@ for (i in unique(river_names)) {
   mu2out[mu2out$river_name == i & mu2out$correlation == "mu2 sum", 5] <- quantile(rsqsum2, 0.95)  
 }
 
+
+
+# estumating correlation using all returns (R1 + R2)
+
+for (i in unique(river_names)) {
+  z1sub <- filter(z1tib, river_name == i) %>% select(-river_name)
+  z2sub <- filter(z2tib, river_name == i) %>% select(-river_name)
+  prsub <- filter(prtib, river_name == i) %>% select(-river_name) 
+  logsmoltssub <- filter(logsmoltstib, river_name == i) %>% select(-river_name) 
+  mu1sub <- filter(mu1tib, river_name == i) %>% dplyr::select(-river_name) 
+  mu2sub <- filter(mu2tib, river_name == i) %>% select(-river_name)
+  muallsub <- log(exp(mu1sub) + exp(mu2sub)) %>% as_tibble
+  # browser()
+   # print(head(mu1sub))
+  muallz1 <- mapply(cor, muallsub, z1sub)^2 
+  muallz2 <- mapply(cor, muallsub, z2sub)^2 
+  muallpr <- mapply(cor, muallsub, log(1 - prsub))^2
+  mualllogsmolts <-  mapply(cor, muallsub, logsmoltssub)^2
+  rsqsum2 <- colSums(rbind(muallz1, muallz2, muallpr, mualllogsmolts))
+  print(i)
+  print(paste("R squared mu with Z1 =", median(muallz1)))
+  print(paste("R squared mu with Z2 =", median(muallz2)))
+  print(paste("R squared mu with log(Pr) =", median(muallpr)))
+  print(paste("R squared mu with logsmolts_true =", median(mualllogsmolts)))
+  print(paste("median R squared sum =", median(rsqsum2)))
+  muallout[muallout$river_name == i & muallout$correlation == "muall Z1", 3] <- median(muallz1)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Z1", 4] <- quantile(muallz1, 0.05)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Z1", 5] <- quantile(muallz1, 0.95)  
+  muallout[muallout$river_name == i & muallout$correlation == "muall Z2", 3] <- median(muallz2)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Z2", 4] <- quantile(muallz2, 0.05)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Z2", 5] <- quantile(muallz2, 0.95)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Pr", 3] <- median(muallpr)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Pr", 4] <- quantile(muallpr, 0.05)
+  muallout[muallout$river_name == i & muallout$correlation == "muall Pr", 5] <- quantile(muallpr, 0.95)  
+  muallout[muallout$river_name == i & muallout$correlation == "muall logsmolts", 3] <- median(mualllogsmolts)
+  muallout[muallout$river_name == i & muallout$correlation == "muall logsmolts", 4] <- quantile(mualllogsmolts, 0.05)
+  muallout[muallout$river_name == i & muallout$correlation == "muall logsmolts", 5] <- quantile(mualllogsmolts, 0.95)
+  muallout[muallout$river_name == i & muallout$correlation == "muall sum", 3] <- median(rsqsum2)
+  muallout[muallout$river_name == i & muallout$correlation == "muall sum", 4] <- quantile(rsqsum2, 0.05)
+  muallout[muallout$river_name == i & muallout$correlation == "muall sum", 5] <- quantile(rsqsum2, 0.95)  
+}
+
+
+
+
+
+
 ### PLOTTING PSEUDO R^2s
 
 print(mu1out, n = 28)
 print(mu2out, n = 28)
+print(muallout, n = 28)
 
 mu1out %>%
   mutate(param = word(correlation, 2)) %>%
@@ -169,7 +222,19 @@ mu2out %>%
   ylab("R squared estimates") + xlab("Parameter") + ggtitle("Correlation with R_2") +
   coord_flip() + theme_cowplot()
 
-param_names <- c("mu" = "italic(R)['1,est']", "mu2" = "italic(R)['2,est']")
+muallout %>%
+  mutate(param = word(correlation, 2)) %>%
+  mutate(river_name = fct_relevel(river_name, propgrilse$river_name)) %>%
+  filter(correlation != "muall sum") %>%
+  #filter(!river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook")) %>%
+  ggplot(aes(param, median, color = river_name)) + 
+  geom_point(position = position_dodge(-0.4)) + 
+  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, position = position_dodge(-0.4)) +
+  ylab("R squared estimates") + xlab("Parameter") + ggtitle("Correlation with R_1 + R_2") +
+  coord_flip() + theme_cowplot()
+
+
+param_names <- c("mu" = "italic(R)['1,est']", "mu2" = "italic(R)['2,est']", "muall" = "italic(R)['1+2,est']")
 
 bind_rows(mu1out, mu2out) %>%
   mutate(ret = word(correlation, 1), param = word(correlation, 2)) %>%
@@ -205,7 +270,51 @@ NA, median)) %>%
                      breaks = seq(0,1, by = 0.25), labels = c("0", "0.25", "0.5", "0.75", "1")) +
   coord_flip() + facet_grid(~ret, scales = "free_x", 
                             labeller = as_labeller(param_names, label_parsed)) + theme_cowplot()
-ggsave("figures/rsquared-mu-params.png", width = 7.5, height = 5) 
+ggsave("figures/rsquared-mu-params-2.png", width = 7.5, height = 5) 
+
+
+bind_rows(mu1out, mu2out,muallout) %>%
+  mutate(ret = word(correlation, 1), param = word(correlation, 2)) %>%
+  mutate(river_name = fct_relevel(river_name, propgrilse$river_name)) %>%
+  mutate(param = forcats::fct_relevel(param, rev(c("logsmolts", "Z1", "Z2", "Pr", "sum")))) %>%
+  # Need to replace with NA rather than filter out so the rivers align in both facets
+  mutate(median = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2"),
+                         NA, median)) %>%
+  mutate(lowerCI = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2"),
+                          NA, lowerCI)) %>%
+  mutate(upperCI = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2"),
+                          NA, upperCI)) %>%
+  mutate(median = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & 
+                             ret == "muall" & param == "Z2"), NA, median)) %>%
+  mutate(upperCI = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & 
+                             ret == "muall" & param == "Z2"), NA, upperCI)) %>%
+  mutate(upperCI = ifelse((river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & 
+                             ret == "muall" & param == "Z2"), NA, upperCI)) %>%
+  #filter(!(river_name %in% c("Campbellton River", "Conne River", "Western Arm Brook") & ret == "mu2" & param == "Z2")) %>%
+  filter(correlation != "mu sum" ) %>%
+  filter(correlation != "mu2 sum" ) %>%
+  filter(correlation != "muall sum" ) %>%
+  ggplot(aes(param, median, color = river_name)) + 
+  geom_point(size = 2.5, position = position_dodge(-0.9)) +
+  #geom_vline(aes(xintercept = 1.5), color = "gray70", alpha = 0.5) +
+  geom_vline(aes(xintercept = 1.5), color = "gray70", alpha = 0.5) +
+  geom_vline(aes(xintercept = 2.5), color = "gray70", alpha = 0.5) +
+  geom_vline(aes(xintercept = 3.5), color = "gray70", alpha = 0.5) +
+  #  geom_vline(aes(xintercept = 4.5), color = "gray70", alpha = 0.5) +
+  geom_hline(aes(yintercept = 1), color = "gray70", alpha = 0.5) +
+  geom_hline(aes(yintercept = 0), color = "gray70", alpha = 0.5) +
+  geom_errorbar(aes(ymax = upperCI, ymin = lowerCI), width = 0.0, size = 0.7, position = position_dodge(-0.9)) +
+  ylab(bquote("Estimated R"^2)) + 
+  xlab("Parameter") + labs(color = "Population") +
+  scale_x_discrete(labels = c('logsmolts' = expression(italic(log(smolts))),
+                              'Z1'= expression(italic(Z)[1]),
+                              'Z2'= expression(italic(Z)[2]),
+                              'Pr'= expression(italic(P)[g]))) +
+  scale_y_continuous(limits = c(0, 1), expand = c(0, 0),
+                     breaks = seq(0,1, by = 0.25), labels = c("0", "0.25", "0.5", "0.75", "1")) +
+  coord_flip() + facet_grid(~ret, scales = "free_x", 
+                            labeller = as_labeller(param_names, label_parsed)) + theme_cowplot()
+ggsave("figures/rsquared-mu-params.png", width = 9.5, height = 5) 
 
 
 
