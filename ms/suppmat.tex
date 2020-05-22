@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\usepackage[top=0.85in,left=1.0in,right=1.0in,footskip=0.75in]{geometry}
+\usepackage[parfill]{parskip}
+\usepackage{setspace}
+\usepackage{lineno}
+\usepackage[hidelinks]{hyperref}
+\onehalfspacing
+
+\usepackage[round]{natbib}
+\setcitestyle{authoryear}
+\bibpunct{(}{)}{;}{a}{}{;}
+
+% Linux Libertine:
+\usepackage{textcomp}
+\usepackage[sb]{libertine}
+\usepackage[varqu,varl]{inconsolata}% sans serif typewriter
+\usepackage[libertine,bigdelims,vvarbb]{newtxmath} % bb from STIX
+\usepackage[cal=boondoxo]{mathalfa} % mathcal
+\useosf % osf for text, not math
+\usepackage[supstfm=libertinesups,%
+  supscaled=1.2,%
+  raised=-.13em]{superiors}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{xspace}
+\usepackage{xfrac} % for diagonal inline fractions in text
+%\usepackage{array} % for making whole row bold in table
+\usepackage{colortbl} % for background colours in table rows
+\usepackage{longtable}
+\usepackage{amssymb} % for \checkmark 
+\usepackage{rotating}
+%\usepackage[nolists,tablesfirst]{endfloat}
+%\DeclareDelayedFloatFlavor{sidewaystable}{table}
+\usepackage{makecell} % for \makecell in tables
+
+% omit bibliography (\nobibliography{...})
+\usepackage{bibentry}
+
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{array} % for table wrapping of columns
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\usepackage[detect-all]{siunitx} % for SI units
+
+\makeatletter\let\expandableinput\@@input\makeatother % expandable input for \input inside tables
+\setlength{\LTcapwidth}{\textwidth}
+
+% custom hyphenation:
+\hyphenation{elasmo-branchs}
+
+% Macros
+\newcommand{\So}{$S_{1}$\xspace}
+\newcommand{\St}{$S_{2}$\xspace}
+\newcommand{\Pg}{$P_r$\xspace}
+\newcommand{\Linf}{$L_{\infty}$}
+\newcommand{\DWinf}{$DW_{\infty}$}
+\newcommand{\alphat}{$\tilde{\alpha}$}
+\newcommand{\lamat}{$l_{\alpha_{mat}}$}
+\newcommand{\lamatb}{$l_{\alpha_{mat}}b$}
+\newcommand{\rmax}{$r_{max}$\xspace}
+\newcommand{\ageratio}{$\alpha_{mat}/\alpha_{max}$}
+\newcommand{\yr}{year\textsuperscript{-1}}
+\newcommand{\rsq}{$R^2$\xspace}
+% Select what to do with command \comment:  
+\newcommand{\comment}[1]{}  % comment not shown
+%\newcommand{\comment}[1]{\par {\bfseries \color{blue} #1 \par}} % comment shown
+%% END MACROS SECTION
+
+%\bibliographystyle{model2-names}
+\bibliographystyle{fishfishnourl}
+
+%%% MY MACROS
+
+% Make supplementary tables and figures start with S1 and T2
+% use \beginsupplement to reset count
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+     }
+
+\begin{document}
+\linenumbers
+
+
+\noindent
+{\Large Supplementary Materials}
+\newline
+
+\noindent
+{\Large for}
+\newline
+
+\noindent
+{\large Trends in marine survival of Atlantic salmon populations in eastern Canada}
+\newline
+
+\noindent
+Sebasti\'{a}n A. Pardo\textsuperscript{1*}, Geir H. Bolstad\textsuperscript{2}, J. Brian Dempson\textsuperscript{3}, 
+        Julien April\textsuperscript{4}, Ross A. Jones\textsuperscript{5}, %Martha J. Robertson\textsuperscript{3}, 
+        Dustin Raab\textsuperscript{6}, Jeffrey A. Hutchings\textsuperscript{1}
+\newline
+
+\noindent
+\small{\textsuperscript{1} Department of Biology, Dalhousie University, Halifax, NS, Canada\\}
+\small{\textsuperscript{2} Norwegian Institute for Nature Research (NINA), Trondheim, Norway\\}
+\small{\textsuperscript{3} Fisheries and Oceans Canada, St. John's, NL, Canada\\}
+\small{\textsuperscript{4} Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\'{e}bec, QC, Canada\\}
+\small{\textsuperscript{5} Fisheries and Oceans Canada, Moncton, NB, Canada\\}
+\small{\textsuperscript{6} Fisheries and Oceans Canada, Dartmouth, NS, Canada\\}
+\small{\textsuperscript{*} Corresponding author: spardo@dal.ca}
+\beginsupplement
+
+This Supplementary Material includes additional tables to accompany the publication. 
+
+\clearpage
+
+\subsection*{Raw smolt data used in the model}
+
+\input{smolts_tab.tex}
+
+\input{smoltscv_tab.tex}
+
+
+\subsection*{Annual smolt abundances estimates derived from the Bayesian hierarchical model}
+
+%\begin{table}[ht]
+%\centering
+%\begin{longtable}{lrrrrrr}
+%\caption{Posterior annual smolt estimates for the seven populations examined. These
+%                    estimates differ from the smolt data used as they include both observation error and shrinkage from
+%                    the hierarchical model specification.} 
+%\hline
+\input{tableS1_smolts}
+%\end{longtable}
+%\end{table}
+\clearpage
+
+\subsection*{Population-level estimates of proportion returning after one winter at sea}
+
+\input{tableS2_smu}
+
+\hspace{8em}
+
+\input{tableS3_lsmu}
+
+\input{tableS4_lssig}
+
+% \begin{figure}[htbp] \centering
+%     \includegraphics[width=0.9\linewidth]{simul_timeseries_declining.pdf} \caption{Simulated
+%         time series of returning adult salmon abundance in the six scenarios. The lines denote the
+%     simulated abundance estimates without observation error while the points are the same estimates
+% including observation error.}
+% \label{fig:simul-ts-dec} 
+% \end{figure}
+
+% \begin{figure}[htbp] \centering
+%     \includegraphics[width=0.95\linewidth]{sir_out_18_declining.pdf} \caption{Yearly
+%         estimated \So, \St, and \Pg values in the six scenarios. True values
+%         are denoted by blue circles, black circles show median estimates,
+%         error bars indicate the 25\% and 75\% quantiles.}
+% \label{fig:sir-out-dec} 
+% \end{figure}
+
+% \begin{figure}[htbp] \centering
+%     \includegraphics[width=0.7\linewidth]{simul_plots_6_declining.pdf}
+%     \caption{Comparison of estimated and true \So values in the six 
+%         scenarios. True \So values are deterministic, black circles show
+%         median \So estimates, error bars indicate the  25\% and 75\%
+%         quantiles, while the blue line denotes a linear model fit of the
+%         medians. The one-to-one relationship is shown by the gray dashed
+%         line.} 
+% \label{fig:simul-six-plots-dec} 
+% \end{figure}
+
+
+%\clearpage
+%\subsection*{References}
+\nobibliography{subset}
+
+\end{document}
+
