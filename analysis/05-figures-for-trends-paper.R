@@ -22,16 +22,24 @@ addnas <- tibble(pos = NA,
 
 s1quant <- bind_rows(s1quant, addnas)
 
+morat2 <- tibble(year = c(1984, 1984, 1998, 1998, 1998, 2000, 2000),
+                 region = c("NB","NS", "NL", "NL", "NL", "QC", "QC"),
+                 river_name = c("Nashwaak River", "LaHave River", 
+                                "Western Arm Brook", "Campbellton River", "Conne River", 
+                                "Trinité River", "Saint-Jean River"))
+
 s1trends <- ggplot(s1quant, aes(year, median)) + 
   geom_line(alpha = 0.5) + geom_point(size = 1, alpha = 0.7) + 
   ylab(expression(paste(S[1]~"estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95),width= 0.1) +
+  geom_vline(data = morat2, aes(xintercept = year), alpha = 0.4, linetype = 2) +
   facet_wrap(~river_name, ncol = 2, scales = "free_y") + theme_bw() +
   xlab("Year") +
   labs(color = "River") +
   theme(legend.position = "none", 
         legend.text =  element_text(size = 12))
 s1trends
+
 ggsave("figures/s1-trends-faceted.png", height = 6, width = 5)
 
 s1trends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
@@ -39,12 +47,13 @@ ggsave("figures/s1-trends-presentation.png", height = 4, width = 8)
 
 
 
-
 morat <- tibble(year = c(1984, 1998, 2000),
                 region = c("NS+\nNB", "NL", "QC"),
                 river_name = c("Nashwaak River", "Western Arm Brook", "Trinité River"))
 
-s1trends <- ggplot(s1quant, aes(year, median, color = river_name)) + 
+
+
+s1trendsall <- ggplot(s1quant, aes(year, median, color = river_name)) + 
   geom_line(alpha = 0.5) + geom_point(size = 2, alpha = 0.8) +
   ylab(expression(paste(S[1]~"posterior estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95), alpha = 0.5, width = 0.1) +
@@ -52,8 +61,24 @@ s1trends <- ggplot(s1quant, aes(year, median, color = river_name)) +
   theme(legend.position = "bottom") + guides(color = guide_legend(nrow = 3)) +
   geom_vline(data = morat, aes(xintercept = year, color = river_name), alpha = 0.4, linetype = 2) +
   geom_text(data = morat, aes(year-c(1.5, 1.5, -1.5), 0.23, label = region, color = river_name), show.legend = FALSE)
-s1trends
+s1trendsall
 ggsave("figures/s1-trends.png", height = 5, width = 7)
+
+
+s1trendsall <- ggplot(s1quant, aes(year, median, color = river_name)) + 
+  geom_line(alpha = 0.5) +
+  geom_point(size = 1, alpha = 0.8) +
+  ylab(expression(paste("Median"~S[1]~"posterior estimates", sep = ""))) +
+#  geom_errorbar(aes(ymin = q05, ymax = q95), alpha = 0.5, width = 0.1) +
+  theme_cowplot() + xlab("Year") + labs(color = "River") +
+  theme(legend.position = "bottom") + guides(color = guide_legend(nrow = 3)) +
+ # geom_vline(data = morat, aes(xintercept = year, color = river_name), alpha = 0.4, linetype = 2) +
+#geom_text(data = morat, aes(year-c(1.5, 1.5, -1.5), 0.23, label = region, color = river_name), show.legend = FALSE)
+  NULL
+s1trendsall
+ggsave("figures/s1-trends-all.png", height = 5, width = 7)
+
+
 
 s1zscore <- ggplot(s1quant, aes(year, zscore, color = river_name)) + 
   geom_line(alpha = 1) + #geom_point(size = 2) + 
@@ -80,6 +105,7 @@ s2trends <- ggplot(s2quant, aes(year, median)) +
   geom_line(alpha = 0.5) + geom_point(size = 1, alpha = 0.7) + 
   ylab(expression(paste(S[2]~"estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95),width= 0.1) +
+  geom_vline(data = morat2, aes(xintercept = year), alpha = 0.4, linetype = 2) +
   facet_wrap(~river_name, ncol = 2) + theme_bw() +
   xlab("Year") +
   labs(color = "River") +
@@ -93,8 +119,9 @@ ggsave("figures/s2-trends-presentation.png", height = 4, width = 8)
 
 prtrends <- ggplot(prquant, aes(year, median)) + 
   geom_line(alpha = 0.5) + geom_point(size = 1, alpha = 0.7) + 
-  ylab(expression(paste(P[r]~"estimates", sep = ""))) +
+  ylab(expression(paste(P[g]~"estimates", sep = ""))) +
   geom_errorbar(aes(ymin = q05, ymax = q95),width= 0.1) +
+  geom_vline(data = morat2, aes(xintercept = year), alpha = 0.4, linetype = 2) +
   facet_wrap(~river_name, ncol = 2) + theme_bw() +
   xlab("Year") + ylim(c(0,1))+ 
   labs(color = "River") +

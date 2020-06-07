@@ -24,7 +24,7 @@ s2df <- data.frame(Survival = S1,
                    Probability = Z2/2,
                    Parameter = "S2")
 
-df1 <- bind_rows(s1df, s2df) %>% as_tibble()
+df1 <- bind_rows(s1df, s2df) %>% as_tibble() 
 
 # Pr priors
 
@@ -55,6 +55,7 @@ prpriors
 ggsave("~/Dropbox/2020-ASCF-webinar/pr-priors.png", height = 4, width = 6)
 
 s1priors <- ggplot(df1, aes(Survival, Probability, color = Parameter)) + geom_line(size = 1.5) + 
+  scale_colour_discrete(labels = expression(italic(S[1]), italic(S[2]))) +
   theme_cowplot()
 s1priors
 ggsave("~/Dropbox/2020-ASCF-webinar/surv-priors.png", height = 4, width = 6)
