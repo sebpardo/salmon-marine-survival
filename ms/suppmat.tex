@@ -119,11 +119,85 @@ This Supplementary Material includes additional tables to accompany the publicat
 
 \clearpage
 
+\subsection*{Estimation of uncertainty in return estimates based on scale data}
+
+We incorporated the uncertainty in the conversion from size group (small and large returns) to age class (1SW and 2SW returns) by 
+approximating the variance of log return abundance of each maiden age class 1SW and 2SW by assuming that the probability 
+of the true number of returns of a given age, river, year, and size group ($N_{r,t,s,a}$) can be derived from a hypergeometric distribution
+
+\begin{equation}
+p[N_{r,t,s,a}|0:N_{r,t,s}] \sim Hypergeometric(n_{r,t,s}, 0:N_{r,t,s}, N_{r,t,s}:0, n_{r,t,s,a}),
+\end{equation}
+
+where $n_{r,t,s,a}$ is the number of scale samples in river r, year t, of returning age a, and of size group s;
+$n_{r,t,s}$ is the total number of scale samples in river r, year t, and of size group s; and
+$N_{r,t,s}$ is the total number of returns in river, year t, and of size group s.
+
+We therefore obtain a vector of the probabilities of the returns of a given river r, year t, size group s and age a (i.e. $N_{r,t,s,a}$)
+across the whole range of potential values, i.e. from zero to $N_{r,t,s}$, which provides the weighting probabilities to generate 10,000 random draws of $N_{r,t,s,a}$. 
+We then add the draws of the same age from both size groups:
+to obtain the estimates of number of returns of a given age a (i.e. 1SW or 2SW) for a given river and year ($N_{r,t,a}$):
+
+\begin{equation}
+N_{r,t,a} = N_{r,t,a,s=small}+ N_{r,t,a,s=large}.
+\end{equation}
+
+Lastly, as the coefficient of variation are comparable to standard deviations of less than 0.3 in the log-scale, we obtain
+the estimate of $\epsilon_{r,t,a}$ as 
+
+\begin{equation}
+\epsilon_{r,t,a} \approx \sigma_{log(N_{r,t,a})}.
+\end{equation}
+
+The $\epsilon_{r,t,a}$ parameter is used as the variance term in equations~8 and 9 of the manuscript.
+The data used is in Table~\ref{tab:scales} while the estimates of $\epsilon_{r,t,a}$ are provided in Tables~\ref{tab:epsilon1} and~\ref{tab:epsilon2}.
+
+There are a number of years with very few scales samples, particularly for the
+Campbellton population, and one year for this population (2011) with no scales
+samples. Under these conditions, the model provides high estimates of
+$\epsilon$, but which are somewhat constrained by the log-transformation of
+abundance draws of a uniform distribution. Thus, the value of $\epsilon$ for
+2011, the year with no scale samples, is of 0.711 (Table~\ref{tab:epsilon1}),
+which is likely an underestimate of true uncertainty given the absence of
+data. Nonetheless, the model results in small $\epsilon$ values for years
+where there are ten or more scale samples. 
+For years where there are no scale nor return samples to draw inferences from (e.g. a year for which there are no small 2SW scales, nor large scale samples),
+sometimes the error for 2SW returns cannot be estimated; in these cases we set the value of $\epsilon_{2}$ to 0.999.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/camp-scale-epsilon-example.png} \caption{Example
+        of the estimation of $\epsilon_{1}$ for two different years of data for the Campbellton population: year 2011 where
+        there were no scale samples, and year 2014 with a large number of scales samples. a) Distribution of draws of potential
+    1SW abundances, adding the estimates from both small and large returns, for the year 2011. Note that the distribution spans the whole range of
+returns (up to 5443). b) The same distribution but log-transformed, which results in a right-skewed distribution. The blue line represents the normal
+distribution fitted to the log-transformed data, from which $\epsilon_{1}$ is equal to its standard deviation. b) Distribution of draws of potential
+    1SW abundances, adding the estimates from both small and large returns, for the year 2014, which is much tightly constrained. d) The distribution
+of log-transformed abundance draws for year 2014. In this case, the normal distribution fitted is much tighter and more closely resembles the underlying histogram,
+and results in a much lower estimate of $\epsilon_{1}$.}
+    \label{fig:priors} 
+\end{figure}
+
+\clearpage
+
+\input{scales_tab.tex}
+
+\clearpage
+
+\input{epsilon1_tab.tex}
+
+\clearpage
+
+\input{epsilon2_tab.tex}
+
+\clearpage
+
 \subsection*{Raw smolt data used in the model}
 
 \input{smolts_tab.tex}
 
 \clearpage
+
+\subsection*{Error in smolt abundances used in the model}
 
 \input{smoltscv_tab.tex}
 
