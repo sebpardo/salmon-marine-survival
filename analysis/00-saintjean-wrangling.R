@@ -29,18 +29,26 @@ sjsmolts <- read_excel("raw-data/Estimation dévalaison St-Jean-Trinité 1984-20
 
 excel_sheets("raw-data/Estimation dévalaison St-Jean-Trinité 1984-2018.xlsx")
 
+sjsds <- readRDS("data/sj-scales-sd.rds") %>%
+  select(-river_name) %>% as_tibble()
 
-saintjeanreturns <- saintjean %>%
+saintjeanreturns <- left_join(saintjean, sjsds, by = "year") %>%
   mutate(smoltlag = lag(smolts),
          #smolt025lag = lag(smolt_025),
          #smolt975lag = lag(smolt_975),
          est_1SW = returns_grilse,
          est_2SWlead = lead(returns_2sw_est),
          est_RSlead = lead(returns_rs_est),
+         sdlog2SWlead = lead(sdlog2SW)
          #logsmoltsdlag = sqrt(300) * (log(smolt975lag) - log(smolt025lag))/3.92
   ) %>% 
   filter(year %in% 1990:2015) %>% # updated from 2014 to 2015
   filter(year != 1998) # removing smotl year 1997 as its missing smolt data
+
+# replacing NA and NaN values in sds with averages
+saintjeanreturns[is.na(saintjeanreturns$sdlog2SWlead),"sdlog2SWlead"] <- mean(saintjeanreturns$sdlog2SWlead, na.rm = TRUE)
+
+select(saintjeanreturns, year, contains("sd"))
 
 # Removing zeros in 2SW-RS estimates as they cannot be log transformed
 filter(saintjeanreturns, est_RSlead != 0) %>% pull(est_RSlead) %>% min(.)/2 # picking min(RS)/2
@@ -64,6 +72,8 @@ saintjeandata <- list(years = saintjeanreturns$year,
                     #N =  length(saintjeanreturns$small[-1]),
                     #Pr = rep(0.8, nrow(connereturns)))
                     returns_cv = 0.01, # ASSUMPTION, CV of return abundance counts
+                    logSW1_cv = saintjeanreturns$sdlog1SW,
+                    logSW2_cv = saintjeanreturns$sdlog2SWlead,
                     nyears = length(saintjeanreturns$year),
                     river_name = "Saint-Jean River",
                     allreturns = saintjean %>% mutate(river_name = "Saint-Jean River")

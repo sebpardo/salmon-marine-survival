@@ -17,14 +17,18 @@ trinite %>%
   geom_line() +
   scale_y_continuous("return number", sec.axis = sec_axis(~ . * 50, name = "smolt number"))
 
+trisds <- readRDS("data/trinite-scales-sd.rds") %>%
+  select(-river_name) %>% as_tibble()
 
 trinitereturns <- trinite %>%
+  left_join(trisds, by = "year") %>%
   mutate(smoltlag = lag(smolts),
          #smolt025lag = lag(smolt_025),
          #smolt975lag = lag(smolt_975),
          est_1SW = returns_grilse,
          est_2SWlead = lead(returns_2sw_est),
          est_RSlead = lead(returns_rs_est),
+         sdlog2SWlead = lead(sdlog2SW)
          #logsmoltsdlag = sqrt(300) * (log(smolt975lag) - log(smolt025lag))/3.92
         ) %>% 
   filter(year %in% 1985:2016) %>% # lead 2017 is missing 2SW and RS
@@ -55,6 +59,8 @@ trinitedata <- list(years = trinitereturns$year,
                   #N =  length(connereturns$small[-1]),
                   #Pr = rep(0.8, nrow(connereturns)))
                   returns_cv = 0.01, # ASSUMPTION, CV of return abundance counts
+                  logSW1_cv = trinitereturns$sdlog1SW,
+                  logSW2_cv = trinitereturns$sdlog2SWlead,
                   nyears = length(trinitereturns$year),
                   river_name = "Trinité River",
                   allreturns = trinite %>% mutate(river_name = "Trinité River")

@@ -3,7 +3,7 @@
 library(tidyverse)
 
 # Load Naskwaak data from salmon-inverse-matrix repo
-load("~/Dropbox/salmon-inverse-matrix/data/nashwaak.rda")
+load("~/Dropbox/salmon-inverse-matrix/olddata/nashwaak.rda")
 
 # We use the return data frame that includes wild salmon only, as it
 nashwaak_wild_returns
@@ -53,6 +53,8 @@ nashwaakdata <- list(years = nashwaakreturns$year,
   #N =  length(connereturns$small[-1]),
   #Pr = rep(0.8, nrow(connereturns)))
   returns_cv = 0.01, # ASSUMPTION, CV of return abundance counts
+  logSW1_cv = rep(0.01, length(nashwaakreturns$year)), # NO DATA SO USING VALUES BASED ON MEAN TRINITE ESTIMATES
+  logSW2_cv =  rep(0.06, length(nashwaakreturns$year)),
   nyears = length(nashwaakreturns$year),
   river_name = "Nashwaak River",
   allreturns = nashwaakdat  %>% filter(year >= 1980) %>% mutate(river_name = "Nashwaak River")

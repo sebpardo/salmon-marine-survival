@@ -423,7 +423,7 @@ for (i in unique(river_names)) {
 }
 
 #saveRDS(mu2correctedcov, file = "data/corrected-correlations.rds")
-mu2correctedcov <- readRDS("data/corrected-correlations.rds")
+#mu2correctedcov <- readRDS("data/corrected-correlations.rds")
 library(scales)
 
 mu2correctedcov

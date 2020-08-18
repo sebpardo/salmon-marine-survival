@@ -23,6 +23,9 @@ estsmolts <- pivot_longer(logsmoltstib, V1:V7500, names_to = "iteration") %>%
            # n = n()
             )
 
+# Writing csv of (unlogged) smolts_true for use as input in CPM
+write_csv(estsmolts, path = "data/smolts-true-posteriors.csv")
+
 allyears <- estsmolts %>%
   group_by(Population) %>%
   expand(Year = full_seq(Year, 1))
@@ -132,7 +135,8 @@ logsmolts_cv <- tibble(river_name = rep(alldatastan$river_name, times = alldatas
 
 (smolts_tab <- pivot_wider(logsmolts, names_from = river_name, values_from = logsmolts) %>%
   arrange(year) %>%
-  rename(`WAB` = "Western Arm Brook") %>%
+    mutate(year = year - 1) %>%
+    rename(`WAB` = "Western Arm Brook") %>%
   rename_all(. %>% gsub(" River", "", .)) %>%
   rename(Year = year) %>%
   mutate(Year = as.character(Year)))
@@ -152,6 +156,7 @@ print.xtable(xtable(smolts_tab, digits = c(0,0,rep(0,7)),
 
 (smoltscv_tab <- pivot_wider(logsmolts_cv, names_from = river_name, values_from = logsmolts_cv) %>%
     arrange(year) %>%
+    mutate(year = year - 1) %>%
     rename(`WAB` = "Western Arm Brook") %>%
     rename_all(. %>% gsub(" River", "", .)) %>%
     mutate_at(.vars = vars(-year), .funs = list(~ . * 100)) %>%
@@ -170,5 +175,112 @@ print.xtable(xtable(smoltscv_tab, digits = c(0,0,rep(1,7)),
              include.rownames = FALSE)
 
 
+##### EPSILON ESTIMATES TABLE
+
+conneepsilon <- readRDS("data/conneepsilon.rds") %>% filter(year %in% na.omit(alldatastan$yearmat[3,]))
+wabepsilon <- readRDS("data/wabepsilon.rds")  %>% filter(year %in% na.omit(alldatastan$yearmat[5,]))
+sjepsilon <- readRDS("data/qcepsilon.rds") %>% 
+  filter(river_name == "Saint-Jean River" & year %in% na.omit(alldatastan$yearmat[1,]))
+triepsilon <- readRDS("data/qcepsilon.rds") %>% 
+  filter(river_name == "Trinité River" & year %in% na.omit(alldatastan$yearmat[2,]))
+campepsilon <- readRDS("data/campepsilon.rds") %>% filter(year %in% na.omit(alldatastan$yearmat[6,]))
+
+allscales <- bind_rows(campepsilon, wabepsilon, conneepsilon, sjepsilon, triepsilon)
+
+epsilonslh <- tibble(river_name = "LaHafootnoteve River",  
+                     year = na.omit(alldatastan$yearmat[7,]),
+                     sdlog1SW = 0.01, sdlog2SW = 0.06)
+
+epsilonsnash <- tibble(river_name = "Nashwaak River",  
+                     year = na.omit(alldatastan$yearmat[4,]),
+                     sdlog1SW = 0.01, sdlog2SW = 0.06)
 
 
+epsilons <- bind_rows(allscales, epsilonslh, epsilonsnash) %>%
+  select(river_name, year, sdlog1SW, sdlog2SW)
+
+epsilons1 <- select(epsilons, river_name, year, sdlog1SW)
+epsilons2 <- select(epsilons, river_name, year, sdlog2SW)
+
+
+
+(epsilon1_tab <- epsilons1 %>%
+    arrange(river_name) %>% 
+    pivot_wider(names_from = river_name, values_from = sdlog1SW) %>%
+    arrange(year) %>%
+    rename(`WAB` = "Western Arm Brook") %>%
+    rename_all(. %>% gsub(" River", "", .)) %>%
+    # mutate_at(.vars = vars(-year), .funs = list(~ . * 100)) %>%
+    rename(Year = year) %>%
+    mutate(Year = as.character(Year)))
+
+print.xtable(xtable(epsilon1_tab, digits = c(0,0,rep(3,7)),
+                    caption = "Annual estimates of error in log-transformed abundance of 1SW returns 
+                    ($\\epsilon_{1}$) for the seven populations
+                    examined. For all populations except Nashwaak and LaHave, we estimated the CV 
+                    from the uncertainty in the conversion from size group to age using aged scale data.",
+                    label = "tab:epsilon1"),
+             file = "ms/epsilon1_tab.tex",
+             NA.string = "-",
+             size = "footnotesize",
+             tabular.environment = "longtable", floating = FALSE,
+             caption.placement = "top",
+             include.rownames = FALSE)
+
+
+(epsilon2_tab <- epsilons2 %>%
+    mutate(sdlog2SW = if_else(sdlog2SW == 0.99, 0.999, sdlog2SW)) %>%
+    arrange(river_name) %>% 
+    pivot_wider(names_from = river_name, values_from = sdlog2SW) %>%
+    arrange(year) %>%
+    mutate(year = year + 1) %>%
+    rename(`WAB` = "Western Arm Brook") %>%
+    rename_all(. %>% gsub(" River", "", .)) %>%
+    #mutate_at(.vars = vars(-year), .funs = list(~ . * 100)) %>%
+    rename(Year = year) %>%
+    mutate(Year = as.character(Year)))
+
+
+
+
+
+print.xtable(xtable(epsilon2_tab, digits = c(0,0,rep(3,7)),
+                    caption = "Annual estimates of error in log-transformed abundance of 2SW returns 
+                    ($\\epsilon_{2}$) for the seven populations
+                    examined. For all populations except Nashwaak and LaHave, we estimated the CV 
+                    from the uncertainty in the conversion from size group to age using aged scale data.",
+                    label = "tab:epsilon2"),
+             file = "ms/epsilon2_tab.tex",
+             NA.string = "-",
+             size = "footnotesize",
+             tabular.environment = "longtable", floating = FALSE,
+             caption.placement = "top",
+             include.rownames = FALSE)
+
+
+allscales_tab <- allscales %>%
+  select(Population = river_name, 
+         Year = year, 
+         #'Small returns' = n_small, 
+         #'Large returns' = n_large, 
+         #'Total returns' = totalreturns,
+         'Scales small 1SW' = scales_small_1SW,
+         'Scales small 2SW' = scales_small_2SW,
+         'Scales small other' = scales_small_other,
+         'Scales large 1SW' = scales_large_1SW,
+         'Scales large 2SW' = scales_large_2SW,
+         'Scales large other' = scales_large_other)
+         
+print.xtable(xtable(allscales_tab, digits = rep(0,9),
+                    align = c("p{0cm}","p{3cm}","p{1cm}",rep("p{1.3cm}",6)),
+                    caption = "Scale data used to estimate $\\epsilon_{1}$ 
+                    and $\\epsilon_{2}$ for five of the seven populations examined (we could not obtain
+                    scale data for Nashwaak and LaHave populations). The ``other'' category includes
+                    maiden spawners of sea age 3 or more and repeat spawners.",
+                    label = "tab:scales"),
+             file = "ms/scales_tab.tex",
+             NA.string = "-",
+             size = "footnotesize",
+             tabular.environment = "longtable", floating = FALSE,
+             caption.placement = "top",
+             include.rownames = FALSE)

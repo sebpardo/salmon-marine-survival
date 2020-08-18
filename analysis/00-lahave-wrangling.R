@@ -19,6 +19,10 @@ lhbiochar <- lahave_bio_adult %>%
   filter(!is.na(POST)) %>% # removing those with no sea ages
   mutate(LS = ifelse(RS == TRUE, "RS", paste0(POST, "SW"))) 
 
+# There are more large salmon scale samples than wild large retruns this year, so need to subset scales
+lh1995 <- lahave_bio_adult %>%
+  filter(RCYEAR == 1995)
+
 # Test that only Xs are present
 lhbiochar %>% 
   mutate(RS2 = paste0(SP1, SP2, SP3, SP4, SP5)) %>%
@@ -49,11 +53,9 @@ lhbiowide <- lhbiochar %>%
   mutate(propRS = ifelse(is.na(propRS), 0, propRS)) %>%
   filter(year >= 1995)
 
-lhbiowide
-
 # Reading return counts of WILD FISH ONLY!!!
 lhreturns <- read_excel("raw-data/lahave/Morgan Falls adult returns.xlsx", 
-           skip = 2, na = c("", "--"), n_max = 50) %>%
+                        skip = 2, na = c("", "--"), n_max = 50) %>%
   select(year = `...1`, small = `Wild Small`, large = `Wild Large`)
 
 lhreturnslong <- lhreturns %>%
@@ -74,7 +76,35 @@ lhreturns_corrected <- left_join(lhreturnslong, lhbiowide, by = c("year", "smla"
             estRS = sum(estRS),
             totalsmall = first(returns),
             totallarge = last(returns))
-  
+
+
+
+# Group numbers of scales for CV calculation
+lhwide <- lhbiowide %>%
+  select(year, smla, `1SW`:RS) %>% 
+  pivot_wider(names_from = smla, values_from = c(`1SW`:RS))
+
+lhwide[is.na(lhwide)] <- 0 # replacing NAs with zeros
+
+lhjoin <- left_join(lhreturns_corrected, lhwide, by = "year")
+
+lhscales <- lhjoin %>%
+  mutate_all(replace_na, 0) %>%
+  mutate(n_small = totalsmall, 
+         n_large = totallarge,
+         scales_small_1SW = `1SW_small`,
+         scales_small_2SW = `2SW_small`,
+         scales_small_other = `3SW_small` + `4SW_small` + `5SW_small` + RS_small,
+         scales_large_1SW = `1SW_large`, 
+         scales_large_2SW = `2SW_large`, 
+         scales_large_other = `3SW_large` + `4SW_large` + `5SW_large` + RS_large) %>%
+  select(year, n_small:scales_large_other)
+
+# NOT WORKING, more scale samples that wild returns in a few years (starting 1995) suggesting
+# that scales come from both wild and hatchery returns
+# lhsds <-  pmap(lhscales, hyper_boot) %>% bind_rows %>%
+#   select(year, starts_with("sd"))
+
 
 # Reading smolt abundance data
 lhsmolts <- read_excel("raw-data/lahave/Morgan Falls Smolt estimates.xlsx") %>%
@@ -126,6 +156,8 @@ lahavedata <- list(years = lahavereturns$year,
                      #N =  length(connereturns$small[-1]),
                      #Pr = rep(0.8, nrow(connereturns)))
                      returns_cv = 0.01, # ASSUMPTION, CV of return abundance counts
+                   logSW1_cv = rep(0.01, length(lahavereturns$year)), # NO DATA SO USING VALUES BASED ON MEAN TRINITE ESTIMATES
+                   logSW2_cv =  rep(0.06, length(lahavereturns$year)),
                      nyears = length(lahavereturns$year),
                      river_name = "LaHave River",
                      allreturns = lahavedat %>% filter(year >= 1995) %>% mutate(river_name = "LaHave River")

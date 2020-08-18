@@ -97,22 +97,27 @@ vec2mat <- function(M) {
 # corr1 <- river_cor("Saint-Jean River", "Western Arm Brook")
 
 rivercors <- lapply(riverpairs, function(x) river_cor(x[1], x[2]))
+lapply(rivercors, function(x) anyNA(x$cor))
 
-lapply(rivercors, function(x) quantile(x$cor, c(0.025, 0.5, 0.975)))
-medcor <- lapply(rivercors, function(x) quantile(x$cor, 0.5)) %>% unlist %>% vec2mat()
-corlow <- lapply(rivercors, function(x) quantile(x$cor, 0.025)) %>% unlist() %>% vec2mat()
-corhi <- lapply(rivercors, function(x) quantile(x$cor, 0.975)) %>% unlist() %>% vec2mat()
-pvals <- lapply(rivercors, function(x) quantile(x$cor, c(0.025, 0.5, 0.975))) %>%
+which(is.na(rivercors[[3]]$cor))
+which(is.na(rivercors[[4]]$cor))
+which(is.na(rivercors[[6]]$cor))
+
+lapply(rivercors, function(x) quantile(x$cor, c(0.025, 0.5, 0.975), na.rm = TRUE))
+medcor <- lapply(rivercors, function(x) quantile(x$cor, 0.5, na.rm = TRUE)) %>% unlist %>% vec2mat()
+corlow <- lapply(rivercors, function(x) quantile(x$cor, 0.025, na.rm = TRUE)) %>% unlist() %>% vec2mat()
+corhi <- lapply(rivercors, function(x) quantile(x$cor, 0.975, na.rm = TRUE)) %>% unlist() %>% vec2mat()
+pvals <- lapply(rivercors, function(x) quantile(x$cor, c(0.025, 0.5, 0.975), na.rm = TRUE)) %>%
   lapply(function(x) sign(x[1]*x[3])) %>% unlist %>% unname() %>% {ifelse(. == 1, 0.001, 0.5)} %>%
   vec2mat()
 
 ci.up <- 0.975
 ci.low <- 0.025
 
-medcor_un <- lapply(rivercors, function(x) quantile(x$uncor, 0.5)) %>% unlist %>% vec2mat()
-corlow_un <- lapply(rivercors, function(x) quantile(x$uncor, 0.025)) %>% unlist() %>% vec2mat()
-corhi_un <- lapply(rivercors, function(x) quantile(x$uncor, 0.975)) %>% unlist() %>% vec2mat()
-pvals_un <- lapply(rivercors, function(x) quantile(x$uncor, c(0.025, 0.5, 0.975))) %>%
+medcor_un <- lapply(rivercors, function(x) quantile(x$uncor, 0.5, na.rm = TRUE)) %>% unlist %>% vec2mat()
+corlow_un <- lapply(rivercors, function(x) quantile(x$uncor, 0.025, na.rm = TRUE)) %>% unlist() %>% vec2mat()
+corhi_un <- lapply(rivercors, function(x) quantile(x$uncor, 0.975, na.rm = TRUE)) %>% unlist() %>% vec2mat()
+pvals_un <- lapply(rivercors, function(x) quantile(x$uncor, c(0.025, 0.5, 0.975), na.rm = TRUE)) %>%
   lapply(function(x) sign(x[1]*x[3])) %>% unlist %>% unname() %>% {ifelse(. == 1, 0.001, 0.5)} %>%
   vec2mat()
 
