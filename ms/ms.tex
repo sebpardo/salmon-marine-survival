@@ -115,8 +115,8 @@ Jeffrey A. Hutchings\textsuperscript{1}}
 \section*{Abstract}
 
 Declines in wild Atlantic salmon (\emph{Salmo salar}) abundance throughout the north
-Atlantic are primarily attributed to declining survival at sea. 
-Whether these declines in marine survival are highly variable among populations
+Atlantic are primarily attributed to decreases in survival at sea. 
+Whether these changes in marine survival are highly variable among populations
 has not been straightforward to estimate because of
 the need to model data on both migrating smolts and returning adults and to
 simultaneously estimate multiple parameters. We fit a hierarchical Bayesian
@@ -305,7 +305,7 @@ While some studies have previously used maturity-schedule models to estimate mar
 survival for a limited number of salmon populations \citep{Chaput2003b,Hubley2011}, none
 have incorporated data extending over multiple decades, nor have they examined
 trends among more than two or three populations. 
-Here, we develop a hierarchical Bayesian model that uses Murphy's maturity
+Accordingly, we develop a hierarchical Bayesian model that uses Murphy's maturity
 schedule method \citep{Murphy1952}, in conjunction with informative priors, to estimate yearly
 marine survival in salmon. In addition to accounting for observation error in
 smolt and return estimates, we estimate the proportion of salmon returning
@@ -315,7 +315,7 @@ after one winter hierarchically.
 
 \subsection*{Data}
 
-We obtained time series data of outmigrating smolt and returning adult
+We obtained time series data of out-migrating smolt and returning adult
 abundances for seven Atlantic salmon populations in eastern Canada, encompassing a
 wide range of the species' westerly distribution. 
 Populations included the LaHave River in Nova Scotia's (NS) Southern Uplands, 
@@ -328,8 +328,8 @@ by the Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\'{e}bec.
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.85\linewidth]{figures/rivers-map2.png}
-    \caption{Locations of the seven rivers in eastern Canada with time series abundance data of outmigrating smolts and 
-    returning adults.} \label{fig:map} 
+    \caption{Locations of the seven rivers in eastern Canada with time series abundance data of out-migrating smolts and 
+    returning adult Atlantic salmon.} \label{fig:map} 
 \end{figure}
 
 \subsubsection*{Smolt and adult return abundance data}
@@ -432,7 +432,7 @@ marine survival parameters using Murphy's maturity schedule method
 
 where $R_{1,t}$ and $R_{2,t+1}$ are the estimated abundances of 1SW and 2SW
 salmon returning in years $t$ and $t+1$, respectively, $smolts_{true,t-1}$ is the
-estimated number of outmigrating smolts in year $t-1$, $S_{1,t}$ is the proportion of
+estimated number of out-migrating smolts in year $t-1$, $S_{1,t}$ is the proportion of
 salmon surviving in their first year ($t$) at sea, $P_{g,t}$ is the proportion of
 salmon that return to spawn at year $t$, $S_{2,t+1}$ is the survival in their
 second year at sea of the same cohort of salmon who did not return to spawn at
@@ -736,7 +736,7 @@ Overall, variation in return abundances was mostly explained by marine survival 
 first winter at sea, with $R^2$ estimates between 0.5 and 0.75 for all populations
 with the exception of the Saint-Jean (Fig.~\ref{fig:mu-rsq}).
 The low $R^2$ for the Saint-Jean is likely due to the negative correlation
-between survival (i.e. $-Z_1$) and number of outmigrating smolts (see Fig.~\ref{fig:cor-params}). 
+between survival (i.e. $-Z_1$) and number of out-migrating smolts (see Fig.~\ref{fig:cor-params}). 
 There are also moderately negative correlations between survival and smolts in
 the Campbellton, LaHave, and Nashwaak populations.
 These negative correlations could be indicative of density-dependent
