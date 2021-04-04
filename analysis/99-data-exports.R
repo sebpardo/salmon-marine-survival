@@ -31,20 +31,19 @@ writeMat("data/alldatasep.mat",
 
 # In the end we didn't use MATLAB export and went with a simple csv table instead:
 
-alldatastan <- readRDS("data/alldatastan.rds")
-
-returnsdata <- alldatastan[names(alldatastan) %in% c("years", "logsmolts", "logsmolts_cv", "loggrilse", "logSW2")] %>% do.call(cbind, .) %>% as_tibble
+returnsdata <- alldatastan[names(alldatastan) %in% 
+                             c("years", "logsmolts", "logsmolts_cv", "loggrilse", "logSW2",
+                               "logSW1_cv", "logSW2_cv")] %>% do.call(cbind, .) %>% as_tibble
 
 otherdata <- tibble(nyears = alldatastan$nyears,
        river_name = alldatastan$river_name,
-       returns_cv = alldatastan$returns_cv,
        logis_mu = alldatastan$logis_mu,
        logis_sigma = alldatastan$logis_sigma,
        ny = nyears) %>% uncount(ny)
 
 alldata_table <- bind_cols(returnsdata, otherdata) %>%
   select(river_name, year = years, logsmolts, logsmolts_cv, 
-         logSW1 = loggrilse, logSW2, returns_cv, everything())
+         logSW1 = loggrilse, logSW2, logSW1_cv, logSW2_cv, everything())
 
 write.csv(alldata_table, file = "data/alldata_table.csv")
 

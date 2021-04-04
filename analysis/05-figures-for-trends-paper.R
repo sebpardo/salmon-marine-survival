@@ -22,7 +22,7 @@ addnas <- tibble(pos = NA,
 
 s1quant <- bind_rows(s1quant, addnas)
 
-morat2 <- tibble(year = c(1984, 1984, 1998, 1998, 1998, 2000, 2000),
+morat2 <- tibble(year = c(1984, 1984, 1992, 1992, 1992, 2000, 2000),
                  region = c("NB","NS", "NL", "NL", "NL", "QC", "QC"),
                  river_name = c("Nashwaak River", "LaHave River", 
                                 "Western Arm Brook", "Campbellton River", "Conne River", 
@@ -47,7 +47,7 @@ ggsave("figures/s1-trends-presentation.png", height = 4, width = 8)
 
 
 
-morat <- tibble(year = c(1984, 1998, 2000),
+morat <- tibble(year = c(1984, 1992, 2000),
                 region = c("NS+\nNB", "NL", "QC"),
                 river_name = c("Nashwaak River", "Western Arm Brook", "Trinité River"))
 

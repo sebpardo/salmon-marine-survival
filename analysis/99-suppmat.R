@@ -164,7 +164,7 @@ print.xtable(xtable(smolts_tab, digits = c(0,0,rep(0,7)),
     mutate(Year = as.character(Year)))
 
 print.xtable(xtable(smoltscv_tab, digits = c(0,0,rep(1,7)),
-                    caption = "Annual coefficient of variation (CV, \\%) estimates for the seven populations
+                    caption = "Annual coefficient of variation (CV, \\%) in smolt estimates for the seven populations
                     examined. Where possible, we estimated CV directly
                     from uncertainty in smolts estimates."),
              file = "ms/smoltscv_tab.tex",
@@ -215,10 +215,9 @@ epsilons2 <- select(epsilons, river_name, year, sdlog2SW)
     mutate(Year = as.character(Year)))
 
 print.xtable(xtable(epsilon1_tab, digits = c(0,0,rep(3,7)),
-                    caption = "Annual estimates of error in log-transformed abundance of 1SW returns 
-                    ($\\epsilon_{1}$) for the seven populations
-                    examined. For all populations except Nashwaak and LaHave, we estimated the CV 
-                    from the uncertainty in the conversion from size group to age using aged scale data.",
+                    caption = "Annual error estimates derived from the standard deviation of log-transformed abundance 
+                    in 1SW returns ($\\epsilon_{1}$), derived from size group to age conversion using aged scale data 
+                    (except for Nashwaak and LaHave populations).",
                     label = "tab:epsilon1"),
              file = "ms/epsilon1_tab.tex",
              NA.string = "-",
@@ -245,10 +244,9 @@ print.xtable(xtable(epsilon1_tab, digits = c(0,0,rep(3,7)),
 
 
 print.xtable(xtable(epsilon2_tab, digits = c(0,0,rep(3,7)),
-                    caption = "Annual estimates of error in log-transformed abundance of 2SW returns 
-                    ($\\epsilon_{2}$) for the seven populations
-                    examined. For all populations except Nashwaak and LaHave, we estimated the CV 
-                    from the uncertainty in the conversion from size group to age using aged scale data.",
+                    caption = "Annual error estimates derived from the standard deviation of log-transformed abundance 
+                    in 2SW returns ($\\epsilon_{2}$), derived from size group to age conversion using aged scale data 
+                    (except for Nashwaak and LaHave populations).",
                     label = "tab:epsilon2"),
              file = "ms/epsilon2_tab.tex",
              NA.string = "-",

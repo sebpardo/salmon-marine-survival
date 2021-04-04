@@ -2,6 +2,7 @@
 
 source("analysis/99-hypergeometric-bootstrap-function.R")
 library(tidyverse)
+library(zoo)
 
 campsmolts <- read_csv("raw-data/NL-smolt-estimates-Kelly-et-al-2017-ResDoc.csv",
          na = c("-", "NA")) %>%
@@ -15,10 +16,32 @@ camp <- readRDS(file = "~/Dropbox/salmon-lh-variation/output/NL/campbellton-esti
 
 # Loading raw scale age data
 campraw <- readRDS("~/Dropbox/salmon-lh-variation/output/NL/campraw.rds") %>%
-  select(year, sl, M1, M2p, RStotal)
+  select(year, sl, M1, M2p, RStotal) 
+campraw[is.na(campraw)] <- 0 
 
-campwide <- pivot_wider(campraw, names_from = sl, values_from = c(M1, M2p, RStotal)) 
-campwide[is.na(campwide)] <- 0 # replacing NAs with zeros
+
+
+
+campwide <- pivot_wider(campraw, names_from = sl, values_from = c(M1, M2p, RStotal)) %>%
+  ungroup() %>%
+  complete(year = full_seq(year, 1))
+campwide[is.na(campwide)] <- 0 # replacing NAs with zeros 
+
+campwide %>% 
+  mutate(M1_small_mean = rollapply(M1_small, 3, mean, partial = TRUE) %>% round(),
+         M1_large_mean = rollapply(M1_large, 3, mean, partial = TRUE) %>% round(),
+         M2p_small_mean = rollapply(M2p_small, 3, mean, partial = TRUE) %>% round(),
+         M2p_large_mean = rollapply(M2p_large, 3, mean, partial = TRUE) %>% round(),
+         RStotal_small_mean = rollapply(RStotal_small, 3, mean, partial = TRUE) %>% round(),
+         RStotal_large_mean = rollapply(RStotal_large, 3, mean, partial = TRUE) %>% round()) %>%
+  mutate(M1_large = if_else(M1_small <= 3, M1_large_mean, M1_large),
+         M2p_small = if_else(M1_small <= 3, M2p_small_mean, M2p_small),
+         M2p_large = if_else(M1_small <= 5, M2p_large_mean,  M2p_large),
+         RStotal_small = if_else(M1_small <= 3, RStotal_small_mean, RStotal_small),
+         RStotal_large = if_else(M1_small <= 3, RStotal_large_mean, RStotal_large),
+         M1_small = if_else(M1_small <= 3, M1_small_mean, M1_small)) %>%
+  #select(year, M1_small, M1_small_mean) %>%
+ print(n = 25)
 
 campjoin <- left_join(camp, campwide, by = "year")
 
@@ -52,7 +75,7 @@ campscales2011 <- filter(campscales, year == 2011)
 campscales2014 <- filter(campscales, year == 2014)
 
 
-debug(hyper_boot)
+#debug(hyper_boot)
 campsds2011 <- hyper_boot(year = campscales2011$year,
          campscales2011$n_small,
          campscales2011$n_large,

@@ -10,7 +10,7 @@
 \usepackage[round,sectionbib]{natbib}
 \setcitestyle{authoryear}
 \bibpunct{(}{)}{;}{a}{}{;}
-\bibliographystyle{fishfishnourl}
+\bibliographystyle{icesjms}
 
 %\usepackage{textcomp}
 %\usepackage{libertine}
@@ -116,35 +116,55 @@ Jeffrey A. Hutchings\textsuperscript{1}}
 
 Declines in wild Atlantic salmon (\emph{Salmo salar}) abundance throughout the north
 Atlantic are primarily attributed to decreases in survival at sea. 
-Whether these changes in marine survival are highly variable among populations
-has not been straightforward to estimate because of
-the need to model data on both migrating smolts and returning adults and to
-simultaneously estimate multiple parameters. We fit a hierarchical Bayesian
-maturity schedule model to data spanning between 19 and 42 years for seven populations in eastern 
-Canada. We estimate numbers of out-migrating smolts, 
+However, comparing trends in marine survival among populations
+is challenging as data on both migrating smolts and returning adults is sparse and 
+models are difficult to parameterize due to their varied life histories. We fit a hierarchical Bayesian
+maturity schedule model to data from seven populations in eastern 
+Canada to estimate numbers of out-migrating smolts, 
 survival in the first and second year at sea, and the proportion returning after one year. 
-Trends in survival at sea were not consistent among populations, and we observe both
-positive, negative and no correlations in the trends. This suggest that large
+Trends in survival at sea were not consistent among populations; we observe 
+positive, negative and no correlations in these, suggesting that large
 scale patterns of changes in marine survival are not necessarily representative for
 individual populations. 
 Variation in return abundances was mostly explained by marine survival in the
 first winter at sea in all but one population.
 However, variation in the other components were not negligible and
-their relative importance differed among populations. Variation in number of
-out-migrating smolts had a moderate contribution on returns and probability of returning after one year was
-important in some populations. 
-% Trends were not consistent among rivers. 
-% Since 1990, \So increased at Western Arm Brook (NL)
-% and Rivi\`{e}re Saint-Jean (QC), but declined at Conne River (NL) and Rivi\'{e}re
-% de la Trinit\'{e} (QC). Since the mid-1990s, \So increased at Campbellton River (NL),
-% declined at LaHave River (NS), and fluctuated at Nashwaak
-% River (NB). Estimates of \St were highly uncertain, particularly for
-% 1SW-dominated populations; \Pg was generally stable. 
-% These results challenge the narrative that marine survival has changed in a
-% temporally consistent manner among spatially disparate populations. 
-If salmon populations do not respond in a consistent, uniform manner to
-changing environmental (including oceanic) conditions throughout their range,
+their relative importance differed among populations. 
+If salmon populations do not respond in a uniform manner to
+changing environmental conditions throughout their range,
 future research initiatives should explore why.
+
+% Declines in wild Atlantic salmon (\emph{Salmo salar}) abundance throughout the north
+% Atlantic are primarily attributed to decreases in survival at sea. 
+% Whether these changes in marine survival are highly variable among populations
+% has not been straightforward to estimate because of
+% the need to model data on both migrating smolts and returning adults and to
+% simultaneously estimate multiple parameters. We fit a hierarchical Bayesian
+% maturity schedule model to data spanning between 19 and 42 years for seven populations in eastern 
+% Canada. We estimate numbers of out-migrating smolts, 
+% survival in the first and second year at sea, and the proportion returning after one year. 
+% Trends in survival at sea were not consistent among populations, and we observe both
+% positive, negative and no correlations in the trends. This suggest that large
+% scale patterns of changes in marine survival are not necessarily representative for
+% individual populations. 
+% Variation in return abundances was mostly explained by marine survival in the
+% first winter at sea in all but one population.
+% However, variation in the other components were not negligible and
+% their relative importance differed among populations. Variation in number of
+% out-migrating smolts had a moderate contribution on returns and probability of returning after one year was
+% important in some populations. 
+% % Trends were not consistent among rivers. 
+% % Since 1990, \So increased at Western Arm Brook (NL)
+% % and Rivi\`{e}re Saint-Jean (QC), but declined at Conne River (NL) and Rivi\'{e}re
+% % de la Trinit\'{e} (QC). Since the mid-1990s, \So increased at Campbellton River (NL),
+% % declined at LaHave River (NS), and fluctuated at Nashwaak
+% % River (NB). Estimates of \St were highly uncertain, particularly for
+% % 1SW-dominated populations; \Pg was generally stable. 
+% % These results challenge the narrative that marine survival has changed in a
+% % temporally consistent manner among spatially disparate populations. 
+% If salmon populations do not respond in a consistent, uniform manner to
+% changing environmental (including oceanic) conditions throughout their range,
+% future research initiatives should explore why.
 
 % The marine phase of anadromous Atlantic salmon (\emph{Salmo salar}) is the
 % least known yet one of the most crucial with regards to population
@@ -362,10 +382,12 @@ number of samples in river $r$, year $t$, of returning age $a$, and of size
 group $s$; $n_{r,t,s}$ is the total number of samples in river $r$, year $t$,
 and of size group $s$; and $N_{r,t,s}$ is the returns of salmon
 in river $r$, year $t$, and of size group $s$.
-Ideally, we would account the uncertainty in the conversion between
-size group and returning age in the model, but given limitations of the Bayesian 
-sampler we used, we incorporated this uncertainty indirectly as an estimate
-of the variance of annual log-smolt abundance.
+For years where scale data of a given size group is lacking, 
+we averaged the proportions of annual returns
+for the closest ten years for which there was data. 
+We incorporated the uncertainty in the conversion between
+size group and returning age in the model indirectly as an estimate
+of the variance of annual log-1SW and 2SW return abundance (see Supplementary Materials).
 
 \subsection*{Bayesian model}
 
@@ -376,7 +398,7 @@ observation error in smolt and return estimates, as well as estimating the
 proportion returning after one winter (i.e. \Pg) hierarchically.
 There is an identifiability problem in the maturity schedule equations where
 the parameter estimates cannot be optimally solved \citep{Chaput2003a}.
-However, this issue can be mathematically overcome, at least partially, by
+However, this issue can be mathematically overcome by
 using informative priors for the two marine survival parameters and the maturation
 parameter in a Bayesian framework.
 This method requires abundance estimates of smolts as well as abundance estimates
@@ -438,8 +460,8 @@ salmon that return to spawn at year $t$, $S_{2,t+1}$ is the survival in their
 second year at sea of the same cohort of salmon who did not return to spawn at
 year $t$.
 
-However, to allow for normally and log-normally-distributed parameters we
-log-transform equations~\ref{eq:1} and~\ref{eq:2} to obtain
+We log-transform equations~\ref{eq:1} and~\ref{eq:2} so the model 
+is linear on the log-scale:
 
 \begin{align}
     log(R_{1,r,t}) &= log(smolts_{r,t-1}) + log(Pr_{r,t}) - Z_{1,r,t} \label{eq:3}, \\
@@ -460,9 +482,16 @@ log(R_{obs,2,t,r}) &\sim Normal(log(R_{2,t,r}), \epsilon_{2,t,r}) \label{eq:5}
 where $R_{obs,1,t,r}$ and $R_{obs,2,t,r}$ are the observed return estimates
 for year $t$ and river $r$ of 1SW and 2SW fish, respectively, $\epsilon_{1,t,r}$
 and $\epsilon_{2,t,r}$ are the process error terms. 
-These error terms are estimated indirectly by approximating the abundance of 1SW and 2SW returns
-from hypergeometric distributions based on the scale sample data. 
-We were able to obtain scale data for all but two of the populations (LaHave and Nashwaak).
+These error terms are estimated by approximating the abundance of 1SW and 2SW returns
+from hypergeometric distributions based on the scale sample data.
+We assume that the error in the total number of returns is zero; 
+the error in the total number of returns is likely minor
+compared to the error in the number of outmigrating smolts and the error due to
+a small scale sample size. Hence, ignoring the error in the returns is
+unlikely to change our results significantly.
+We were able to obtain scale data for all but two of the populations (LaHave and Nashwaak), and we 
+bootstrapped a distribution of abundances of annual 1SW and 2SW returns for each populations from hypergeometric distributions,
+from which we estimated the variance in log-space.
 See the Supplementary Materials for a description of the methodology and the resulting estimates.
 
 Furthermore, we use instantaneous mortality rates in the model instead of
@@ -517,14 +546,6 @@ for 1SW-dominated populations, but relatively wide for all other populations
 \end{figure}
 
 
-The model was written in Stan \citep{Carpenter2017} and run in R version 3.6.1
-\citep{RCoreTeam2019} using the \texttt{rstan} package version 2.19.2
-\citep{StanDevelopmentTeam2019}.
-The model was run with three chains and 3,000 iterations, with the first 1,500
-discarded as a burn-in. The models were considered to have converged when the
-$\hat R$ of all parameters were lower than 1.03 and the effective sample size 
-were higher than 500.
-
 \subsection*{Correlations among trends in survival and parameters}
 
 We looked at the correlation among trends in \So between populations by
@@ -569,10 +590,18 @@ cor_{corrected}(P_{g,r},-Z_{1,r}) = \frac{cov(P_{g,r}, -Z_{1,r}) - cov_{error}(P
 \end{equation}
 
 Lastly, to determine what parameters best explains the number of returns in
-the model (including the model uncertainty), we estimated a pseudo-$R^2$ by
+the model (including the model uncertainty), we estimated the variance in returns explained by each parameter by
 calculating the squared correlation between the estimated parameters and the
 estimated 1SW and 2SW returns ($R_{1,r,t}$ and $R_{2,r,t+1}$ in
 equation~\ref{eq:4}).
+
+The model was written in Stan \citep{Carpenter2017} and all analyses were run in R version 3.6.1
+\citep{RCoreTeam2019} using the \texttt{rstan} package version 2.19.2
+\citep{StanDevelopmentTeam2019}.
+The model was run with three chains and 3,000 iterations, with the first 1,500
+discarded as a burn-in. The models were considered to have converged when the
+$\hat R$ of all parameters were lower than 1.03 and the effective sample size 
+were higher than 500. The data and code are available at \url{https://github.com/sebpardo/salmon-marine-survival}.
 
 % \begin{equation}
 % cor_{error}(P_{g,r},-Z_{1,r}) = \frac{cov_{error}(P_{g,r},-Z_{1,r})}{\sqrt{var_{error}(P_{g,r})}*\sqrt{var_{error}(-Z_{1,r})}}
@@ -704,7 +733,7 @@ The Campbellton had mostly non-significant pairwise correlations with other popu
 where the correlation between $Z_1$ trends is positive and significant.
 Note that the uncertainty in these correlations reflect the uncertainty in the
 measurements, but not in the process (in this respect they are equivalent to
-sample variance and not population variance). 
+population variance and not sample variance). 
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/corrplot-post-z1-corrected.png} \caption{
@@ -714,7 +743,7 @@ sample variance and not population variance).
 \label{fig:s1-corr} 
 \end{figure}
 
-As is expected from Murphy's method, there is a strong negative correlation
+As is expected from Murphy's method, there are strong negative, yet highly uncertain, correlations
 between survival in the second year at sea (i.e. $-Z_2$) and proportion returning
 as 1SW ($log(P_g)$, Fig.~\ref{fig:cor-params}). Some populations (Campbellton,
 LaHave, Nashwaak, and Saint-Jean) show a negative correlation between the
@@ -781,13 +810,13 @@ Our results show that trends in marine survival among monitored Atlantic salmon
 populations in eastern Canada are highly variable, both temporally and
 spatially. Over the time periods for which data were available, some
 populations show positive trends in survival in the first winter at sea (\So)
-while other exhibits highly variable yet stable trends, and some show declines.
+while other exhibits highly variable yet stationary trends, and some show declines.
 Variation in survival at the population level can be large even within a
 region. With one possible exception (LaHave River), consistent declines in
 marine survival within populations are not evident since the onset of fishing
 moratoria.
 
-While correlations in marine survival trends between rivers are highly 
+While correlations in marine survival trends among rivers are highly 
 variable (Fig.~\ref{fig:s1-corr}),
 there are some years in which the populations appear to behave in concert:
 years 1997, 2007, and to some extent 2001 have consistently low survival across all populations 
@@ -824,10 +853,11 @@ trends in marine survival among populations can still add
 up to overall negative trends at a regional scale.
 Aside from the overarching difference in the spatial scale of data sources
 (i.e. river vs province scales), the divergence in local versus regional
-trends could be further confounded by differences in model structure, such as
-the methodology for estimating covariance, and use of stock-recruitment
+trends could be further confounded by differences in model structure (e.g.
+methods used for estimating covariance), use of stock-recruitment
 relationships \citep{Olmos2019} rather than empirical smolt count estimates 
-(present study) to estimate marine survival.
+(present study) to estimate marine survival, and separation between fishing mortality 
+and natural mortality, which was not done in our study.
 % As trends in marine survival during the first winter at sea are highly
 % independent among rivers on relatively small spatial scale, 
 Our results suggest that trends from broader geographical areas (i.e.
@@ -856,7 +886,7 @@ populations, we were unable to assess if marine survival estimates were also
 higher in the 1970s because smolt count data from this decade are not available.
 \citet{Dempson2003} described a general declining trend in marine survival for
 Newfoundland populations (except WAB). We drew the same conclusion for Conne
-River but not Campbellton River or WAB. It is not possible to draw broader
+River, but not Campbellton River or WAB. It is not possible to draw broader
 conclusions with data from only three Newfoundland populations, but it seems
 that among index rivers, those in northern Newfoundland are among those with
 the highest marine survival rates.
@@ -917,7 +947,7 @@ A recent study showed that correlations between oceanic temperature, primary
 productivity, and post-smolt survival in the North Atlantic
 are better explained by broad-scale environmental trends than regional ones
 \citep{Olmos2020}.
-However these local drivers are potentially much more difficult to quantify than 
+However, these local drivers are potentially much more difficult to quantify than 
 broader ones.
 % The synchrony reported for marine survival trends at broader spatial 
 % scales \citep{Massiot-Granier2014,Olmos2019} might be attributable to the 
@@ -974,31 +1004,31 @@ disproportionate effects on fecundity and fitness of the offspring.
 % on prey-avoidance behaviour, could potentially mediate post-smolt survival
 % \citep{Halfyard2012}.
 
-Egg-to-smolt survival in Atlantic salmon is highly variable, and perhaps more so
+Egg-to-smolt survival in Atlantic salmon is also highly variable, and perhaps more so
 than marine survival \citep{Klemetsen2003,Chaput2015}.
-While this variation is likely attributable to changes in freshwater
+While this variation is attributable to changes in freshwater
 conditions (e.g. discharge, temperature, water quality) and uncertainty in
 spawner and smolt estimates, 
 changes in the oceanic conditions that spawners experience could also be
-contributing to this variation.
-Nonetheless, our results suggests that while variation in number of smolts was 
+contributing to this variation through, for example, decreases in body condition, fecundity and hence fitness.
+However, while variation in number of smolts was 
 important for number of returns, it was considerably less important than
-survival during the first year at sea, which suggests that return abundances 
-are most strongly influenced by the marine phase of their life cycle.
-Obviously, there would be a time lag (perhaps as much as a generation) in how such effects
-might be manifest at the adult stage.
-However, given that most correlations are between relatively monotonic declines
+survival during the first year at sea, suggesting that return abundances 
+are mostly influenced by the marine phase of their life cycle.
+While there would be a generational lag in how such effects
+might be manifest at the subsequent adult stage,
+given that most correlations are between relatively monotonic declines
 in abundance coupled also monotonic increases in climatic indices
 over decadal time scales \citep[e.g.,][]{Friedland1998, Todd2008,
     Beaugrand2012}, it would be expected that these correlations would be
 maintained even if salmon abundances were lagged by a generation length.
 
-While there is little evidence that marine survival is density-dependent in
-Atlantic salmon \citep{Jonsson1998,Gibson2006}, there could potentially be
-some density-dependent processes during parts of the marine phase, 
+There is little evidence that marine survival is density-dependent in
+Atlantic salmon \citep{Jonsson1998,Gibson2006}, but these 
+density-dependent processes could occurr during parts of the marine phase, 
 particularly for populations that are 
 near historically low levels of abundance. One potential mechanism might be a
-``predator pit''. When prey populations are very small, predator-induced
+``predator pit'': when prey populations are very small, predator-induced
 mortality can also be low because the prey are simply not abundant enough to
 be generally consumed by an optimal forager (for example, search costs may be
 too high relative to the fitness benefits of consuming the prey). But as prey
@@ -1031,42 +1061,51 @@ multiplicative to \St (as the returning 1SW adults do not experience the same
 environment when they return to their natal streams as those fish who stayed
 at sea for an additional winter before returning to spawn).
 
-Secondly, the assumed hierarchical structure might not be the most appropriate
-for modelling smolt abundances. This approach results in shrinkage to the
-mean, which means that the variation in annual smolt estimates is less than
-it would be if not modelled hierarchically. 
-That said, this assumption is likely to result in more conservative trends in
-marine survival, as the variation is smolt estimates is reduced.
-This shrinkage of annual smolt abundances is also reducing the $R^2$ values 
-between smolts and estimates returns, albeit only marginally.
-It is important to note that the hierarchical structure in the estimation of
-\Pg seems like a reasonable assumption given that the probability of returning
-as grilse has a genetic component associated to it \citep{Barson2015} and its inter-annual
-variation in a given population is likely partly constrained by this.
+Secondly, our error estimates of 1SW and 2SW returns might not approximate the
+underlying uncertainty. Nonetheless, our approach likely overestimates
+uncertainty as we did not model error in annual 1SW and 2SW returns
+hierarchically within each population (see Supplementary Materials for
+details), which should produce conservative results. 
 
-Thirdly, the accuracy and precision of the model's output could be different
+% Secondly, the assumed hierarchical structure might not be the most appropriate
+% for modelling smolt abundances. This approach results in shrinkage to the
+% mean, which means that the variation in annual smolt estimates is less than
+% it would be if not modelled hierarchically. 
+% That said, this assumption is likely to result in more conservative trends in
+% marine survival, as the variation is smolt estimates is reduced.
+% This shrinkage of annual smolt abundances is also reducing the $R^2$ values 
+% between smolts and estimates returns, albeit only marginally.
+% It is important to note that the hierarchical structure in the estimation of
+% \Pg seems like a reasonable assumption given that the probability of returning
+% as grilse has a genetic component associated to it \citep{Barson2015} and its inter-annual
+% variation in a given population is likely partly constrained by this.
+
+Thirdly, the accuracy and precision of the model's output is different
 for different populations. Survival in the first year at sea is the variable
 that explains most of the variance in estimates of 1SW returns, except for the
-Saint-Jean; 
-the model does not provide reliable parameter estimates for this population
-population (as indicated by the low $R^2$ values in Fig.~\ref{fig:mu-rsq}),
+Saint-Jean; it seems 
+the model does not provide reliable parameter estimates for this population,
 which is the population with the highest proportion of 2SW returns.
-Furthermore, estimates of \St and \Pg are negatively correlated and highly
+Furthermore, estimates of \St and \Pg in all populations are negatively correlated and highly
 uncertain, and this must be considered when making any inferences based on
 these parameters for any of the populations examined.
 
 Lastly, our model does not differentiate mortality resulting from natural
-causes (e.g. predation) or from fishing; we know the latter has decreased
-dramatically due to the sequential moratoria enacted across eastern Canada, and this
-confounds the estimated trends in marine survival because we know marine survival
-will be reduced in years where commercial fishing occurred (i.e. pre-2000s).
-Thus, any increasing trends in marine survival are confounded by the additional 
+causes (e.g. predation) or from anthropogenic factors such as fishing or
+interactions with aquaculture. Fishing mortality has decreased
+significantly due to the sequential moratoria enacted across eastern Canada, and
+aquaculture, which has grown over recent decades, can negatively impact salmon survival through sea lice
+\citep{Shephard2020,Bohn2020} or genetic introgression \citep{Glover2017,Vollset2020}. 
+Thus, estimated trends in marine survival are confounded because we know marine
+survival will be reduced in years where commercial fishing occurred (i.e.
+pre-2000s), while the trends in aquaculture-related mortality are unknown.
+In other words, any increasing trends in marine survival are confounded by the additional 
 fishing mortality before the turn of the century.
 
 % 5. Future directions
 Perhaps a reframing of the issue of marine survival is key to furthering our
-understanding of Atlantic salmon population dynamics. Marine survival may not
-have declined consistently, and over the same time periods, across all
+understanding of Atlantic salmon population dynamics. Marine survival has not 
+declined consistently, and over the same time periods, across all
 populations, even if the overall trend has been one of decline. 
 But the fact that, for most of the populations examined, 
 present-day survival fluctuates around levels similar to those that have occurred in the past, 
