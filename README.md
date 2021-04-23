@@ -6,8 +6,8 @@ survival of Atlantic salmon using time series abundance data of returning
 adults and outmigrating smolts, written both in Stan and TMB (although the Stan
 version is the most up-to-date and the one used for publication). 
 
-The Stan model is defined in `analysis/survival_hier_ncp.stan` and is the one
-used for publication. The TMB model is defined in
+The Stan model used in for publication defined in `analysis/survival_hier_ncp_annualcvs.stan`. 
+The TMB model is defined in
 `analysis/lc_model_hierarchical.cpp` but was not actively developed; it is left
 here as a reference.
 

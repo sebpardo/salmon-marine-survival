@@ -1,4 +1,7 @@
 \documentclass[12pt]{article}
+%DIF LATEXDIFF DIFFERENCE FILE
+%DIF DEL ms.tex.ices-submission   Sun Apr  4 14:21:58 2021
+%DIF ADD ms.tex                   Thu Apr 22 18:44:02 2021
 \usepackage[top=0.85in,left=1.0in,right=1.0in,footskip=0.75in]{geometry}
 %\usepackage[parfill]{parskip}
 \usepackage{setspace}
@@ -88,6 +91,28 @@
 %\newcommand{\comment}[1]{}  % comment not shown
 \newcommand{\comment}[1]{\par {\bfseries \color{blue} #1 \par}} % comment shown
 %% END MACROS SECTION
+%DIF PREAMBLE EXTENSION ADDED BY LATEXDIFF
+%DIF UNDERLINE PREAMBLE %DIF PREAMBLE
+\RequirePackage[normalem]{ulem} %DIF PREAMBLE
+\RequirePackage{color}\definecolor{RED}{rgb}{1,0,0}\definecolor{BLUE}{rgb}{0,0,1} %DIF PREAMBLE
+\providecommand{\DIFaddtex}[1]{{\protect\color{blue}\uwave{#1}}} %DIF PREAMBLE
+\providecommand{\DIFdeltex}[1]{{\protect\color{red}\sout{#1}}}                      %DIF PREAMBLE
+%DIF SAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddbegin}{} %DIF PREAMBLE
+\providecommand{\DIFaddend}{} %DIF PREAMBLE
+\providecommand{\DIFdelbegin}{} %DIF PREAMBLE
+\providecommand{\DIFdelend}{} %DIF PREAMBLE
+%DIF FLOATSAFE PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFaddFL}[1]{\DIFadd{#1}} %DIF PREAMBLE
+\providecommand{\DIFdelFL}[1]{\DIFdel{#1}} %DIF PREAMBLE
+\providecommand{\DIFaddbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFaddendFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelbeginFL}{} %DIF PREAMBLE
+\providecommand{\DIFdelendFL}{} %DIF PREAMBLE
+%DIF HYPERREF PREAMBLE %DIF PREAMBLE
+\providecommand{\DIFadd}[1]{\texorpdfstring{\DIFaddtex{#1}}{#1}} %DIF PREAMBLE
+\providecommand{\DIFdel}[1]{\texorpdfstring{\DIFdeltex{#1}}{}} %DIF PREAMBLE
+%DIF END PREAMBLE EXTENSION ADDED BY LATEXDIFF
 
 \begin{document}
 \linenumbers
@@ -102,7 +127,7 @@
         Ross A. Jones\textsuperscript{5},
         %Martha J. Robertson\textsuperscript{3},
         Dustin Raab\textsuperscript{6},
-Jeffrey A. Hutchings\textsuperscript{1,7,8}}
+Jeffrey A. Hutchings\DIFdelbegin \DIFdel{\textsuperscript{1}}\DIFdelend \DIFaddbegin \DIFadd{\textsuperscript{1,7,8}}\DIFaddend }
 
 \noindent\small{\textsuperscript{1} Department of Biology, Dalhousie University, Halifax, NS, Canada\\}
 \small{\textsuperscript{2} Norwegian Institute for Nature Research (NINA), Trondheim, Norway\\}
@@ -110,9 +135,9 @@ Jeffrey A. Hutchings\textsuperscript{1,7,8}}
 \small{\textsuperscript{4} Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\'{e}bec, QC, Canada\\}
 \small{\textsuperscript{5} Fisheries and Oceans Canada, Moncton, NB, Canada\\}
 \small{\textsuperscript{6} Fisheries and Oceans Canada, Dartmouth, NS, Canada\\}
-\small{\textsuperscript{7} Institute of Marine Research, Flødevigen Marine Research Station, N-4817 His, Norway\\}
+\DIFaddbegin \small{\textsuperscript{7} Institute of Marine Research, Flødevigen Marine Research Station, N-4817 His, Norway\\}
 \small{\textsuperscript{8} Centre for Coastal Research, University of Agder, N-4604 Kristiansand, Norway\\}
-\small{\textsuperscript{*} Corresponding author: spardo@dal.ca}
+\DIFaddend \small{\textsuperscript{*} Corresponding author: spardo@dal.ca}
 
 \section*{Abstract}
 
@@ -309,8 +334,12 @@ rely on highly variable stock-recruitment relationships.
 An additional limitation has been the derivation of
 proxies (e.g., return rates), rather than direct model-based estimates, of
 marine survival.
-For example, \citet{Chaput2012a} examined return rates (i.e., ratio of adult salmon to outgoing smolts)
-as a metric of marine survival, finding that most Canadian populations
+\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citet{Chaput2012a}}\hspace{0pt}%DIFAUXCMD
+, for example, examined the return rate of smolts to adult salmon }\DIFdelend \DIFaddbegin \DIFadd{For example, \mbox{%DIFAUXCMD
+\citet{Chaput2012a} }\hspace{0pt}%DIFAUXCMD
+examined return rates (i.e., ratio of adult salmon to outgoing smolts)
+}\DIFaddend as a metric of marine survival, finding that most Canadian populations
 had experienced declining return rates.
 However, with the exception of one-sea-winter (1SW) dominated populations
 (such as most populations in Newfoundland) where return rates
@@ -348,12 +377,13 @@ Data were collected in NS, NB, and Newfoundland
 and Labrador (NL) by Fisheries and Oceans Canada (DFO) and in QC
 by the Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\'{e}bec.
 
-\begin{figure}[htbp] \centering
+\begin{figure}[htbp]
+ \centering
     \includegraphics[width=0.85\linewidth]{figures/rivers-map2.png}
     \caption{Locations of the seven rivers in eastern Canada with time series abundance data of out-migrating smolts and
     returning adult Atlantic salmon.} \label{fig:map}
-\end{figure}
 
+\end{figure}
 \subsubsection*{Smolt and adult return abundance data}
 
 Smolt and adult return abundance estimates originate from a variety of
@@ -411,12 +441,12 @@ year at sea (\Pg).
 
 Our model does not include repeat spawners and assumes that no fish spend
 three or more winters at sea before returning to spawn for the first time.
-Assuming that there are no age 3+ maiden spawners is likely to result in
+\DIFaddbegin \DIFadd{Assuming that there are no age 3+ maiden spawners is likely to result in
 slightly lower S1 and S2 estimates as these older maiden spawners that would
 be returning in later years are assumed to have died. Nonetheless, in the
 populations examined these fish comprise a very small fraction of maiden spawners,
 and we do not expect these to substantially affect our results.
-The model also assumes that mortality in the second winter at sea (\St) for 2SW returns
+}\DIFaddend The model also assumes that mortality in the second winter at sea (\St) for 2SW returns
 is additive to mortality in the first winter at sea in the previous year,
 and therefore does not account for differences in environmental conditions experienced
 between 1SW and 2SW fish of the same smolt cohort during their overlapping first year at sea.
@@ -436,11 +466,11 @@ log(smolts_{obs,t,r}) = log(smolts_{true,t,r}) + \epsilon_{t,r},
 where $smolts_{true,t,r}$ are the true smolt abundances for year $t$ and river
 $r$, and $\epsilon_{t,r}$ is the error term, which is calculated from the yearly
 coefficient of variation in the empirically derived
-smolt estimates (see Tables S4-6 in the Supplementary Material).
+smolt estimates (see \DIFdelbegin \DIFdel{Table S1 }\DIFdelend \DIFaddbegin \DIFadd{Tables S4-6 }\DIFaddend in the Supplementary \DIFdelbegin \DIFdel{material}\DIFdelend \DIFaddbegin \DIFadd{Material}\DIFaddend ).
 Where available, we used population-specific measurement error estimates for smolt abundances; if not
-available, we set the measurement error at 5 or 10\%, depending on whether the smolt
+available, we set \DIFdelbegin \DIFdel{measurement error between }\DIFdelend \DIFaddbegin \DIFadd{the measurement error at }\DIFaddend 5 \DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{or }\DIFaddend 10\%\DIFaddbegin \DIFadd{, depending on whether the smolt
 abundance estimates originated from direct counts or mark-recapture studies, respectively
-(see Table S5 in the Supplementary Material).
+}\DIFaddend (see Table \DIFdelbegin \DIFdel{S2 }\DIFdelend \DIFaddbegin \DIFadd{S5 }\DIFaddend in the Supplementary \DIFdelbegin \DIFdel{material}\DIFdelend \DIFaddbegin \DIFadd{Material}\DIFaddend ).
 The log-transformed true smolt abundances are
 normally distributed around a population-level mean and standard deviation:
 
@@ -473,8 +503,8 @@ We log-transform equations~\ref{eq:1} and~\ref{eq:2} so the model
 is linear on the log-scale:
 
 \begin{align}
-    log(R_{1,r,t}) &= log(smolts_{r,t-1}) + log(P_{g,r,t}) - Z_{1,r,t} \label{eq:3}, \\
-    log(R_{2,r,t+1}) &= log(smolts_{r,t-1}) - Z_{1,r,t} + log(1 - P_{g,r,t})  - Z_{2,r,t+1} \label{eq:4}
+    log(R_{1,r,t}) &= log(smolts_{r,t-1}) + log(\DIFdelbegin \DIFdel{Pr_{r,t}}\DIFdelend \DIFaddbegin \DIFadd{P_{g,r,t}}\DIFaddend ) - Z_{1,r,t} \label{eq:3}, \\
+    log(R_{2,r,t+1}) &= log(smolts_{r,t-1}) - Z_{1,r,t} + log(1 - \DIFdelbegin \DIFdel{Pr_{r,t}}\DIFdelend \DIFaddbegin \DIFadd{P_{g,r,t}}\DIFaddend )  - Z_{2,r,t+1} \label{eq:4}
 \end{align}
 
 where $Z_{1,r,t}$ and $Z_{2,r,t+1}$ are the instantaneous mortality rates and
@@ -523,22 +553,24 @@ Z_2 &\sim logNormal(0.2, 0.3).
 These priors, when converted to yearly survival, are roughly constrained between
 0 and 0.2 for \So and between 0.2 and 0.5 for \St (Fig.~\ref{fig:priors}a). They are
 informative only to the extent that they limit the estimates of marine survival
-to what we considered to be biologically realistic based on previous studies on
+to what we considered to be biologically realistic \DIFaddbegin \DIFadd{based on previous studies on
 return rates of 1SW-dominated populations in NL, as well as the couple studies
 that have explored survival in the second winter at sea of Atlantic salmon in
 eastern Canada.
-Although two published values are higher than 0.8 \citep{Chaput2003b,Hubley2011}, most estimates of S2 encompass a range between 0.1 and 0.6; this is the empirical basis for our prior.
+Although two published values are higher than 0.8 \mbox{%DIFAUXCMD
+\citep{Chaput2003b,Hubley2011}}\hspace{0pt}%DIFAUXCMD
+, most estimates of S2 encompass a range between 0.1 and 0.6; this is the empirical basis for our prior.
 While there is circularity in setting priors based on data for the same rivers,
 and is far from ideal, these are the only data we have available to set priors
-and the models used previously are considerably different to the one in the present study.
+and the models used previously are considerably different to the one in the present study}\DIFaddend .
 
-We estimate population-level mean probit \Pg values around which the yearly \Pg
+We estimate population-level mean \DIFdelbegin \DIFdel{logit }\DIFdelend \DIFaddbegin \DIFadd{probit }\DIFaddend \Pg values around which the yearly \Pg
 values are normally distributed. We specify different informative hyperpriors
 for \prmu and \prsig based on whether the population is 1SW-dominated (i.e.
 with a proportion of 1SW fish in the total returns greater than 0.9) or not:
 
 \begin{align}
-    probit(P_{g,t}) &\sim Normal(\mu_{Pg,r}, \sigma_{Pg,r}) \\
+    \DIFdelbegin \DIFdel{logit}\DIFdelend \DIFaddbegin \DIFadd{probit}\DIFaddend (P_{g,t}) &\sim Normal(\mu_{Pg,r}, \sigma_{Pg,r}) \\
     \mu_{Pg,r} &\sim
     \begin{cases}
        Normal(2.3, 0.4),  &\text{for 1SW-dominated populations} \\
@@ -548,20 +580,20 @@ with a proportion of 1SW fish in the total returns greater than 0.9) or not:
 \end{align}
 
 The three Newfoundland populations (WAB, Campbellton and Conne) are
-1SW-dominated, while the other four have the more generic priors for $probit(P_{g,t})$.
+1SW-dominated, while the other four have the more generic priors for \DIFdelbegin \DIFdel{$logit(P_{g,t})$}\DIFdelend \DIFaddbegin \DIFadd{$probit(P_{g,t})$}\DIFaddend .
 These priors, when converted back to a proportion, are narrowly constrained
 for 1SW-dominated populations, but relatively wide for all other populations
 (Fig.~\ref{fig:priors}b).
 
-\begin{figure}[htbp] \centering
+\begin{figure}[htbp]
+ \centering
     \includegraphics[width=0.55\linewidth]{figures/priors.png} \caption{Priors
         for a) marine survival of one sea-winter (\So) and two sea-winter
         (\St) returns, and b) probability of returning as 1SW for
         1SW-dominated populations (proportion 1SW > 0.9) and other populations.}
     \label{fig:priors}
+
 \end{figure}
-
-
 \subsection*{Correlations among trends in survival and parameters}
 
 We looked at the correlation among trends in \So between populations by
@@ -569,8 +601,7 @@ directly estimating the error-corrected correlation for each posterior
 iteration and then calculating the distribution of correlation values:
 
 \begin{equation}
-cor_{corrected}(Z_{1,r=1},Z_{1,r=2}) = \frac{cov(Z_{1,r=1}, Z_{1,r=2}) - cov_{error}(Z_{1,r=1}, Z_{1,r=2})}
-    {\sqrt{var(Z_{1,r=1}) - var_{error}(Z_{1,r=1})}*\sqrt{var(Z_{1,r=2}) - var_{error}(Z_{1,r=2})}}, \label{eq:corz1}
+cor_{corrected}(Z_{1,r=1},Z_{1,r=2}) = \frac{cov(Z_{1,r=1}, Z_{1,r=2}) - cov_{error}(Z_{1,r=1}, Z_{1,r=2})}{\sqrt{var(Z_{1,r=1}) - var_{error}(Z_{1,r=1})}*\sqrt{var(Z_{1,r=2}) - var_{error}(Z_{1,r=2})}}, \label{eq:corz1}
 \end{equation}
 
 % \begin{equation}
@@ -601,15 +632,14 @@ the same approach as in equation~\ref{eq:corz1},
 by including the error in the variance and covariance estimates:
 
 \begin{equation}
-cor_{corrected}(P_{g,r},-Z_{1,r}) = \frac{cov(P_{g,r}, -Z_{1,r}) - cov_{error}(P_{g,r}, -Z_{1,r})}
-{\sqrt{var(P_{g,r})- var_{error}(P_{g,r})}*\sqrt{var(-Z_{1,r}) - var_{error}(-Z_{1,r})}}\label{eq:corparam}.
+cor_{corrected}(P_{g,r},-Z_{1,r}) = \frac{cov(P_{g,r}, -Z_{1,r}) - cov_{error}(P_{g,r}, -Z_{1,r})}{\sqrt{var(P_{g,r})- var_{error}(P_{g,r})}*\sqrt{var(-Z_{1,r}) - var_{error}(-Z_{1,r})}}\label{eq:corparam}.
 \end{equation}
 
 Lastly, to determine what parameters best explains the number of returns in
 the model (including the model uncertainty), we estimated the variance in returns explained by each parameter by
 calculating the squared correlation between the estimated parameters and the
 estimated 1SW and 2SW returns ($R_{1,r,t}$ and $R_{2,r,t+1}$ in
-equations~\ref{eq:3} and~\ref{eq:4}).
+\DIFdelbegin \DIFdel{equation}\DIFdelend \DIFaddbegin \DIFadd{equations~\ref{eq:3} and}\DIFaddend ~\ref{eq:4}).
 
 The model was written in Stan \citep{Carpenter2017} and all analyses were run in R version 3.6.1
 \citep{RCoreTeam2019} using the \texttt{rstan} package version 2.19.2
@@ -638,7 +668,7 @@ respectively. The lowest median \So estimate was in the Trinit\'{e} in 2001,
 with an estimate of \So of 0.007, while the Conne, LaHave, and Trinit\'{e} had
 years where the lowest estimates of \So varied between 0.01 and 0.02 (Fig.~\ref{fig:s1-faceted}).
 
-Visual inspection of long-term trends among populations also varied: Campbellton,
+\DIFdelbegin \DIFdel{Long-term }\DIFdelend \DIFaddbegin \DIFadd{Visual inspection of long-term }\DIFaddend trends among populations also varied: Campbellton,
 Saint-Jean, and Western Arm Brook populations showed increases in \So
 over time, Trinit\'{e}, Conne, and LaHave populations showed decreases,
 while at Nashwaak there was an increase in median \So during the early
@@ -665,15 +695,12 @@ populations.
     \caption{Median posterior estimates of survival in the first year at sea (\So)
         for the seven populations examined.} \label{fig:s1-dual}
 \end{figure}
-
-
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/s1-trends-faceted.png}
     \caption{Posterior estimates of survival probabilities in the first year at sea (\So). Dots indicate median estimates and error
         bars indicate the 90\% credible intervals. Dashes vertical lines reflect the year the commercial fishing moratoria were enacted
     in each province.} \label{fig:s1-faceted}
 \end{figure}
-
 Estimates of survival in the second year at sea (\St) were highly uncertain in all populations, and trends
 were not apparent in most populations given the large range of the credible
 intervals in the yearly estimates (Fig.~\ref{fig:s2-faceted}). The estimates
@@ -688,47 +715,49 @@ by a decrease.
  intervals. Dashes vertical lines reflect the year the commercial fishing
  moratoria were enacted in each province.} \label{fig:s2-faceted}
 \end{figure}
-
 Estimates of \Pg were mostly stable across time, except for the LaHave and
-Nashwaak populations; for the La Have the estimates of \Pg were slightly lower in the last
+Nashwaak populations; \DIFaddbegin \DIFadd{for the La Have }\DIFaddend the estimates of \Pg were slightly lower in the last
 four years than in the previous ones, while in the Nashwaak the posterior
 estimates of \Pg in 2012 were much lower than in all other years
-(Fig.~\ref{fig:pr-faceted}). Variation in yearly estimates was highest in the
+(Fig.~\DIFdelbegin \DIFdel{\ref{fig:s2-faceted}}\DIFdelend \DIFaddbegin \DIFadd{\ref{fig:pr-faceted}}\DIFaddend ). Variation in yearly estimates was highest in the
 LaHave, Nashwaak, and Trinit\'{e}, and lowest in the 1SW-dominated
 populations.
 
-\begin{figure}[htbp] \centering
+\begin{figure}[htbp]
+ \centering
     \includegraphics[width=0.95\linewidth]{figures/pr-trends-faceted.png}
     \caption{Posterior estimates of proportion returning after one winter at sea (\Pg).
  Dots indicate median estimates and error
         bars indicate the 90\% credible intervals. Dashes vertical lines reflect the year the commercial fishing moratoria were enacted
     in each province.} \label{fig:pr-faceted}
-\end{figure}
 
+\end{figure}
 Estimates of the population-level mean (\prmu) and standard deviation (\prsig)
 of proportion returning after one year at sea varied considerably among populations.
 For all
 three 1SW-dominated populations (Campbellton, Conne, and WAB), estimates of \prmu
-were very close to 1.0 and had little variation in \prsig (Fig~\ref{fig:prmu-post}; Table S10 in the Supplementary Materials).
+were very close to 1.0 and had little variation in \prsig (Fig~\ref{fig:prmu-post}; Table \DIFdelbegin \DIFdel{S7 }\DIFdelend \DIFaddbegin \DIFadd{S10 }\DIFaddend in the Supplementary Materials).
 Estimates of \prmu were the lowest for the two QC populations, particularly the Saint-Jean (median \prmu = 0.11).
 Estimates of \prmu for the Nashwaak and the LaHave populations were close to 0.5, with these two populations having
-the highest estimated values of \prsig, particularly the Nashwaak (Fig~\ref{fig:prmu-post};  Table S11 in the Supplementary Materials).
+the highest estimated values of \prsig, particularly the Nashwaak (Fig~\ref{fig:prmu-post};  Table \DIFdelbegin \DIFdel{S8 }\DIFdelend \DIFaddbegin \DIFadd{S11 }\DIFaddend in the Supplementary Materials).
 
-Uniquely for the Saint-Jean population, yearly variation in \St is being
-estimated by the model but there is almost no variation in \Pg estimates
-(Fig.~\ref{fig:pr-faceted}) and a very low estimate of \prsig (Table S11
+\DIFaddbegin \DIFadd{Uniquely for the Saint-Jean population, yearly variation in }\St \DIFadd{is being
+estimated by the model but there is almost no variation in }\Pg \DIFadd{estimates
+(Fig.~\ref{fig:pr-faceted}) and a very low estimate of }\prsig \DIFadd{(Table S11
 in the Supplementary Materials). In other words, the variation in the relative
 proportion of 1SW and 2SW returns for Saint-Jean is being manifested as
-variation in \So and \St but not in \Pg rather than being manifested in \So
-and \Pg but not \St, which is the case for the other six populations. This
+variation in }\So \DIFadd{and }\St \DIFadd{but not in }\Pg \DIFadd{rather than being manifested in }\So
+\DIFadd{and }\Pg \DIFadd{but not }\St\DIFadd{, which is the case for the other six populations. This
 difference is likely a result of the identifiability issue with the maturity
 schedule method, which for the Saint-Jean population data, combined with the priors
-used, results in the model estimating variation in \Pg rather than \St.
+used, results in the model estimating variation in }\Pg \DIFadd{rather than }\St\DIFadd{.
+}
 
-\ref{fig:pr-faceted}
+\DIFadd{\ref{fig:pr-faceted}
+}
 
 
-% \input{table-logitprmu.tex}
+\DIFaddend % \input{table-logitprmu.tex}
 
 % \input{table-logitprsigma.tex}
 
@@ -748,11 +777,9 @@ used, results in the model estimating variation in \Pg rather than \St.
        the colored lines represent a sample of 20 posterior iteration draws for each population.}
    \label{fig:prmu-post}
 \end{figure}
-
-
 \subsubsection*{Correlations}
 
-Roughly half (11) out of the 21 pair-wise correlations were significant (p-value below 0.05)
+Roughly half (11) out of the 21 pair-wise correlations were \DIFdelbegin \DIFdel{significantt }\DIFdelend \DIFaddbegin \DIFadd{significant }\DIFaddend (p-value below 0.05)
 (Fig.~\ref{fig:s1-corr}). When looking at the direction of the correlations,
 these spanned both positive and negative coefficients. All seven populations had both
 positive and negative correlations among them.
@@ -773,7 +800,6 @@ population variance and not sample variance).
         denotes significance of the correlation ($p \leq 0.05$) as well as the direction and magnitude.}
 \label{fig:s1-corr}
 \end{figure}
-
 As is expected from Murphy's method, there are strong negative, yet highly uncertain, correlations
 between survival in the second year at sea (i.e. $-Z_2$) and proportion returning
 as 1SW ($log(P_g)$, Fig.~\ref{fig:cor-params}). Some populations (Campbellton,
@@ -786,12 +812,11 @@ except for the Campbellton population, where this correlation is negative.
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/corrected-cor-ALL.png}
-    \caption{Correlations among estimated model parameters. \emph{log(smolts)} = estimated smolt abundances in log-space, $log(P_g)$ = probit-transformed probability of
+    \caption{Correlations among estimated model parameters. \emph{log(smolts)} = estimated smolt abundances in log-space, $log(P_g)$ = \DIFdelbeginFL \DIFdelFL{logit-transformed }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{probit-transformed }\DIFaddendFL probability of
         returning after one year at sea, $-Z_1$ = marine survival in the first year at sea, and $-Z_2$ = marine survival in the second year at sea.
         Note the correlations derived from negative instantaneous total mortalities $-Z_1$ and $-Z_2$ are representative to those of marine survival $S_1$ and $S_2$.}
     \label{fig:cor-params}
 \end{figure}
-
 Overall, variation in return abundances was mostly explained by marine survival in the
 first winter at sea, with $R^2$ estimates between 0.5 and 0.75 for all populations
 with the exception of the Saint-Jean (Fig.~\ref{fig:mu-rsq}).
@@ -813,7 +838,8 @@ the variance of estimated 2SW returns. Estimates of mortality in the second wint
 explained little variance in estimates for 2SW returns, with the Saint-Jean again being the
 exception.
 
-\begin{figure}[htbp] \centering
+\begin{figure}[htbp]
+ \centering
     \includegraphics[width=0.95\linewidth]{figures/rsquared-mu-params.png}
     \caption{Estimated $R^2$ values for the correlation between estimated
         returns ($R_{1,r,t}$ and $R_{2,r,t+1}$) and the model parameters used
@@ -824,9 +850,8 @@ exception.
         estimate the former, and that only the non-1SW dominated populations are
         shown in the $R^2$ values of the model parameters and $R_{2,est}$.}
     \label{fig:mu-rsq}
+
 \end{figure}
-
-
 \section*{Discussion}
 
 % 1. Main findings
@@ -854,7 +879,7 @@ years 1997, 2007, and to some extent 2001 have consistently low survival across 
 (i.e. <5\%, Fig.~\ref{fig:s1-dual}) and little variation across populations.
 Our results also show that variation of survival in the first year at sea is the most
 important factor determining variation in number of returns, suggesting that
-changes in abundance are primarily driven by changes in early marine survival.
+changes in abundance are primarily driven by changes in \DIFaddbegin \DIFadd{early }\DIFaddend marine survival.
 Nonetheless, variation in number of out-migrating smolts and, for some populations,
 variation in probability of returning after one winter at sea, also explain
 variation in returns, thus contributing to the observed variation in return abundances.
@@ -862,8 +887,8 @@ Furthermore, the negative correlation between marine survival and smolt
 abundances in some populations is suggestive of density-dependent processes.
 We could not assess trends for survival in the second winter at sea (\St) or
 proportion returning as grilse (\Pg), as these parameter estimates were highly
-uncertain and in most cases the posteriors encompassed the entire range of
-the prior (suggesting that \St were strongly influenced by the prior).
+uncertain and \DIFaddbegin \DIFadd{in most cases the posteriors encompassed the entire range of
+the prior (suggesting that }\St \DIFaddend were strongly influenced by the \DIFdelbegin \DIFdel{priors}\DIFdelend \DIFaddbegin \DIFadd{prior)}\DIFaddend .
 
 % Perhaps there is a need to rethink
 % our understanding of Atlantic salmon population dynamics in light of the
@@ -968,7 +993,7 @@ survival rates were the same (to be able to reach an analytical solution), our
 study reached almost the same results (albeit with slightly higher
 uncertainty), using a Bayesian approach with informative priors. These overlapping
 trends obtained with two different methods suggest that our method is indeed
-a viable alternative approach for estimating marine survival.
+\DIFdelbegin \DIFdel{effective at }\DIFdelend \DIFaddbegin \DIFadd{a viable alternative approach for }\DIFaddend estimating marine survival.
 
 % 3. Potential drivers of patterns
 There are a variety of potential explanations for the highly variable trends
@@ -976,16 +1001,19 @@ in estimates marine survival in the first winter at sea.
 Environmental drivers of survival (e.g., temperature, predation, prey abundance,
 interactions with farmed salmon) could be highly localized
 relative to broader-scale, even ocean-wide, drivers.
-A large fraction of total marine mortality occurs as post-smolts in the early
-part of their outmigration through estuarine and coastal areas \citep{Halfyard2012, Chaput2019}.
+A \DIFdelbegin \DIFdel{recent studyshowed that }\DIFdelend \DIFaddbegin \DIFadd{large fraction of total marine mortality occurs as post-smolts in the early
+part of their outmigration through estuarine and coastal areas \mbox{%DIFAUXCMD
+\citep{Halfyard2012, Chaput2019}}\hspace{0pt}%DIFAUXCMD
+.
 These differences in migration routes and resulting early survival could be one
 of the main drivers of the marine survival variation observed in the present study.
-Concomitantly, correlations between oceanic temperature, primary
+Concomitantly, }\DIFaddend correlations between oceanic temperature, primary
 productivity, and post-smolt survival in the North Atlantic
 are better explained by broad-scale environmental trends than regional ones
-\citep{Olmos2020}, suggesting that ocean-wide changes also impact overall marine survival.
-It is important to consider that local drivers are potentially much more difficult to quantify than
-broader ones, which could impact our ability to detect local effects on post-smolt survival.
+\citep{Olmos2020}\DIFdelbegin \DIFdel{.
+However, these }\DIFdelend \DIFaddbegin \DIFadd{, suggesting that ocean-wide changes also impact overall marine survival.
+It is important to consider that }\DIFaddend local drivers are potentially much more difficult to quantify than
+broader ones\DIFaddbegin \DIFadd{, which could impact our ability to detect local effects on post-smolt survival}\DIFaddend .
 % The synchrony reported for marine survival trends at broader spatial
 % scales \citep{Massiot-Granier2014,Olmos2019} might be attributable to the
 % use of stock-recruitment relationships to estimate survival,
@@ -1052,13 +1080,20 @@ However, while variation in number of smolts was
 important for number of returns, it was considerably less important than
 survival during the first year at sea, suggesting that return abundances
 are mostly influenced by the marine phase of their life cycle.
-While there would be a generational lag in how climate-driven freshwater effects
-might manifest at the subsequent adult stages,
+While there would be a generational lag in how \DIFdelbegin \DIFdel{such effects
+might be }\DIFdelend \DIFaddbegin \DIFadd{climate-driven freshwater effects
+might }\DIFaddend manifest at the subsequent adult \DIFdelbegin \DIFdel{stage,
+given that most }\DIFdelend \DIFaddbegin \DIFadd{stages,
 a correlation between freshwater effects and adult abundances might be expected
-as most climate-salmon abundance correlations are between relatively monotonic declines
-in abundance coupled with monotonic increases in climatic indices
-over decadal time scales \citep[e.g.,][]{Friedland1998, Todd2008, Beaugrand2012}.
-There is little evidence that marine survival is density-dependent in
+as most climate-salmon abundance }\DIFaddend correlations are between relatively monotonic declines
+in abundance coupled \DIFdelbegin \DIFdel{also }\DIFdelend \DIFaddbegin \DIFadd{with }\DIFaddend monotonic increases in climatic indices
+over decadal time scales \citep[e.g.,][]{Friedland1998, Todd2008, Beaugrand2012}\DIFdelbegin \DIFdel{, it would be expected that these correlations would be
+maintained even if salmon abundances were lagged by a generation length.
+}%DIFDELCMD < 
+
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \DIFadd{.
+}\DIFaddend There is little evidence that marine survival is density-dependent in
 Atlantic salmon \citep{Jonsson1998,Gibson2006}, but these
 density-dependent processes could occurr during parts of the marine phase,
 particularly for populations that are
@@ -1068,10 +1103,10 @@ mortality can also be low because the prey are simply not abundant enough to
 be generally consumed by an optimal forager (for example, search costs may be
 too high relative to the fitness benefits of consuming the prey). But as prey
 abundance increases from very low levels, predator-induced mortality might
-also increase as preference for the prey increases.
+also increase as preference for the prey increases\DIFaddbegin \DIFadd{.
 Another potential mechanism is if smolt quantity and quality are negatively
 correlated; abundant smolt cohorts likely experience high competition in rivers and thus
-attain smaller size or reduced body condition than less abundant cohorts.
+attain smaller size or reduced body condition than less abundant cohorts}\DIFaddend .
 Correlations between return estimates and survival were negative for
 some populations (Fig.~\ref{fig:cor-params}),
 indicating that there may be some compensatory density dependent effects during the

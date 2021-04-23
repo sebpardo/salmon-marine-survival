@@ -3,7 +3,7 @@ DRAFT = Pardo-marine-survival
 MAIN_BIB = /home/mavzz/Documents/bib/library.bib
 TODAY = $(shell date +%Y-%m-%d)
 
-all: pdf 
+all: pdf draft diff
 
 pdf: 
 	latexmk -g $(MS).tex
@@ -37,3 +37,12 @@ subset.bib: $(MS).aux
 	sed -i 's/\(annote\)\(\s\+= {in press}\)/year\2/' $@
 	sed -i 's/\(annote\)\(\s\+= {in review}\)/year\2/' $@
 	cat cosewic2010.bib >> $@
+
+diff:
+	latexdiff ms.tex.ices-submission $(MS).tex > ices-revisions-diff.tex
+	pdflatex ices-revisions-diff.tex 
+	bibtex ices-revisions-diff.aux 
+	pdflatex ices-revisions-diff.tex 
+	pdflatex ices-revisions-diff.tex 
+	
+

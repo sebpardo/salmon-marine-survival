@@ -281,8 +281,8 @@ pop_logitpr <- median_logitpr %>%
 ggplot(pop_logitpr, aes(x, y, color = Population)) + geom_line(aes(group = Population), size = 2)
 
 p1 + geom_line(inherit.aes = FALSE, data = pop_logitpr, aes(x, y, group = Population), 
-               size = 1.3, color = "gray40", alpha = 0.5) + 
+               size = 1.3, color = "gray20", alpha = 0.5) + 
   coord_cartesian(ylim = c(0, 5)) + guides(color = guide_legend(override.aes = list(size = 1.3, alpha = 1))) +
   theme_cowplot() +
-  xlab("Proportion returning after first winter at sea") + ylab("Probability")
+  xlab("Proportion returning after first winter at sea") + ylab("Density")
 ggsave("figures/logitpr-mu-sigma-post.png", width = 7, height = 4)

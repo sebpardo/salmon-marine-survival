@@ -24,7 +24,7 @@ estsmolts <- pivot_longer(logsmoltstib, V1:V7500, names_to = "iteration") %>%
             )
 
 # Writing csv of (unlogged) smolts_true for use as input in CPM
-write_csv(estsmolts, path = "data/smolts-true-posteriors.csv")
+write_csv(estsmolts, file = "data/smolts-true-posteriors.csv")
 
 allyears <- estsmolts %>%
   group_by(Population) %>%
@@ -143,7 +143,7 @@ logsmolts_cv <- tibble(river_name = rep(alldatastan$river_name, times = alldatas
 
 print.xtable(xtable(smolts_tab, digits = c(0,0,rep(0,7)),
                     display= c("s", "s", rep("f",7)),
-                    caption = "Empirical annual smolt estimates for the seven populations examined."),
+                    caption = "Empirically estimated annual smolt abundances for the seven populations examined. Smolt abundance estimates from the Trinité, Saint-Jean, LaHave, Nashwaak, and Conne populations were obtained using a mark-recapture approach, while estimates from the WAB and Campbellton populations were obtained by direct counts using fish counting fences."),
              file = "ms/smolts_tab.tex",
              size = "footnotesize",
              format.args = list(big.mark = ","),
@@ -187,7 +187,7 @@ campepsilon <- readRDS("data/campepsilon.rds") %>% filter(year %in% na.omit(alld
 
 allscales <- bind_rows(campepsilon, wabepsilon, conneepsilon, sjepsilon, triepsilon)
 
-epsilonslh <- tibble(river_name = "LaHafootnoteve River",  
+epsilonslh <- tibble(river_name = "LaHave River",  
                      year = na.omit(alldatastan$yearmat[7,]),
                      sdlog1SW = 0.01, sdlog2SW = 0.06)
 

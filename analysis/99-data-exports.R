@@ -1,6 +1,6 @@
 # Data export to share with Maria Tirronen for change point analysis
 library(tidyverse)
-library(R.matlab)
+# library(R.matlab)
 alldata <- readRDS("data/alldata.rds")
 alldatastan <- readRDS("data/alldatastan.rds")
 
@@ -15,19 +15,19 @@ names(alldata)[names(alldata) == "loggrilse"] <- "logSW1"
 
 saveRDS(alldata, "data/alldata_export.rds")
 
-writeMat("data/alldata.mat", alldata = alldata)
-writeMat("data/alldatasep.mat", 
-         years = alldata$years,
-         logsmolts = alldata$logsmolts,
-         logsmolts_cv = alldata$logsmolts_cv,
-         logSW1 = alldata$logSW1,
-         logSW2 = alldata$logSW2,
-         returns_cv = alldata$returns_cv,
-         nyears = alldata$nyears,
-         river_name = alldata$river_name,
-         logis_mu = alldata$logis_mu,
-         logis_sigma = alldata$logis_sigma
-         )
+# writeMat("data/alldata.mat", alldata = alldata)
+# writeMat("data/alldatasep.mat", 
+#          years = alldata$years,
+#          logsmolts = alldata$logsmolts,
+#          logsmolts_cv = alldata$logsmolts_cv,
+#          logSW1 = alldata$logSW1,
+#          logSW2 = alldata$logSW2,
+#          returns_cv = alldata$returns_cv,
+#          nyears = alldata$nyears,
+#          river_name = alldata$river_name,
+#          logis_mu = alldata$logis_mu,
+#          logis_sigma = alldata$logis_sigma
+#          )
 
 # In the end we didn't use MATLAB export and went with a simple csv table instead:
 

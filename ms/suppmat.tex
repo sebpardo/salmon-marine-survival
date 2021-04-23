@@ -28,7 +28,7 @@
 %\usepackage{array} % for making whole row bold in table
 \usepackage{colortbl} % for background colours in table rows
 \usepackage{longtable}
-\usepackage{amssymb} % for \checkmark 
+\usepackage{amssymb} % for \checkmark
 \usepackage{rotating}
 %\usepackage[nolists,tablesfirst]{endfloat}
 %\DeclareDelayedFloatFlavor{sidewaystable}{table}
@@ -64,7 +64,7 @@
 \newcommand{\ageratio}{$\alpha_{mat}/\alpha_{max}$}
 \newcommand{\yr}{year\textsuperscript{-1}}
 \newcommand{\rsq}{$R^2$\xspace}
-% Select what to do with command \comment:  
+% Select what to do with command \comment:
 \newcommand{\comment}[1]{}  % comment not shown
 %\newcommand{\comment}[1]{\par {\bfseries \color{blue} #1 \par}} % comment shown
 %% END MACROS SECTION
@@ -100,9 +100,9 @@
 \newline
 
 \noindent
-Sebasti\'{a}n A. Pardo\textsuperscript{1*}, Geir H. Bolstad\textsuperscript{2}, J. Brian Dempson\textsuperscript{3}, 
-        Julien April\textsuperscript{4}, Ross A. Jones\textsuperscript{5}, %Martha J. Robertson\textsuperscript{3}, 
-        Dustin Raab\textsuperscript{6}, Jeffrey A. Hutchings\textsuperscript{1}
+Sebasti\'{a}n A. Pardo\textsuperscript{1*}, Geir H. Bolstad\textsuperscript{2}, J. Brian Dempson\textsuperscript{3},
+        Julien April\textsuperscript{4}, Ross A. Jones\textsuperscript{5}, %Martha J. Robertson\textsuperscript{3},
+        Dustin Raab\textsuperscript{6}, Jeffrey A. Hutchings\textsuperscript{1,7,8}
 \newline
 
 \noindent
@@ -112,17 +112,19 @@ Sebasti\'{a}n A. Pardo\textsuperscript{1*}, Geir H. Bolstad\textsuperscript{2}, 
 \small{\textsuperscript{4} Minist\`{e}re des For\^{e}ts, de la Faune et des Parcs, Qu\'{e}bec, QC, Canada\\}
 \small{\textsuperscript{5} Fisheries and Oceans Canada, Moncton, NB, Canada\\}
 \small{\textsuperscript{6} Fisheries and Oceans Canada, Dartmouth, NS, Canada\\}
+\small{\textsuperscript{7} Institute of Marine Research, Flødevigen Marine Research Station, N-4817 His, Norway\\}
+\small{\textsuperscript{8} Centre for Coastal Research, University of Agder, N-4604 Kristiansand, Norway\\}
 \small{\textsuperscript{*} Corresponding author: spardo@dal.ca}
 \beginsupplement
 
-This Supplementary Material includes additional tables to accompany the publication. 
+This Supplementary Material includes additional tables to accompany the publication.
 
 \clearpage
 
 \subsection*{Estimation of uncertainty in return estimates based on scale data}
 
-We incorporated the uncertainty in the conversion from size group (small and large returns) to age class (1SW and 2SW returns) by 
-approximating the variance of log return abundances of each maiden age class (i.e. 1SW and 2SW) assuming that the probability 
+We incorporated the uncertainty in the conversion from size group (small and large returns) to age class (1SW and 2SW returns) by
+approximating the variance of log return abundances of each maiden age class (i.e. 1SW and 2SW) assuming that the probability
 of the true number of returns of a given age, river, year, and size group ($N_{r,t,s,a}$) can be derived by bootstrapping a distribution
 of number of returns from the hypergeometric distribution
 
@@ -134,17 +136,17 @@ of number of returns from the hypergeometric distribution
 P(N_{obs,r,t,s,a}|n_{r,t,s,a}) \sim Hypergeometric(N_{r,t,s,a}, N_{r,t,s} - N_{r,t,s,a}, n_{r,t,s}),
 \end{equation}
 
-where $P(N_{obs,r,t,s,a}|n_{r,t,s,a})$ is the probability of having a specific number of returns $N_{r,t,s,a}$ given 
+where $P(N_{obs,r,t,s,a}|n_{r,t,s,a})$ is the probability of having a specific number of returns $N_{r,t,s,a}$ given
 $n_{r,t,s,a}$, which is the number of scale samples in river r, year t, of returning age a, and of size group s;
 $N_{r,t,s}$ is the total number of returns in river r, year t, and of size group s;
 $N_{r,t,s} - N_{r,t,s,a}$ is the total numbers of returns in river r, year t, of size group s that are \textbf{not} of returning age a;
 and $n_{r,t,s}$ is the total number of scale samples in river r, year t, and of size group s.
-We iterated through all possible values of $N_{r,t,s,a}$ (i.e. from zero to $N_{r,t,s}$), to obtain a probavility for each value, which
-we then used as weighting probabilities to sample 10,000 random draws of $N_{r,t,s,a}$, which we denote as $\hat{N}_{r,t,s,a}$. 
+We iterated through all possible values of $N_{r,t,s,a}$ (i.e. from zero to $N_{r,t,s}$), to obtain a probability for each value, which
+we then used as weighting probabilities to sample 10,000 random draws of $N_{r,t,s,a}$, which we denote as $\hat{N}_{r,t,s,a}$.
 We then add the draws of the same age from both size groups to obtain a vector of estimates of number of returns of a given age a (i.e. 1SW or 2SW) for a given river and year ($\hat{N}_{r,t,a}$):
 
 % k is the number of successes ($n_{r,t,s,a}$) (successes)
-% N is the total number of individuals of size s ($N_{r,t,s}$) (total count) 
+% N is the total number of individuals of size s ($N_{r,t,s}$) (total count)
 % K is the number of age a individual of size s ($N_{r,t,s,a}$) (total successes)
 % n is the total number of scale samples ($n_{r,t,s}$) (trials)
 
@@ -153,7 +155,7 @@ We then add the draws of the same age from both size groups to obtain a vector o
 % $N_{r,t,s}$ is the total number of returns in river, year t, and of size group s.
 
 % We therefore obtain a vector of the probabilities of the returns of a given river r, year t, size group s and age a (i.e. $N_{r,t,s,a}$)
-% across the whole range of potential values, i.e. from zero to $N_{r,t,s}$, which provides the weighting probabilities to generate 10,000 random draws of $N_{r,t,s,a}$. 
+% across the whole range of potential values, i.e. from zero to $N_{r,t,s}$, which provides the weighting probabilities to generate 10,000 random draws of $N_{r,t,s,a}$.
 
 \begin{equation}
     \hat{N}_{r,t,a} = \hat{N}_{r,t,a,s=small }+ \hat{N}_{r,t,a,s=large}.
@@ -173,10 +175,10 @@ Campbellton population, and one year for this population (2011) with no scales
 samples. Under these conditions, the model provides high estimates of
 $\epsilon$, but which are somewhat constrained by the log-transformation of
 abundance draws of a uniform distribution. Thus, the value of $\epsilon$ for
-2011, the year with no scale samples, is of 0.711 (Table~\ref{tab:epsilon1}),
+2011, the year with no scale samples, is of 0.719 (Table~\ref{tab:epsilon1}),
 which is likely an underestimate of true uncertainty given the absence of
 data. Nonetheless, the model results in small $\epsilon$ values for years
-where there are ten or more scale samples. 
+where there are ten or more scale samples.
 For years where there are no scale nor return samples to draw inferences from (e.g. a year for which there are no small 2SW scales, nor large scale samples),
 sometimes the error for 2SW returns cannot be estimated; in these cases we set the value of $\epsilon_{2}$ to 0.999.
 
@@ -186,11 +188,11 @@ sometimes the error for 2SW returns cannot be estimated; in these cases we set t
         there were no scale samples, and year 2014 with a large number of scales samples. a) Distribution of draws of potential
     1SW abundances, adding the estimates from both small and large returns, for the year 2011. Note that the distribution spans the whole range of
 returns (up to 5443). b) The same distribution but log-transformed, which results in a right-skewed distribution. The blue line represents the normal
-distribution fitted to the log-transformed data, from which $\epsilon_{1}$ is equal to its standard deviation. b) Distribution of draws of potential
-    1SW abundances, adding the estimates from both small and large returns, for the year 2014, which is much tightly constrained. d) The distribution
+distribution fitted to the log-transformed data, from which $\epsilon_{1}$ is equal to its standard deviation. c) Distribution of draws of potential
+    1SW abundances, adding the estimates from both small and large returns, for the year 2014, which is much more tightly constrained. d) The distribution
 of log-transformed abundance draws for year 2014. In this case, the normal distribution fitted is much tighter and more closely resembles the underlying histogram,
 and results in a much lower estimate of $\epsilon_{1}$.}
-    \label{fig:priors} 
+    \label{fig:priors}
 \end{figure}
 
 \clearpage
@@ -213,7 +215,7 @@ and results in a much lower estimate of $\epsilon_{1}$.}
 
 \clearpage
 
-\subsection*{Error in smolt abundances used in the model}
+\subsection*{Uncertainty in smolt abundances used in the model}
 
 \input{smoltscv_tab.tex}
 
@@ -226,7 +228,7 @@ and results in a much lower estimate of $\epsilon_{1}$.}
 %\begin{longtable}{lrrrrrr}
 %\caption{Posterior annual smolt estimates for the seven populations examined. These
 %                    estimates differ from the smolt data used as they include both observation error and shrinkage from
-%                    the hierarchical model specification.} 
+%                    the hierarchical model specification.}
 %\hline
 \input{tableS1_smolts}
 %\end{longtable}
@@ -260,7 +262,7 @@ and results in a much lower estimate of $\epsilon_{1}$.}
 %         time series of returning adult salmon abundance in the six scenarios. The lines denote the
 %     simulated abundance estimates without observation error while the points are the same estimates
 % including observation error.}
-% \label{fig:simul-ts-dec} 
+% \label{fig:simul-ts-dec}
 % \end{figure}
 
 % \begin{figure}[htbp] \centering
@@ -268,18 +270,18 @@ and results in a much lower estimate of $\epsilon_{1}$.}
 %         estimated \So, \St, and \Pg values in the six scenarios. True values
 %         are denoted by blue circles, black circles show median estimates,
 %         error bars indicate the 25\% and 75\% quantiles.}
-% \label{fig:sir-out-dec} 
+% \label{fig:sir-out-dec}
 % \end{figure}
 
 % \begin{figure}[htbp] \centering
 %     \includegraphics[width=0.7\linewidth]{simul_plots_6_declining.pdf}
-%     \caption{Comparison of estimated and true \So values in the six 
+%     \caption{Comparison of estimated and true \So values in the six
 %         scenarios. True \So values are deterministic, black circles show
 %         median \So estimates, error bars indicate the  25\% and 75\%
 %         quantiles, while the blue line denotes a linear model fit of the
 %         medians. The one-to-one relationship is shown by the gray dashed
-%         line.} 
-% \label{fig:simul-six-plots-dec} 
+%         line.}
+% \label{fig:simul-six-plots-dec}
 % \end{figure}
 
 
@@ -288,4 +290,3 @@ and results in a much lower estimate of $\epsilon_{1}$.}
 \nobibliography{subset}
 
 \end{document}
-
