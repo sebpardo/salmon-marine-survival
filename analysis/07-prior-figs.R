@@ -31,11 +31,13 @@ df1 <- bind_rows(s1df, s2df) %>% as_tibble()
 x <- seq(0,1, by = 0.001)
 
 # Prior for Conne
-osw <- dlogis(qlogis(x), 2.4, 0.35)
+osw <- dlogis(qnorm(x), 2.4, 0.4) # probit
+# osw <- dlogis(qlogis(x), 2.4, 0.35) # logit
 plot(osw/2~x, type = "l", col ="blue")
 
 # Prior for others
-tsw <- dlogis(qlogis(x), 0, 0.8)
+tsw <- dlogis(qnorm(x), 0, 2.8) # probit
+# tsw <- dlogis(qlogis(x), 0, 0.8) # logit
 lines(tsw~x, col = "green")
 
 pr1 <- data.frame(Proportion = x,
