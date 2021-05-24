@@ -54,7 +54,8 @@
 % Macros
 \newcommand{\So}{$S_{1}$\xspace}
 \newcommand{\St}{$S_{2}$\xspace}
-\newcommand{\Pg}{$P_r$\xspace}
+\newcommand{\Pg}{$P_g$\xspace}
+\newcommand{\prmu}{$\mu_{Pg,r}$\xspace}
 \newcommand{\Linf}{$L_{\infty}$}
 \newcommand{\DWinf}{$DW_{\infty}$}
 \newcommand{\alphat}{$\tilde{\alpha}$}
@@ -257,36 +258,119 @@ and results in a much lower estimate of $\epsilon_{1}$.}
 
 \input{table-logitprsigma.tex}
 
-% \begin{figure}[htbp] \centering
-%     \includegraphics[width=0.9\linewidth]{simul_timeseries_declining.pdf} \caption{Simulated
-%         time series of returning adult salmon abundance in the six scenarios. The lines denote the
-%     simulated abundance estimates without observation error while the points are the same estimates
-% including observation error.}
-% \label{fig:simul-ts-dec}
-% \end{figure}
+\clearpage
 
-% \begin{figure}[htbp] \centering
-%     \includegraphics[width=0.95\linewidth]{sir_out_18_declining.pdf} \caption{Yearly
-%         estimated \So, \St, and \Pg values in the six scenarios. True values
-%         are denoted by blue circles, black circles show median estimates,
-%         error bars indicate the 25\% and 75\% quantiles.}
-% \label{fig:sir-out-dec}
-% \end{figure}
+\subsection*{Posterior estimates with weaker priors}
 
-% \begin{figure}[htbp] \centering
-%     \includegraphics[width=0.7\linewidth]{simul_plots_6_declining.pdf}
-%     \caption{Comparison of estimated and true \So values in the six
-%         scenarios. True \So values are deterministic, black circles show
-%         median \So estimates, error bars indicate the  25\% and 75\%
-%         quantiles, while the blue line denotes a linear model fit of the
-%         medians. The one-to-one relationship is shown by the gray dashed
-%         line.}
-% \label{fig:simul-six-plots-dec}
-% \end{figure}
+To assess the sensitivity of our model parameter estimates to the choice of
+priors, we assessed posterior estimate under two weaker prior scenarios:
+one with wider priors for \So, \St (Fig.~\ref{fig:zweak}), and a second one with wide priors
+of \prmu for all populations regardless of whether they were considered
+1SW-dominated or not (Fig.~\ref{fig:prweak}).
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.55\linewidth]{figures/z-weak-prior.png}
+    \caption{Priors used for marine survival of one sea-winter (\So) and two
+        sea-winter (\St) returns. Solid lines denote strong priors used in the
+        study, while dotted lines denote weaker priors used to assess
+        sensitivity to prior choice.} \label{fig:zweak} \end{figure}
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.55\linewidth]{figures/pr-weak-prior.png}
+    \caption{Prior of the probability of returning as 1SW for all populations
+        under the weak \prmu prior scenario. Note this prior is identical to
+        that used in the study for non 1SW-dominated populations.}
+    \label{fig:prweak} \end{figure}
+
+The model runs with weaker priors did not differ mayorly from those with
+stronger priors, particularly for posterior estimates of \So, which show the
+same overall trends for all populations and some yearly \So estimates with
+high uncertainty (i.e., large error bars) show greater uncertainty uncertainty
+under the weak \So and \St scenario (Fig.~\ref{fig:s1-trends-priors}).
+Not unexpectedly, the weak \Pg scenario had no visually discernible effect on
+posterior estimates of \So.
+
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/s1-trends-priors.png}
+    \caption{Median posterior estimates of survival in the first year at sea
+        (\So) for the seven populations examined under three scenarios with
+        different priors. The strong prior scenario is the one presented in
+        our study, the weak \Pg priors uses the same weak prior for all
+        populations as shown by Fig.~\ref{fig:prweak}, while the weak \So \&
+        \St scenario used wider survival priors as shown in Fig.~\ref{fig:zweak}.} 
+    \label{fig:s1-trends-priors} \end{figure}
+
+
+Having weaker \So and \St priors did considerable widen the posterior
+estimates of \St for all populations (Fig.~\ref{fig:s2-trends-priors}). The
+Saint-Jean River, which had the least uncertain \St estimates among all
+populations, had considerably larger uncertainties in \St while still
+maintaining a very similar temporal trend in \St. The Trinité River also
+maintained a similar temporal trend in \St, but the weaker priors resulted in
+annual estimates of \St showing a larger spread, particularly in 1994 and 1995
+which were the years withe highest estimated \St.
+
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/s2-trends-priors.png}
+    \caption{Median posterior estimates of survival in the second year at sea
+        (\St) for the seven populations examined under three scenarios with
+        different priors. The strong prior scenario is the one presented in
+        our study, the weak \Pg priors uses the same weak prior for all
+        populations as shown by Fig.~\ref{fig:prweak}, while the weak \So \&
+        \St scenario used wider survival priors as shown in Fig.~\ref{fig:zweak}.} 
+    \label{fig:s2-trends-priors} \end{figure}
+
+
+Estimates of \Pg under the weak \Pg scenario look almost identical to those
+under the strong priors scenario, however the weak \So and \St scenario
+resulted in more uncertain \Pg estimates for non 1SW-dominated populations
+(Fig.~\ref{fig:pr-trends-priors}). For these populations, the temporal trends
+observed in the strong prior scenario were maintained under the weak \So and
+\St scenario, albeit weakened by the larger uncertainties in annual \Pg
+estimates.
+
+Overall, weakening the \prmu priors did not have an observable effect on model
+parameter estimates, while weakening \So and \St did result in more uncertain
+estimates of \St and \Pg, with estimates of \So being mostly unchanged.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/pr-trends-priors.png}
+    \caption{Median posterior estimates of proportion returning after one winter at sea 
+        (\Pg) for the seven populations examined under three scenarios with
+        different priors. The strong prior scenario is the one presented in
+        our study, the weak \Pg priors uses the same weak prior for all
+        populations as shown by Fig.~\ref{fig:prweak}, while the weak \So \&
+        \St scenario used wider survival priors as shown in Fig.~\ref{fig:zweak}.} 
+    \label{fig:pr-trends-priors} \end{figure}
+
+We calculated the correlations of estimated trends in $Z_1$ among populations
+under the weak \So and \St scenario. While the direction of the correlation
+stayed the same between all populations when compared with the strong prior
+scenario, there were differences in the correlation coefficients (Fig.~\ref{fig:s1-corr-weakz}).
+Among these, the correlation coefficients differed significantly for three pair-wise
+comparisons: the correlations between Campbellton and Nashwaak as well
+Campbellton and Trinité changed from non-significant to positively
+significant, while the correlation between LaHave and Saint-Jean changed from negatively significant to
+non-significant even though the coefficient value decreased further into the
+negative.
+Twelve out of the 21 pair-wise correlations were significant (p-value below 0.05) yet under the  
+weak \So and \St scenario 9 out of the twelve significant correlations were positive.
+
+\begin{figure}[htbp] \centering
+    \includegraphics[width=0.95\linewidth]{figures/corrplot-post-z1-corrected-weakz.png} \caption{
+        Correlations of estimated trends in $Z_1$ among populations with weak \So and
+\St priors. Correlation coefficients are shown in each square, while colouring
+        denotes significance of the correlation ($p \leq 0.05$) as well as the direction and magnitude.}
+\label{fig:s1-corr-weakz}
+\end{figure}
 
 
 %\clearpage
 %\subsection*{References}
+
+
 \nobibliography{subset}
 
 \end{document}
