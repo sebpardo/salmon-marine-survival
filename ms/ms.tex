@@ -375,7 +375,7 @@ reported as small and large salmon, rather than 1SW and 2SW fish, we estimated t
 of 1SW and 2SW returns using yearly scale age data of a subsample of returns:
 
 \begin{equation}
-    p_{r,t,a} = \frac{\sum_{s}{(\frac{n_{r,t,s,a}}{n_{r,t,s}} * N_{r,y,s})}}{\sum_{s}{N_{r,t,s}}}
+    p_{r,t,a} = \frac{\sum_{s}{(\frac{n_{r,t,s,a}}{n_{r,t,s}} * N_{r,t,s})}}{\sum_{s}{N_{r,t,s}}}
 \end{equation}
 
 where $p_{r,t,a}$ is the proportion of annual returns in river $r$, year $t$,
@@ -430,11 +430,11 @@ Observed smolt estimates were modelled hierarchically and included
 observation error:
 
 \begin{equation}
-log(smolts_{obs,t,r}) = log(smolts_{true,t,r}) + \epsilon_{t,r},
+log(smolts_{obs,r,t}) = log(smolts_{true,r,t}) + \epsilon_{r,t},
 \end{equation}
 
-where $smolts_{true,t,r}$ are the true smolt abundances for year $t$ and river
-$r$, and $\epsilon_{t,r}$ is the error term, which is calculated from the yearly
+where $smolts_{true,r,t}$ are the true smolt abundances for river
+$r$ and year $t$, and $\epsilon_{r,t}$ is the error term, which is calculated from the yearly
 coefficient of variation in the empirically derived
 smolt estimates (see Tables S4-6 in the Supplementary Material).
 Where available, we used population-specific measurement error estimates for smolt abundances; if not
@@ -445,7 +445,7 @@ The log-transformed true smolt abundances are
 normally distributed around a population-level mean and standard deviation:
 
 \begin{equation}
-log(smolts_{true,t,r}) \sim Normal(\mu_{smolts,r}, \sigma_{smolts,r})
+log(smolts_{true,r,t}) \sim Normal(\mu_{smolts,r}, \sigma_{smolts,r})
 \end{equation}
 
 where $\mu_{smolts,r}$ and $\sigma_{smolts,r}$ are the mean and standard
@@ -457,17 +457,17 @@ marine survival parameters using Murphy's maturity schedule method
 \citep{Murphy1952, Ricker1975}:
 
 \begin{align}
-    R_{1,t} &= smolts_{true,t-1} * S_{1,t} * P_{g,t} \label{eq:1}, \\
-    R_{2,t+1} &= smolts_{true,t-1} * S_{1,t} * (1 - P_{g,t}) * S_{2,t+1}, \label{eq:2}
+    R_{r,1,t} &= smolts_{true,r,t-1} * S_{1,r,t} * P_{g,r,t} \label{eq:1}, \\
+    R_{r,2,t+1} &= smolts_{true,r,t-1} * S_{1,r,t} * (1 - P_{g,r,t}) * S_{2,r,t+1}, \label{eq:2}
 \end{align}
 
-where $R_{1,t}$ and $R_{2,t+1}$ are the estimated abundances of 1SW and 2SW
-salmon returning in years $t$ and $t+1$, respectively, $smolts_{true,t-1}$ is the
-estimated number of out-migrating smolts in year $t-1$, $S_{1,t}$ is the proportion of
-salmon surviving in their first year ($t$) at sea, $P_{g,t}$ is the proportion of
-salmon that return to spawn at year $t$, $S_{2,t+1}$ is the survival in their
+where $R_{1,r,t}$ and $R_{2,r,t+1}$ are the estimated abundances of 1SW and 2SW
+salmon returning for river $r$ in years $t$ and $t+1$, respectively, $smolts_{true,r,t-1}$ is the
+estimated number of out-migrating smolts for river $r$ in year $t-1$, $S_{1,r,t}$ is the proportion of
+salmon surviving in their first year ($t$) at sea for river $r$, $P_{g,t}$ is the proportion of
+salmon that return to spawn at year $t$ for river $r$, and $S_{2,r,t+1}$ is the survival in their
 second year at sea of the same cohort of salmon who did not return to spawn at
-year $t$.
+year $t$ for river $r$.
 
 We log-transform equations~\ref{eq:1} and~\ref{eq:2} so the model
 is linear on the log-scale:
@@ -484,13 +484,13 @@ standard deviation of the log-transformed return estimates from
 equation~\ref{eq:4}:
 
 \begin{align}
-log(R_{obs,1,t,r}) &\sim Normal(log(R_{1,t,r}), \epsilon_{1,t,r}), \\
-log(R_{obs,2,t,r}) &\sim Normal(log(R_{2,t,r}), \epsilon_{2,t,r}) \label{eq:5}
+log(R_{obs,1,r,t}) &\sim Normal(log(R_{1,r,t}), \epsilon_{1,r,t}), \\
+log(R_{obs,2,r,t}) &\sim Normal(log(R_{2,r,t}), \epsilon_{2,r,t}) \label{eq:5}
 \end{align}
 
-where $R_{obs,1,t,r}$ and $R_{obs,2,t,r}$ are the observed return estimates
-for year $t$ and river $r$ of 1SW and 2SW fish, respectively, $\epsilon_{1,t,r}$
-and $\epsilon_{2,t,r}$ are the process error terms.
+where $R_{obs,1,r,t}$ and $R_{obs,2,r,t}$ are the observed return estimates
+for year $t$ and river $r$ of 1SW and 2SW fish, respectively, $\epsilon_{1,r,t}$
+and $\epsilon_{2,r,t}$ are the process error terms.
 These error terms are estimated by approximating the abundance of 1SW and 2SW returns
 from hypergeometric distributions based on the scale sample data.
 We assume that the error in the total number of returns is zero;
@@ -509,15 +509,15 @@ in log-space. Instantaneous rates are easily converted to survival
 probabilities by
 
 \begin{align}
- S_{1} &= e^{-Z_1}, \\
- S_{2} &= e^{-Z_2}.
+ S_{1,r,t} &= e^{-Z_{1,r,t}}, \\
+ S_{2,r,t} &= e^{-Z_{2,r,t}}.
 \end{align}
 
 The priors for $Z_1$ and $Z_2$ are specified as log-normal distributions:
 
 \begin{align}
-Z_1 &\sim logNormal(1, 0.22),   \\
-Z_2 &\sim logNormal(0.2, 0.3).
+Z_{1,r,t} &\sim logNormal(1, 0.22),   \\
+Z_{2,r,t} &\sim logNormal(0.2, 0.3).
 \end{align}
 
 These priors, when converted to yearly survival, are roughly constrained between
@@ -539,7 +539,7 @@ with a proportion of 1SW fish in the total returns greater than 0.9) or not:
 
 \begin{align}
     probit(P_{g,t}) &\sim Normal(\mu_{Pg,r}, \sigma_{Pg,r}) \\
-    \mu_{Pg,r} &\sim
+    \mu_{P_{g,r}} &\sim
     \begin{cases}
        Normal(2.3, 0.4),  &\text{for 1SW-dominated populations} \\
        Normal(0, 2.8), &\text{for non-1SW-dominated populations} \\
@@ -744,7 +744,7 @@ used, results in the model estimating variation in \Pg rather than \St.
 \begin{figure}[htbp] \centering
     \includegraphics[width=1.0\linewidth]{figures/logitpr-mu-sigma-post.png}
     \caption{Posterior probability distributions resulting from the population-level estimates of the proportion returning after one winter at sea based on
-        the parameters \prmu and \prsig. Gray lines denote population-specific median estimates of \prmu and \prsig, while
+        the parameters \prmu and \prsig. Gray lines denote population-specific median estimates of $P_{g,r}$, while
        the colored lines represent a sample of 20 posterior iteration draws for each population.}
    \label{fig:prmu-post}
 \end{figure}
@@ -765,6 +765,8 @@ where the correlation between $Z_1$ trends is positive and significant.
 Note that the uncertainty in these correlations reflect the uncertainty in the
 measurements, but not in the process (in this respect they are equivalent to
 population variance and not sample variance).
+Our choice of priors affected these correlations:
+using weaker priors for \So and \St resulted in slightly different coefficients and significance thresholds (see Fig. S7 of Supplementary materials). 
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/corrplot-post-z1-corrected.png} \caption{
@@ -786,7 +788,7 @@ except for the Campbellton population, where this correlation is negative.
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/corrected-cor-ALL.png}
-    \caption{Correlations among estimated model parameters. \emph{log(smolts)} = estimated smolt abundances in log-space, $log(P_g)$ = probit-transformed probability of
+    \caption{Correlations among estimated model parameters. \emph{log(smolts)} = estimated smolt abundances in log-space, $probit(P_g)$ = probit-transformed probability of
         returning after one year at sea, $-Z_1$ = marine survival in the first year at sea, and $-Z_2$ = marine survival in the second year at sea.
         Note the correlations derived from negative instantaneous total mortalities $-Z_1$ and $-Z_2$ are representative to those of marine survival $S_1$ and $S_2$.}
     \label{fig:cor-params}
@@ -1170,6 +1172,7 @@ implementing the non-centered parameterization of the model. Hydro-Québec
 contributed to data acquisition from Rivière de la Trinité. This research was
 supported by the Atlantic Salmon Conservation Foundation and the Atlantic
 Salmon Research Joint Venture.
+GHB was funded by the Norwegian Research Council (project 275862 and 280308).
 
 \section*{Conflicts of Interest}
 
