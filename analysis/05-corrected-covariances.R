@@ -107,28 +107,28 @@ for (i in unique(river_names)) {
   
   # storing values, na.rm = TRUE to ignore NaNs created when square-rooting a few negative values
   mu1correctedcov[mu1correctedcov$river_name == i & 
-                    mu1correctedcov$correlation == "Corrected cov(logsmolts,-Z1)", 3:5] <- quantile(corrected_corlogsmoltsz1, 
-                                                                                                    c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu1correctedcov$correlation == "Corrected cov(logsmolts,-Z1)", 3:5] <- as.list(quantile(corrected_corlogsmoltsz1, 
+                                                                                                    c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu1correctedcov[mu1correctedcov$river_name == i & 
-                    mu1correctedcov$correlation == "Corrected cov(logsmolts,logPr)", 3:5] <- quantile(corrected_corlogsmoltslogpr, 
-                                                                                                      c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu1correctedcov$correlation == "Corrected cov(logsmolts,logPr)", 3:5] <- as.list(quantile(corrected_corlogsmoltslogpr, 
+                                                                                                      c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu1correctedcov[mu1correctedcov$river_name == i & 
-                    mu1correctedcov$correlation == "Corrected cov(-Z1,logPr)", 3:5] <- quantile(corrected_corz1logpr, 
-                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu1correctedcov$correlation == "Corrected cov(-Z1,logPr)", 3:5] <- as.list(quantile(corrected_corz1logpr, 
+                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE))
   
    
     # storing values, na.rm = TRUE to ignore NaNs created when square-rooting a few negative values
   mu1correctedrsq[mu1correctedrsq$river_name == i & 
-                    mu1correctedrsq$correlation == "R2(mu1,logsmolts)", 3:5] <- quantile(corrected_r2_mu1logsmolts,
-                                                                                         c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu1correctedrsq$correlation == "R2(mu1,logsmolts)", 3:5] <- as.list(quantile(corrected_r2_mu1logsmolts,
+                                                                                         c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu1correctedrsq[mu1correctedrsq$river_name == i & 
-                  mu1correctedrsq$correlation == "R2(mu1,-Z1)", 3:5] <- quantile(corrected_r2_mu1z1,
-                                                                                 c(0.5, 0.05, 0.95), na.rm = TRUE)
+                  mu1correctedrsq$correlation == "R2(mu1,-Z1)", 3:5] <- as.list(quantile(corrected_r2_mu1z1,
+                                                                                 c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu1correctedrsq[mu1correctedrsq$river_name == i & 
-                  mu1correctedrsq$correlation == "R2(mu1,logPr)", 3:5] <- quantile(corrected_r2_mu1logpr,
-                                                                                   c(0.5, 0.05, 0.95), na.rm = TRUE)
+                  mu1correctedrsq$correlation == "R2(mu1,logPr)", 3:5] <- as.list(quantile(corrected_r2_mu1logpr,
+                                                                                   c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu1correctedrsq[mu1correctedrsq$river_name == i & 
-                    mu1correctedrsq$correlation == "R2 sum", 3:5] <- quantile(rsqsum, c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu1correctedrsq$correlation == "R2 sum", 3:5] <- as.list(quantile(rsqsum, c(0.5, 0.05, 0.95), na.rm = TRUE))
   
   varsmoltsmu <- varlogsmolts/varmu1
   varz1mu <- varz1/varmu1
@@ -353,23 +353,23 @@ for (i in unique(river_names)) {
   
   # storing values, na.rm = TRUE to ignore NaNs created when square-rooting a few negative values
   mu2correctedcov[mu2correctedcov$river_name == i & 
-                    mu2correctedcov$correlation == "Corrected cov(logsmolts,-Z1)", 3:5] <- quantile(corrected_corlogsmoltsz1, 
-                                                                                                    c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu2correctedcov$correlation == "Corrected cov(logsmolts,-Z1)", 3:5] <- as.list(quantile(corrected_corlogsmoltsz1, 
+                                                                                                    c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu2correctedcov[mu2correctedcov$river_name == i & 
-                    mu2correctedcov$correlation == "Corrected cov(logsmolts,-Z2)", 3:5] <- quantile(corrected_corlogsmoltsz2, 
-                                                                                                    c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu2correctedcov$correlation == "Corrected cov(logsmolts,-Z2)", 3:5] <- as.list(quantile(corrected_corlogsmoltsz2, 
+                                                                                                    c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu2correctedcov[mu2correctedcov$river_name == i & 
-                    mu2correctedcov$correlation == "Corrected cov(logsmolts,logPr)", 3:5] <- quantile(corrected_corlogsmoltslogpr, 
-                                                                                                      c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu2correctedcov$correlation == "Corrected cov(logsmolts,logPr)", 3:5] <- as.list(quantile(corrected_corlogsmoltslogpr, 
+                                                                                                      c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu2correctedcov[mu2correctedcov$river_name == i & 
-                    mu2correctedcov$correlation == "Corrected cov(-Z1,logPr)", 3:5] <- quantile(corrected_corz1logpr, 
-                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu2correctedcov$correlation == "Corrected cov(-Z1,logPr)", 3:5] <- as.list(quantile(corrected_corz1logpr, 
+                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu2correctedcov[mu2correctedcov$river_name == i & 
-                    mu2correctedcov$correlation == "Corrected cov(-Z2,logPr)", 3:5] <- quantile(corrected_corz2logpr, 
-                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu2correctedcov$correlation == "Corrected cov(-Z2,logPr)", 3:5] <- as.list(quantile(corrected_corz2logpr, 
+                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE))
   mu2correctedcov[mu2correctedcov$river_name == i & 
-                    mu2correctedcov$correlation == "Corrected cov(-Z1,-Z2)", 3:5] <- quantile(corrected_corz1z2, 
-                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE)
+                    mu2correctedcov$correlation == "Corrected cov(-Z1,-Z2)", 3:5] <- as.list(quantile(corrected_corz1z2, 
+                                                                                                c(0.5, 0.05, 0.95), na.rm = TRUE))
   
   # storing values, na.rm = TRUE to ignore NaNs created when square-rooting a few negative values
   # mu1correctedrsq[mu1correctedrsq$river_name == i & 
@@ -458,9 +458,9 @@ pcorrectedcor <- mu2correctedcov %>%
   mutate(correlation2 = fct_recode(correlation,
     "italic(cor(log(smolts),-Z[1]))" = "Corrected cor(logsmolts,-Z1)" ,
     "italic(cor(log(smolts),-Z[2]))" = "Corrected cor(logsmolts,-Z2)",
-    "italic(cor(log(smolts),log(P[g])))" = "Corrected cor(logsmolts,logPr)",
-    "italic(cor(-Z[1],log(P[g])))" = "Corrected cor(-Z1,logPr)",
-    "italic(cor(-Z[2],log(P[g])))" = "Corrected cor(-Z2,logPr)",
+    "italic(cor(log(smolts),probit(P[g])))" = "Corrected cor(logsmolts,logPr)",
+    "italic(cor(-Z[1],probit(P[g])))" = "Corrected cor(-Z1,logPr)",
+    "italic(cor(-Z[2],probit(P[g])))" = "Corrected cor(-Z2,logPr)",
     "italic(cor(-Z[1],-Z[2]))" = "Corrected cor(-Z1,-Z2)" 
   )) %>%
   mutate(river_name = fct_relevel(river_name, propgrilse$river_name)) %>%
