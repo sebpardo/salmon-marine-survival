@@ -20,7 +20,7 @@ rtf:
 	latex2rtf -E0 $(MS).tex
 
 figs:
-	cp -r ../figures/ ./
+	cp -ru ../figures/ ./
 #	cp -r ../figures/ ~/Dropbox/2020-ASCF-webinar/
 
 todo:
