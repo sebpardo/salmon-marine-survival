@@ -2,6 +2,7 @@ MS = ms
 DRAFT = Pardo-marine-survival
 MAIN_BIB = /home/mavzz/Documents/bib/library.bib
 TODAY = $(shell date +%Y-%m-%d)
+RDIR = ICES-review
 
 all: pdf draft diff
 
@@ -13,7 +14,7 @@ doc:
 
 draft: doc	
 	cp $(MS).pdf $(DRAFT)-$(TODAY).pdf
-
+	
 rtf: 
 	pdflatex $(MS).tex
 	pdflatex $(MS).tex
@@ -44,5 +45,7 @@ diff:
 	bibtex ices-revisions-diff.aux 
 	pdflatex ices-revisions-diff.tex 
 	pdflatex ices-revisions-diff.tex 
-	
+	cp ices-revisions-diff.pdf ms-track-changes.pdf
 
+rev:
+	pandoc $(RDIR)/reviewer-comments-R1.md -H $(RDIR)/comments.sty -o $(RDIR)/response-to-reviewers-R1.pdf

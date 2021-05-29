@@ -386,7 +386,7 @@ and of size group $s$; and $N_{r,t,s}$ is the returns of salmon
 in river $r$, year $t$, and of size group $s$.
 For years where scale data of a given size group is lacking,
 we averaged the proportions of annual returns
-for the closest ten years for which there was data.
+for the closest ten years for which there were data.
 We incorporated the uncertainty in the conversion between
 size group and returning age in the model indirectly as an estimate
 of the variance of annual log-1SW and 2SW return abundance (see Supplementary Materials).
@@ -395,7 +395,7 @@ of the variance of annual log-1SW and 2SW return abundance (see Supplementary Ma
 
 We developed a hierarchical Bayesian model that uses Murphy's maturity
 schedule method, in conjunction with informative priors, to estimate annual
-marine survival in seven populations of Atlantic salmon. We account for
+marine survival. We account for
 observation error in smolt and return estimates, as well as estimating the
 proportion returning after one winter (i.e. \Pg) hierarchically.
 There is an identifiability problem in the maturity schedule equations where
@@ -436,11 +436,11 @@ log(smolts_{obs,r,t}) = log(smolts_{true,r,t}) + \epsilon_{r,t},
 where $smolts_{true,r,t}$ are the true smolt abundances for river
 $r$ and year $t$, and $\epsilon_{r,t}$ is the error term, which is calculated from the yearly
 coefficient of variation in the empirically derived
-smolt estimates (see Tables S4-6 in the Supplementary Material).
+smolt estimates (see Tables S4-6 in the Supplementary Materials).
 Where available, we used population-specific measurement error estimates for smolt abundances; if not
 available, we set the measurement error at 5 or 10\%, depending on whether the smolt
 abundance estimates originated from direct counts or mark-recapture studies, respectively
-(see Table S5 in the Supplementary Material).
+(see Table S5 in the Supplementary Materials).
 The log-transformed true smolt abundances are
 normally distributed around a population-level mean and standard deviation:
 
@@ -524,7 +524,7 @@ These priors, when converted to yearly survival, are roughly constrained between
 0 and 0.2 for \So and between 0.2 and 0.5 for \St (Fig.~\ref{fig:priors}a). They are
 informative only to the extent that they limit the estimates of marine survival
 to what we considered to be biologically realistic based on previous studies on
-return rates of 1SW-dominated populations in NL, as well as the couple studies
+return rates of 1SW-dominated populations in NL, as well as the few studies
 that have explored survival in the second winter at sea of Atlantic salmon in
 eastern Canada.
 Although two published values are higher than 0.8 \citep{Chaput2003b,Hubley2011}, most estimates of S2 encompass a range between 0.1 and 0.6; this is the empirical basis for our prior.
@@ -552,6 +552,11 @@ The three Newfoundland populations (WAB, Campbellton and Conne) are
 These priors, when converted back to a proportion, are narrowly constrained
 for 1SW-dominated populations, but relatively wide for all other populations
 (Fig.~\ref{fig:priors}b).
+
+We explored the effect of using weaker priors for $Z_1$, $Z_2$ and \Pg, and found
+that the posteriors of $Z_1$ were not sensitive to the choice of prior, while the 
+ posteriors $Z_2$ and \Pg became more uncertain with weaker priors while maintaining
+ the same temporal trends observed when using stronger priors. See Figs S2-7 in the Supplementary Materials.
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.55\linewidth]{figures/priors.png} \caption{Priors
@@ -605,7 +610,7 @@ cor_{corrected}(P_{g,r},-Z_{1,r}) = \frac{cov(P_{g,r}, -Z_{1,r}) - cov_{error}(P
 {\sqrt{var(P_{g,r})- var_{error}(P_{g,r})}*\sqrt{var(-Z_{1,r}) - var_{error}(-Z_{1,r})}}\label{eq:corparam}.
 \end{equation}
 
-Lastly, to determine what parameters best explains the number of returns in
+Lastly, to determine which parameters best explain the number of returns in
 the model (including the model uncertainty), we estimated the variance in returns explained by each parameter by
 calculating the squared correlation between the estimated parameters and the
 estimated 1SW and 2SW returns ($R_{1,r,t}$ and $R_{2,r,t+1}$ in
@@ -760,17 +765,17 @@ The corrected pair-wise correlations in $Z_1$ were almost identical to the
 uncorrected ones as the error variance and covariance terms were very small.
 The correlations between populations in the region were positive between Nashwaak and LaHave (Scotia-Fundy region), non-significant between the Trinit\'{e} and Saint-Jean (QC),
 non-significant between WAB and Campbellton but negative between Conne and WAB (NL).
-The Campbellton had mostly non-significant pairwise correlations with other populations, even though there are both positive and negative correlation coefficients, except with the Saint-Jean
+Campbellton had mostly non-significant pairwise correlations with other populations, even though there are both positive and negative correlation coefficients, except with the Saint-Jean
 where the correlation between $Z_1$ trends is positive and significant.
 Note that the uncertainty in these correlations reflect the uncertainty in the
 measurements, but not in the process (in this respect they are equivalent to
 population variance and not sample variance).
 Our choice of priors affected these correlations:
-using weaker priors for \So and \St resulted in slightly different coefficients and significance thresholds (see Fig. S7 of Supplementary materials). 
+using weaker priors for \So and \St resulted in slightly different coefficients and significance thresholds (see Fig. S7 of Supplementary Materials). 
 
 \begin{figure}[htbp] \centering
     \includegraphics[width=0.95\linewidth]{figures/corrplot-post-z1-corrected.png} \caption{
-        Correlations of estimated trends in $Z_1$ among populations.
+        Correlations of estimated trends in instantaneous natural mortality in the first winter at sea, $Z_1$, among populations.
         Correlation coefficients are shown in each square, while colouring
         denotes significance of the correlation ($p \leq 0.05$) as well as the direction and magnitude.}
 \label{fig:s1-corr}
@@ -843,7 +848,7 @@ Our results show that trends in marine survival among monitored Atlantic salmon
 populations in eastern Canada are highly variable, both temporally and
 spatially. Over the time periods for which data were available, some
 populations show positive trends in survival in the first winter at sea (\So)
-while other exhibits highly variable yet stationary trends, and some show declines.
+while others exhibit highly variable yet stationary trends, and some show declines.
 Variation in survival at the population level can be large even within a
 region. With one possible exception (LaHave River), consistent declines in
 marine survival within populations are not evident since the onset of fishing
@@ -1128,7 +1133,7 @@ the model does not provide reliable parameter estimates for this population,
 which is the population with the highest proportion of 2SW returns.
 Furthermore, estimates of \St and \Pg in all populations are negatively correlated and highly
 uncertain, and this must be considered when making any inferences based on
-these parameters for any of the populations examined.
+these parameters for any of the populations examined, at least for those population appreciable contributions of 2SW salmon.
 
 Lastly, our model does not differentiate mortality resulting from natural
 causes (e.g. predation) or from anthropogenic factors such as fishing or
@@ -1164,6 +1169,10 @@ since mitigation of the threat posed by fishing mortality
 interactions may be impairing the recovery of wild Atlantic salmon merits
 study.
 
+\section*{Data Availability Statement}
+
+The data and code underlying this article are available in GitHub, at \url{https://github.com/sebpardo/salmon-marine-survival}.
+
 \section*{Acknowledgements}
 
 We would like to thank Martha Robertson, G\'{e}rald Chaput, and Carmen David
@@ -1172,7 +1181,7 @@ implementing the non-centered parameterization of the model. Hydro-Québec
 contributed to data acquisition from Rivière de la Trinité. This research was
 supported by the Atlantic Salmon Conservation Foundation and the Atlantic
 Salmon Research Joint Venture.
-GHB was funded by the Norwegian Research Council (project 275862 and 280308).
+GHB was funded by the Norwegian Research Council (projects 275862 and 280308).
 
 \section*{Conflicts of Interest}
 
