@@ -315,6 +315,7 @@ bind_rows(mu1out, mu2out,muallout) %>%
   coord_flip() + facet_grid(~ret, scales = "free_x", 
                             labeller = as_labeller(param_names, label_parsed)) + theme_cowplot()
 ggsave("figures/rsquared-mu-params.png", width = 9.5, height = 5) 
+ggsave("figures/rsquared-mu-params.pdf", width = 9.5, height = 5) 
 
 
 

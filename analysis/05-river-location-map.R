@@ -104,4 +104,5 @@ ggplot(regions_sf) +
 
 ggsave("figures/rivers-map.png", width = 7, height = 5)  
 ggsave("figures/rivers-map2.png", width = 6.4, height = 4.5)  
-  
+ggsave("figures/rivers-map2.pdf", width = 6.4, height = 4.5)  
+

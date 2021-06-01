@@ -64,3 +64,4 @@ ggsave("~/Dropbox/2020-ASCF-webinar/surv-priors.png", height = 4, width = 6)
 
 plot_grid(s1priors, prpriors,  labels = c("a)", "b)"), nrow = 2, label_size = 16, label_x = c(0.125, 0.125))
 ggsave("figures/priors.png", height = 6.5, width = 5)
+ggsave("figures/priors.pdf", height = 6.5, width = 5)

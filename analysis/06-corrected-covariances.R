@@ -1,4 +1,5 @@
 # Corrected covariances between mu1 and estimated parameters 
+source("analysis/05-correlation-tests.R")
 
 mu1var <- tibble(river_name = rep(unique(river_names), each = 7),
                  correlation = rep(c("Var(logsmolts)/Var(mu)", 
@@ -481,6 +482,7 @@ pcorrectedcor <- mu2correctedcov %>%
   coord_flip() + theme_cowplot() 
 pcorrectedcor
 ggsave("figures/corrected-cor-ALL.png", height = 4.5, width = 8.5)
+ggsave("figures/corrected-cor-ALL.pdf", height = 4.5, width = 8.5)
 
 pcorrectedcor + 
   scale_y_continuous(breaks = seq(-5, 2, by = 1), oob = function(x, ...) x)

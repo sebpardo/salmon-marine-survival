@@ -41,6 +41,7 @@ s1trends <- ggplot(s1quant, aes(year, median)) +
 s1trends
 
 ggsave("figures/s1-trends-faceted.png", height = 6, width = 5)
+ggsave("figures/s1-trends-faceted.pdf", height = 6, width = 5)
 
 s1trends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
 ggsave("figures/s1-trends-presentation.png", height = 4, width = 8)
@@ -63,6 +64,7 @@ s1trendsall <- ggplot(s1quant, aes(year, median, color = river_name)) +
   geom_text(data = morat, aes(year-c(1.5, 1.5, -1.5), 0.23, label = region, color = river_name), show.legend = FALSE)
 s1trendsall
 ggsave("figures/s1-trends.png", height = 5, width = 7)
+ggsave("figures/s1-trends.pdf", height = 5, width = 7)
 
 
 s1trendsall <- ggplot(s1quant, aes(year, median, color = river_name)) + 
@@ -77,6 +79,7 @@ s1trendsall <- ggplot(s1quant, aes(year, median, color = river_name)) +
   NULL
 s1trendsall
 ggsave("figures/s1-trends-all.png", height = 5, width = 7)
+ggsave("figures/s1-trends-all.pdf", height = 5, width = 7)
 
 
 
@@ -113,6 +116,7 @@ s2trends <- ggplot(s2quant, aes(year, median)) +
         legend.text =  element_text(size = 12))
 s2trends
 ggsave("figures/s2-trends-faceted.png", height = 6, width = 5)
+ggsave("figures/s2-trends-faceted.pdf", height = 6, width = 5)
 s2trends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
 ggsave("figures/s2-trends-presentation.png", height = 4, width = 8)
 
@@ -129,6 +133,7 @@ prtrends <- ggplot(prquant, aes(year, median)) +
         legend.text =  element_text(size = 12))
 prtrends
 ggsave("figures/pr-trends-faceted.png", height = 6, width = 5)
+ggsave("figures/pr-trends-faceted.pdf", height = 6, width = 5)
 prtrends + facet_wrap(~river_name, ncol = 3, scales = "free_y") 
 ggsave("figures/pr-trends-presentation.png", height = 4, width = 8)
 
@@ -160,7 +165,8 @@ ggplot(aes(median, river_name)) +
         axis.title = element_text(size = 14))
 prmuplot
 ggsave("figures/pr-mu-posteriors.png", height = 3, width = 10)
-  
+ggsave("figures/pr-mu-posteriors.pdf", height = 3, width = 10)
+
 
 s1quant %>%
   group_by(river_name) %>%
@@ -286,3 +292,4 @@ p1 + geom_line(inherit.aes = FALSE, data = pop_logitpr, aes(x, y, group = Popula
   theme_cowplot() +
   xlab("Proportion returning after first winter at sea") + ylab("Density")
 ggsave("figures/logitpr-mu-sigma-post.png", width = 7, height = 4)
+ggsave("figures/logitpr-mu-sigma-post.pdf", width = 7, height = 4)

@@ -159,7 +159,7 @@ corrplot(medcor, method = "color", col = col(200),
          )
 dev.off()
 
-png("figures/corrplot-post-z1-corrected.png", width = 4, height = 3, units = "in", res = 300, pointsize = 7)
+png("figures/corrplot-post-z1-corrected.png", width = 4, height = 3.5, units = "in", res = 300, pointsize = 7)
 corrplot(medcor, method = "color", col = col(200),  
          type = "upper", diag = FALSE,
          addCoef.col = "black", # Add coefficient of correlation
@@ -172,6 +172,22 @@ corrplot(medcor, method = "color", col = col(200),
          title = expression(paste("Corrected correlation of posterior estimates of ",italic(Z[1])))
          )
   dev.off()
+
+# copy of plot above (used in paper) but save as pdf
+  
+pdf("figures/corrplot-post-z1-corrected.pdf", width = 4, height = 3.5, pointsize = 7)
+corrplot(medcor, method = "color", col = col(200),  
+           type = "upper", diag = FALSE,
+           addCoef.col = "black", # Add coefficient of correlation
+           tl.col = "black", tl.srt = 45, #Text label color and rotation
+           # Combine with significance
+           p.mat = pvals, sig.level = 0.01, insig = "blank", # only coloured boxes have significant pairwise p-values.
+           # hide correlation coefficient on the principal diagonal
+           # diag=FALSE,
+           mar = c(0, 0, 1.8, 0),
+           title = expression(paste("Corrected correlation of posterior estimates of ",italic(Z[1])))
+  )
+dev.off()
 
 png("figures/corrplot-post-z1-uncorrected.png", width = 4, height = 3, units = "in", res = 300, pointsize = 7)
 corrplot(medcor_un, method = "color", col = col(200),  
